@@ -1,0 +1,402 @@
+{
+  "hamtad": "2026-08-23T21:25:03.656Z",
+  "kalla": "https://storasundbygoif.com",
+  "sidor": 12,
+  "totaltAntalTecken": 6609,
+  "sidorUtanH1": 12,
+  "sidorUtanMetaDescription": 12,
+  "dubbleradeTitlar": 10,
+  "unikaBilder": 28,
+  "bilderUtanAltText": 27,
+  "bilderSparade": 28,
+  "bilderMisslyckade": 0,
+  "osakraLankar": [
+    "http://www.tifosi.se/storasundbygoif"
+  ],
+  "telefonlankar": [
+    "tel:+46769088601",
+    "tel:07232912217",
+    "tel:0738064149",
+    "tel:+46760061992",
+    "tel:0705437133"
+  ],
+  "sidor_detalj": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "startsida",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 3,
+      "textLength": 714,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/a9/67/a9671e53-1665-4594-80e6-1827c3a7c8c0.jpeg",
+          "alt": null
+        },
+        {
+          "src": "https://files.builder.misssite.com/ee/c5/eec5b147-bec1-476e-a305-11ff411cbcca.jpeg",
+          "alt": null
+        },
+        {
+          "src": "https://files.builder.misssite.com/dd/3b/dd3bd178-2daa-434f-bfb6-fd2d2e8de283.jpeg",
+          "alt": null
+        },
+        {
+          "src": "https://files.builder.misssite.com/fc/6a/fc6a3802-266c-4af6-a138-a67656bc0827.jpeg",
+          "alt": null
+        },
+        {
+          "src": "https://files.builder.misssite.com/97/24/972476b0-2d9a-4250-810b-0c88bd117e15.jpeg",
+          "alt": null
+        },
+        {
+          "src": "https://files.builder.misssite.com/87/d3/87d36dac-7c3f-4559-b0e5-d4ba37b6e85a.png",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/2e/e7/2ee7494b-09b5-43e7-b86e-d6d91622ea70.png",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/95/42/95425e86-0d94-4cd4-8164-3b6e38dedcce.png",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/51/61/516197b9-9859-4319-ba6d-e032ec684988.png",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787519743",
+        "https://storasundbygoif.com",
+        "https://facebook.com/storasundbygoif/",
+        "https://instagram.com/storasunbygoif/",
+        "https://www.facebook.com/storasundbygoif/",
+        "https://instagram.com/storasundbygoif"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/orientering",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 484,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/58/f7/58f7c205-1eaa-47c7-b70c-6d478d3a7518.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/e8/79/e879ae68-9727-4c9b-9735-6ecd9dedb5f7.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520257",
+        "https://storasundbygoif.com/orientering"
+      ],
+      "telLinks": [
+        "tel:+46769088601",
+        "tel:07232912217"
+      ]
+    },
+    {
+      "path": "/fotboll",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 643,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/ba/98/ba985837-be78-44e3-938a-1b12b29ff7ef.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/d9/f5/d9f55818-ea26-4fe1-b99b-09ec810084ae.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520258",
+        "https://storasundbygoif.com/fotboll"
+      ],
+      "telLinks": [
+        "tel:0738064149"
+      ]
+    },
+    {
+      "path": "/padel",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 415,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/04/2e/042e5a10-e544-499b-97e9-e7f89dfb91a1.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/4e/28/4e281663-0699-4b4f-a350-9ba1be7fa3fa.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520258",
+        "https://storasundbygoif.com/padel",
+        "https://playtomic.io/stora-sundby-goif-padel/2211e147-172c-4413-b2f7-e44ba565bf15?q=PADEL~2023-01-16~~~"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/gymnastik",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 799,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/49/77/4977aba7-3c71-40d1-b2a6-eee28cd7af3e.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/80/47/804752ed-ac44-42d2-8b47-8274f3e9e605.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520258",
+        "https://storasundbygoif.com/gymnastik"
+      ],
+      "telLinks": [
+        "tel:+46760061992"
+      ]
+    },
+    {
+      "path": "/skidor",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 344,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/db/0b/db0b14f8-dbf4-44e3-85b2-0022845d5108.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/a4/63/a463b93d-77cc-45ad-9e1d-537b06d6877d.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520258",
+        "https://storasundbygoif.com/skidor"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/läger",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 664,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/d7/24/d7240a1b-86bd-4ad1-b698-1d7aff8f5df2.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520296",
+        "https://storasundbygoif.com/läger"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/om-föreningen",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 916,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/d6/e1/d6e10361-2567-4fd6-a444-33d33bab9128.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/9d/d7/9dd71380-5f48-4db0-8330-25a93f92a128.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/5d/28/5d283e93-9a72-4b68-9cc6-2fd621bacdc0.jpeg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520296",
+        "https://storasundbygoif.com/om-föreningen"
+      ],
+      "telLinks": [
+        "tel:0705437133"
+      ]
+    },
+    {
+      "path": "/kontakta-oss",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 263,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://s3-eu-west-1.amazonaws.com/basekit-product/Image+Sets/icons/icon-address.svg",
+          "alt": ""
+        },
+        {
+          "src": "https://s3-eu-west-1.amazonaws.com/basekit-product/Image+Sets/icons/icon-email.svg",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520259",
+        "https://storasundbygoif.com/kontakta-oss",
+        "https://s3-eu-west-1.amazonaws.com/basekit-product/Image+Sets/icons/icon-address.svg",
+        "https://s3-eu-west-1.amazonaws.com/basekit-product/Image+Sets/icons/icon-email.svg"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/uthyrning",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 466,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        },
+        {
+          "src": "https://files.builder.misssite.com/bb/4e/bb4e1f07-5590-4ded-aade-3e3c936677f6.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "https://files.builder.misssite.com/40/91/40912a7d-b539-4ebe-80b1-fe7afd9b29ea.png",
+          "alt": ""
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520260",
+        "https://storasundbygoif.com/uthyrning"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/webbshop",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 201,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520260",
+        "https://storasundbygoif.com/webbshop",
+        "http://www.tifosi.se/storasundbygoif"
+      ],
+      "telLinks": []
+    },
+    {
+      "path": "/bli-medlem",
+      "status": 200,
+      "title": "Stora Sundby GOIF",
+      "metaDescription": "",
+      "h1Count": 0,
+      "h2Count": 1,
+      "textLength": 700,
+      "images": [
+        {
+          "src": "https://files.builder.misssite.com/15/e7/15e786a3-077d-4db4-8276-f97e08643495.jpg",
+          "alt": "Stora Sundby GOIF"
+        }
+      ],
+      "links": [
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico",
+        "https://www.hemsida24.se/public/css/hybrid/hemsida24.se/images/favicon.ico?v=1787520260",
+        "https://storasundbygoif.com/bli-medlem"
+      ],
+      "telLinks": []
+    }
+  ]
+}
