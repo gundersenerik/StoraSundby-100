@@ -1,3 +1,4 @@
+import { club } from "@/config/club";
 import { routes } from "@/config/content";
 
 /**
@@ -26,6 +27,15 @@ export const huvudmeny: MenyPost[] = [
   { href: routes.about, etikett: "Om föreningen", byggd: false },
   { href: routes.contact, etikett: "Kontakt", byggd: false },
 ];
+
+/**
+ * Sektionerna, härledda ur club.ts så att listan aldrig kan skilja sig från
+ * vilka sektioner föreningen faktiskt har. Bara aktiva sektioner visas —
+ * OCR står som inaktiv tills klubben bekräftat att den finns.
+ */
+export const sektionsmeny: MenyPost[] = club.sections
+  .filter((s) => s.active)
+  .map((s) => ({ href: `/${s.slug}`, etikett: s.name, byggd: true }));
 
 export const sidfotsmeny: MenyPost[] = [
   { href: routes.facility, etikett: "Anläggningen", byggd: false },

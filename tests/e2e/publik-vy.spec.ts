@@ -12,14 +12,18 @@ test.describe("publika träningsschemat", () => {
 
   test("filtrerar på sektion", async ({ page }) => {
     await page.goto("/traningstider");
-    await page.getByLabel("Sektion").selectOption({ label: "Barngymnastik och Cirkelfys" });
+    // getByLabel("Sektion") traffar aven <nav aria-label="Sektioner">.
+    // Rollen ar entydig.
+    await page
+      .getByRole("combobox", { name: "Sektion" })
+      .selectOption({ label: "Barngymnastik och Cirkelfys" });
     await expect(page.getByRole("heading", { name: "Barngymnastik och Cirkelfys" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Fotboll" })).toHaveCount(0);
   });
 
   test("filtrerar på ålder utan att gömma pass som gäller alla", async ({ page }) => {
     await page.goto("/traningstider");
-    await page.getByLabel("Ålder").fill("4");
+    await page.getByRole("spinbutton", { name: "Ålder" }).fill("4");
     // 3–5 år ska synas
     await expect(page.getByText("Barn 2–4 år (tillsammans med förälder)")).toBeVisible();
     // 6–8 år ska inte
@@ -54,8 +58,11 @@ test.describe("skalet runt sidorna", () => {
     // då att sidfoten visar vad som än står i kontraktet — byter någon
     // adress följer testet med. Att skriva dem här hade dessutom varit en
     // andra plats där ett klubbfaktum bor, vilket lint:hardcoded stoppar.
+    // getByRole("contentinfo"), inte locator("footer"). Startsidans citat
+    // anvander <footer> for kallhanvisningen, vilket ar ratt HTML men gor
+    // taggselektorn tvetydig. Rollen contentinfo bar bara sidfoten.
     await page.goto("/");
-    const sidfot = page.locator("footer");
+    const sidfot = page.getByRole("contentinfo");
     await expect(sidfot).toContainText(club.contact.address.street);
     await expect(sidfot).toContainText(club.contact.address.postalCode);
     await expect(sidfot).toContainText(club.contact.email);

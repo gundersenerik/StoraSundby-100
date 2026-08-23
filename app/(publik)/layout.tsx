@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { club } from "@/config/club";
-import { byggda, huvudmeny, sidfotsmeny } from "@/lib/navigation";
+import { byggda, huvudmeny, sektionsmeny, sidfotsmeny } from "@/lib/navigation";
 import { Meny } from "./meny";
 
 /**
@@ -70,6 +70,18 @@ export default function PublikLayout({ children }: { children: React.ReactNode }
 
           <nav aria-label="Huvudmeny" style={{ flex: 1 }}>
             <Meny poster={byggda(huvudmeny)} />
+          </nav>
+        </div>
+
+        <div
+          style={{
+            maxWidth: "64rem",
+            margin: "0 auto",
+            padding: "0 var(--spacing-5) var(--spacing-2)",
+          }}
+        >
+          <nav aria-label="Sektioner">
+            <Meny poster={byggda(sektionsmeny)} />
           </nav>
         </div>
       </header>

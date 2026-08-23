@@ -13,7 +13,7 @@ async function granska(page: import("@playwright/test").Page) {
   return resultat.violations.filter((v) => v.impact === "critical" || v.impact === "serious");
 }
 
-for (const sida of ["/", "/traningstider", "/logga-in"]) {
+for (const sida of ["/", "/traningstider", "/logga-in", "/fotboll", "/gymnastik"]) {
   test(`inga allvarliga tillgänglighetsfel på ${sida}`, async ({ page }) => {
     await page.goto(sida);
     const allvarliga = await granska(page);
