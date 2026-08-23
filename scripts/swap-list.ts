@@ -12,10 +12,12 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { club } from "../config/club";
+import { design } from "../config/design";
 import { allPlaceholders, launchBlockers, type PlaceholderEntry } from "../config/placeholder";
 
-// Import av club triggar alla todo()-anrop och fyller registret.
+// Importerna triggar alla todo()-anrop och fyller registret.
 void club;
+void design;
 
 const strict = process.argv.includes("--strict");
 const entries = allPlaceholders();

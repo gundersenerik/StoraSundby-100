@@ -3,7 +3,7 @@
 > Genererad automatiskt av `npm run swap-list`. Redigera inte för hand.
 > Senast genererad: 2026-08-23
 
-**8 poster blockerar lansering.** 8 till bör bekräftas.
+**9 poster blockerar lansering.** 9 till bör bekräftas.
 
 Varje post motsvarar ett `todo()`-anrop i `config/`. Byt värdet och ta bort
 `todo()`-wrappern, så försvinner posten härifrån automatiskt.
@@ -21,6 +21,7 @@ Sajten får inte gå i produktion med dessa värden kvar.
 | `club.membership.seasonStartMonth` | `1` | Antaget kalenderår. Bekräfta om medlemsåret följer kalenderår eller säsong — styr när påminnelser går ut och när status sätts till inaktiv. |
 | `club.payment.swishNumber` | `123 456 78 90` | Klubbens Swish-nummer för inbetalningar. Används för QR-generering. Måste vara korrekt innan medlemsmodulen går live. |
 | `club.rental.prices` | `{"cabinPerNight":1200,"cabinPerNightMember":900,"wholeFacilityPerNight":6000,"cleaningFee":500,"depositRequired":false}` | PÅHITTADE SIFFROR. Kansliet har de riktiga. Måste bytas innan uthyrningsmodulen publiceras — annars offereras fel pris till kunder. |
+| `design.color` | `{"light":{"paper":"#FBFAF5","surface":"#FFFFFF","surfaceAlt":"#F3F2EB","ink":"#14180F","inkMuted":"#5A6152","line":"#DFDDD2","brand":"#1B4D3E","brandInk":"#FFFFFF","accent":"#F0B429","ok":"#2C6640","warn":"#9A5F1E","danger":"#B0303A"},"dark":{"paper":"#101410","surface":"#171C16","surfaceAlt":"#1E241C","ink":"#E9EBE4","inkMuted":"#9AA294","line":"#2B322A","brand":"#6FBF95","brandInk":"#0C120E","accent":"#FFC857","ok":"#6FBF87","warn":"#D9A05C","danger":"#F08A90"}}` | PLATSHÅLLARFÄRGER. Rollerna är bindande, värdena inte. Hämta klubbens riktiga färger från dräkt, logotyp och webbshopens sortiment och byt värdena här — då slår de igenom i hela sajten. |
 | `sections.orientering.contactPhone` | _(tomt)_ | Gamla sajten hade tel:07232912217 — elva siffror, ogiltigt. Be om rätt nummer. |
 
 ## Bör bekräftas
@@ -36,6 +37,7 @@ Sajten fungerar med dessa värden, men de är inte bekräftade av klubben.
 | `club.rental.minNights` | `1` | Påhittat värde | Antaget. Bekräfta om det finns minimikrav vid helger eller läger. |
 | `club.shop.mode` | `link-out` | Påhittat värde | Sätts till 'feed' om Tifosi kan leverera produktdata, 'curated' om produkterna underhålls manuellt i admin, annars 'link-out'. Se docs/TIFOSI-FORFRAGAN.md. |
 | `club.social.instagramOcr` | `https://www.instagram.com/storasundbygoifocr/` | Från extern källa | OCR-konto som hittades i sökresultat men aldrig nämns på webbplatsen. Bekräfta att sektionen finns innan den publiceras. |
+| `design.type.family` | `{"display":"\"Fraunces\", \"Iowan Old Style\", Georgia, serif","body":"\"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif"}` | Påhittat värde | Förslag, inte beslut. Välj ett par som passar en hundraårig byförening. Kontrollera att å, ä och ö renderar korrekt i båda. |
 | `sections.ocr.active` | `false` | Från extern källa | Sektionen finns inte på webbplatsen men har ett Instagram-konto. Bekräfta. |
 
 ## Så byter du ett värde
