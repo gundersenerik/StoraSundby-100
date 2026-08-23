@@ -1,5 +1,3 @@
-import { supabase } from "./supabase";
-
 export type Status = "aktiv" | "uppehall" | "installd";
 
 export interface Pass {
@@ -51,23 +49,4 @@ export function formateraAlder(from: number | null, to: number | null): string |
   if (from !== null && to === null) return `från ${from} år`;
   if (from === null && to !== null) return `t.o.m. ${to} år`;
   return `${from}–${to} år`;
-}
-
-export async function hamtaSchema(season: string) {
-  const [pass, sektioner] = await Promise.all([
-    supabase
-      .from("training_sessions")
-      .select("*")
-      .eq("season", season)
-      .order("sort_order"),
-    supabase.from("sections").select("slug, heading, sort_order").order("sort_order"),
-  ]);
-
-  if (pass.error) throw pass.error;
-  if (sektioner.error) throw sektioner.error;
-
-  return {
-    pass: (pass.data ?? []) as Pass[],
-    sektioner: (sektioner.data ?? []) as Sektion[],
-  };
 }

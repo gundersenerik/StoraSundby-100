@@ -120,7 +120,6 @@ export function SchemaVy({ pass, sektioner }: { pass: Pass[]; sektioner: Sektion
                       gap: "var(--spacing-3)",
                       padding: "var(--spacing-3) 0",
                       borderBottom: "1px solid var(--line)",
-                      opacity: pausat ? 0.65 : 1,
                     }}
                   >
                     <strong style={{ flex: "1 1 14rem" }}>
@@ -141,15 +140,21 @@ export function SchemaVy({ pass, sektioner }: { pass: Pass[]; sektioner: Sektion
 
                     <span>
                       {pausat ? (
-                        <em
+                        // Ingen opacity. Den sanker kontrasten pa texten och
+                        // gor tillstandet oläsbart for den som behover det mest.
+                        <span
                           style={{
+                            display: "inline-block",
+                            padding: "var(--spacing-1) var(--spacing-3)",
+                            borderRadius: "var(--radius-pill)",
+                            background: "var(--surface-alt)",
+                            border: "1px solid var(--warn)",
                             color: "var(--warn)",
-                            fontStyle: "normal",
                             fontSize: "var(--text-sm)",
                           }}
                         >
                           Uppehåll
-                        </em>
+                        </span>
                       ) : (
                         <>
                           {dag} {tid}

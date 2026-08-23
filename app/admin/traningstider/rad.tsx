@@ -18,6 +18,11 @@ import { VECKODAGAR, type Pass } from "@/lib/traning";
  *
  * Värdet uppdateras lokalt direkt och rullas tillbaka om servern säger nej,
  * så att gränssnittet aldrig visar något som inte faktiskt är sparat.
+ *
+ * Att det sparas markeras med bakgrund och aria-busy, inte med opacity.
+ * Opacity sänker kontrasten på texten, och ett tillstånd som blir oläsbart
+ * för den som behöver det mest är ingen bra signal. Axe fångade exakt det
+ * felet i den publika vyn.
  */
 export function Rad({ pass }: { pass: Pass }) {
   const [rad, setRad] = useState(pass);
@@ -63,9 +68,10 @@ export function Rad({ pass }: { pass: Pass }) {
         gap: "var(--spacing-2)",
         padding: "var(--spacing-3) 0",
         borderBottom: "1px solid var(--line)",
-        opacity: sparar ? 0.6 : 1,
-        transition: "opacity 120ms",
+        background: sparar ? "var(--surface-alt)" : "transparent",
+        transition: "background 120ms",
       }}
+      aria-busy={sparar}
     >
       <input
         aria-label="Grupp"

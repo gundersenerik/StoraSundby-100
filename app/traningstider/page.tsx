@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { club } from "@/config/club";
-import { hamtaSchema } from "@/lib/traning";
+import { hamtaSchema } from "@/lib/traning-data";
 import { SchemaVy } from "./schema-vy";
 
 export const metadata: Metadata = {

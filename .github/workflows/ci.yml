@@ -58,6 +58,9 @@ jobs:
           fi
           echo "tokens.css är aktuell."
 
+      - name: Enhetstester
+        run: npm test
+
       - name: Bygget går igenom
         # URL och publishable key är inte hemligheter. De skickas till varje
         # besökares webbläsare och skyddas av Row Level Security. Därför
@@ -66,6 +69,42 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: npm run build
+
+  e2e:
+    name: E2E och tillgänglighet
+    runs-on: ubuntu-latest
+    needs: kontroller
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Playwright och axe-core
+        # Service role-nyckeln gar forbi RLS och ar en riktig hemlighet.
+        # Den behovs bara for att skapa en inloggningslank utan att ga via
+        # en inkorg, sa att E2E kan testa det verkliga flodet.
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npm run test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-rapport
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
 
   lanseringskontroll:
     name: Lanseringsblockerare
