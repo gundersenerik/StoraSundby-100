@@ -7,6 +7,65 @@ Nyast först.
 
 ---
 
+## 2026-08-23 — Träningstider lagras som `time`, inte `timestamptz`
+
+**Alternativ:** följa prompten bokstavligt, som säger att alla tidsstämplar
+ska vara `timestamptz`.
+
+**Val:** `time` för återkommande veckotider.
+
+**Motiv:** ett pass klockan 19.00 är 19.00 året om. Lagrades det som en
+tidpunkt i UTC skulle passet flytta sig en timme vid sommartidsskiftet, och
+hela höstschemat hade blivit fel en söndag i oktober.
+
+Kravet på `timestamptz` gäller händelser i tiden — bokningar, matcher,
+betalningar, revisionsloggar. Där gäller det fullt ut. En återkommande
+veckotid är inte en händelse utan ett mönster.
+
+---
+
+## 2026-08-23 — Uppehåll fick två migrationer i stället för en
+
+**Val:** `starts_at`, `ends_at` och `weekday` är valfria, men bara när
+statusen är `uppehall`.
+
+**Motiv:** startsidan listar "Bollek från 2022: Uppehåll" och "Orientering:
+Uppehåll" helt utan dag och tid. Med `not null` gick de inte att lägga in och
+hade försvunnit ur schemat, vilket kontraktet uttryckligen förbjuder.
+
+Att bara ta bort `not null` hade varit fel — då kunde ett *aktivt* pass sakna
+tider. Villkoret flyttades i stället till statusen.
+
+**Varför två migrationer:** 002 fixade tiderna, 003 veckodagen. Jag såg halva
+problemet först. Migrationer skrivs inte om i efterhand; historiken ska visa
+vad som hände.
+
+**Notera** hur `valid_period` är formulerad. En jämförelse med NULL ger NULL,
+vilket en `CHECK` behandlar som uppfylld — villkoret hoppas alltså över tyst.
+Samma fälla gäller exclusion constraints på bokningar i modul 3. Här är det
+ofarligt eftersom `tider_kravs_om_aktiv` redan garanterar att värdena finns
+när de spelar roll.
+
+---
+
+## 2026-08-23 — Supabase-nycklarna som repo-variabler, inte secrets
+
+**Val:** `NEXT_PUBLIC_SUPABASE_URL` och `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+ligger som GitHub Actions-variabler.
+
+**Motiv:** de är publika by design. Båda skickas till varje besökares
+webbläsare, och det som skyddar datan är Row Level Security, inte att nyckeln
+är hemlig. Att lägga dem som secrets hade antytt en säkerhet de inte ger.
+
+`SUPABASE_SERVICE_ROLE_KEY` går förbi RLS och är en riktig hemlighet. Den
+finns varken i CI, i Vercel eller i repot ännu.
+
+**Bakgrund:** bygget failade i CI först, eftersom `lib/supabase.ts` kastar vid
+modulladdning när variablerna saknas. Det beteendet behölls med avsikt — en
+tyst fallback hade gett en sajt utan innehåll i stället för ett tydligt fel.
+
+---
+
 ## 2026-08-23 — Originalen från gamla sajten ligger i git
 
 **Alternativ:** lägga de 26 MB bilder i git, eller hålla dem utanför och
