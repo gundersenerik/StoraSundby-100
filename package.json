@@ -12,7 +12,8 @@
     "swap-list": "tsx scripts/swap-list.ts",
     "swap-list:strict": "tsx scripts/swap-list.ts --strict",
     "lint:hardcoded": "tsx scripts/lint-hardcoded.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gen:tokens": "tsx scripts/gen-tokens.ts"
   },
   "license": "ISC",
   "private": true,

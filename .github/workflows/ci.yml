@@ -47,6 +47,20 @@ jobs:
           fi
           echo "SWAP-LIST.md är aktuell."
 
+      - name: app/tokens.css speglar design.ts
+        run: |
+          npm run gen:tokens
+          if ! git diff --quiet -- app/tokens.css; then
+            echo "::error::app/tokens.css är inte i synk med config/design.ts."
+            echo "Kör 'npm run gen:tokens' lokalt och committa resultatet."
+            git diff -- app/tokens.css
+            exit 1
+          fi
+          echo "tokens.css är aktuell."
+
+      - name: Bygget går igenom
+        run: npm run build
+
   lanseringskontroll:
     name: Lanseringsblockerare
     runs-on: ubuntu-latest

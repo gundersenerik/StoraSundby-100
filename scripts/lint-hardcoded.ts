@@ -32,8 +32,12 @@ const SKIP_DIRS = new Set([
 /** Prosa granskas inte. README och markdown får nämna adressen i klartext. */
 const EXTENSIONS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".css", ".sql"]);
 
-/** Scriptet granskar inte sig självt. */
-const SKIP_FILES = new Set(["scripts/lint-hardcoded.ts"]);
+/**
+ * Scriptet granskar inte sig självt. app/tokens.css är genererad ur
+ * design.ts och ska innehålla hex-värden — det är hela dess uppgift.
+ * Att den är i synk med config kontrolleras i CI i stället.
+ */
+const SKIP_FILES = new Set(["scripts/lint-hardcoded.ts", "app/tokens.css"]);
 
 interface Needle {
   pattern: RegExp;
