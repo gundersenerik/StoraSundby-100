@@ -59,6 +59,12 @@ jobs:
           echo "tokens.css är aktuell."
 
       - name: Bygget går igenom
+        # URL och publishable key är inte hemligheter. De skickas till varje
+        # besökares webbläsare och skyddas av Row Level Security. Därför
+        # repo-variabler och inte secrets. Service role-nyckeln finns inte här.
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: npm run build
 
   lanseringskontroll:
