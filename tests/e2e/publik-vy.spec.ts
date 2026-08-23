@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { club } from "@/config/club";
 
 test.describe("publika träningsschemat", () => {
   test("visar passen från gamla sajten med rätt tidsformat", async ({ page }) => {
@@ -49,11 +50,15 @@ test.describe("skalet runt sidorna", () => {
   });
 
   test("sidfoten hämtar klubbuppgifterna ur config", async ({ page }) => {
+    // Värdena läses ur club.ts i stället för att skrivas här. Testet bevisar
+    // då att sidfoten visar vad som än står i kontraktet — byter någon
+    // adress följer testet med. Att skriva dem här hade dessutom varit en
+    // andra plats där ett klubbfaktum bor, vilket lint:hardcoded stoppar.
     await page.goto("/");
     const sidfot = page.locator("footer");
-    await expect(sidfot).toContainText("Hammargårdsvägen 1");
-    await expect(sidfot).toContainText("635 34");
-    await expect(sidfot).toContainText("info@storasundbygoif.com");
+    await expect(sidfot).toContainText(club.contact.address.street);
+    await expect(sidfot).toContainText(club.contact.address.postalCode);
+    await expect(sidfot).toContainText(club.contact.email);
   });
 
   test("menyn länkar aldrig till en sida som inte finns", async ({ page }) => {
