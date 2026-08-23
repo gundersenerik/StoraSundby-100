@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { club } from "@/config/club";
 import { hamtaSchema } from "@/lib/traning-data";
+import { breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
 import { SchemaVy } from "./schema-vy";
 
 export const metadata: Metadata = {
   title: "Träningstider",
-  description: `Träningstider för alla sektioner i ${club.identity.shortName}.`,
+  description:
+    `Alla träningstider för ${club.identity.shortName} — fotboll, orientering, ` +
+    `barngymnastik och cirkelfys. Filtrera på sektion och ålder.`,
+  alternates: { canonical: "/traningstider" },
 };
 
 /**
@@ -48,6 +52,13 @@ export default async function Traningstider() {
       </p>
 
       <SchemaVy pass={pass} sektioner={sektioner} />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          breadcrumbs([{ namn: "Träningstider", href: "/traningstider" }]),
+        )}
+      />
     </div>
   );
 }
