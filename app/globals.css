@@ -1,2 +1,14 @@
 @import "tailwindcss";
 @import "./tokens.css";
+
+/*
+ * Hoppa-till-innehållet-länken.
+ *
+ * Gömd tills den får tangentbordsfokus. Den är det första en
+ * skärmläsaranvändare möter, och utan den måste man tabba genom hela
+ * menyn på varje sidladdning.
+ */
+.hoppa-till-innehall:focus {
+  left: var(--spacing-3) !important;
+  position: fixed !important;
+}

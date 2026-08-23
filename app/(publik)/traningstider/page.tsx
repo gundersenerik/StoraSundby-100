@@ -24,7 +24,7 @@ export default async function Traningstider() {
   const { pass, sektioner } = await hamtaSchema(SASONG);
 
   return (
-    <main style={{ padding: "var(--spacing-6)", maxWidth: "48rem", margin: "0 auto" }}>
+    <div style={{ padding: "var(--spacing-6)", maxWidth: "48rem", margin: "0 auto" }}>
       <h1>Träningstider</h1>
 
       <p style={{ color: "var(--ink-muted)", maxWidth: "var(--measure)" }}>
@@ -48,6 +48,6 @@ export default async function Traningstider() {
       </p>
 
       <SchemaVy pass={pass} sektioner={sektioner} />
-    </main>
+    </div>
   );
 }

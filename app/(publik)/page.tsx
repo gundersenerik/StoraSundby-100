@@ -10,7 +10,7 @@ export default function Home() {
   const age = club.identity.ageAt();
 
   return (
-    <main>
+    <div style={{ padding: "var(--spacing-7) var(--spacing-5)", maxWidth: "48rem", margin: "0 auto" }}>
       <h1>{club.identity.shortName}</h1>
       <p>
         Ny föreningssajt under uppbyggnad. {club.identity.legalName} grundades{" "}
@@ -20,6 +20,6 @@ export default function Home() {
         Nuvarande sajt finns tills vidare på{" "}
         <a href={`https://${club.site.domain}`}>{club.site.domain}</a>.
       </p>
-    </main>
+    </div>
   );
 }

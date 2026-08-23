@@ -19,7 +19,7 @@ export default function Designsystem() {
   const roles = Object.keys(design.color.light) as Array<keyof typeof design.color.light>;
 
   return (
-    <main style={{ padding: "var(--spacing-6)", maxWidth: "var(--measure)" }}>
+    <div style={{ padding: "var(--spacing-6)", maxWidth: "var(--measure)" }}>
       <h1>Designsystem</h1>
       <p style={{ color: "var(--ink-muted)" }}>
         Genererad ur <code>config/design.ts</code>. Byt ett värde där och den
@@ -86,6 +86,6 @@ export default function Designsystem() {
         <li>Synlig fokusmarkering: {design.a11y.focusVisibleRequired ? "krav" : "nej"}</li>
         <li>Respekterar reducerad rörelse: {design.a11y.respectReducedMotion ? "ja" : "nej"}</li>
       </ul>
-    </main>
+    </div>
   );
 }

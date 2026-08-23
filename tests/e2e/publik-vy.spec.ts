@@ -32,3 +32,52 @@ test.describe("publika träningsschemat", () => {
     await expect(page.locator("h1")).toHaveCount(1);
   });
 });
+
+test.describe("skalet runt sidorna", () => {
+  test("har en hoppa-till-innehållet-länk som första fokuserbara element", async ({ page }) => {
+    await page.goto("/traningstider");
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("link", { name: /hoppa till innehållet/i })).toBeFocused();
+  });
+
+  test("markerar aktuell sida med aria-current, inte bara med färg", async ({ page }) => {
+    await page.goto("/traningstider");
+    const aktiv = page.getByRole("navigation", { name: "Huvudmeny" }).getByRole("link", {
+      name: "Träningstider",
+    });
+    await expect(aktiv).toHaveAttribute("aria-current", "page");
+  });
+
+  test("sidfoten hämtar klubbuppgifterna ur config", async ({ page }) => {
+    await page.goto("/");
+    const sidfot = page.locator("footer");
+    await expect(sidfot).toContainText("Hammargårdsvägen 1");
+    await expect(sidfot).toContainText("635 34");
+    await expect(sidfot).toContainText("info@storasundbygoif.com");
+  });
+
+  test("menyn länkar aldrig till en sida som inte finns", async ({ page }) => {
+    await page.goto("/");
+    const lankar = await page.getByRole("navigation").getByRole("link").all();
+    for (const lank of lankar) {
+      const href = await lank.getAttribute("href");
+      if (!href || href.startsWith("http")) continue;
+      const svar = await page.request.get(href);
+      expect(svar.status(), `${href} svarade ${svar.status()}`).toBeLessThan(400);
+    }
+  });
+
+  test("okänd adress ger 404 med vägar vidare", async ({ page }) => {
+    const svar = await page.goto("/finns-inte-alls");
+    expect(svar?.status()).toBe(404);
+    await expect(page.getByRole("heading", { name: "Sidan finns inte" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Startsidan" })).toBeVisible();
+  });
+
+  test("gamla adresser med å och ä redirectar", async ({ page }) => {
+    await page.goto("/läger");
+    await expect(page).toHaveURL(/\/lager$/);
+    await page.goto("/om-föreningen");
+    await expect(page).toHaveURL(/\/om-foreningen$/);
+  });
+});

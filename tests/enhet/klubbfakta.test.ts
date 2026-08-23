@@ -60,3 +60,28 @@ describe("klubbfakta som kontrakt", () => {
     expect(senior.minAge).toBe(junior.maxAgeInclusive + 1);
   });
 });
+
+describe("sidkartan och redirectkartan hänger ihop", async () => {
+  const { legacyRedirects, routes } = await import("@/config/content");
+
+  it("varje redirect pekar på en URL som finns i sidkartan", () => {
+    const kanda = new Set(Object.values(routes) as string[]);
+    for (const mal of Object.values(legacyRedirects)) {
+      // Sektionssidor matchas av mönstret /[sektion]
+      const arSektion = mal.split("/").filter(Boolean).length === 1 && !kanda.has(mal);
+      expect(kanda.has(mal) || arSektion, `${mal} finns varken i routes eller som sektion`).toBe(true);
+    }
+  });
+
+  it("täcker alla tolv gamla sidorna", () => {
+    // Elva undersidor plus startsidan.
+    expect(Object.keys(legacyRedirects)).toHaveLength(11);
+  });
+
+  it("har inga nya URL:er med å, ä eller ö", () => {
+    // Gamla adresser med å och ä hanteras av redirects. Nya ska vara rena.
+    for (const url of Object.values(routes)) {
+      expect(url, `${url} innehåller å, ä eller ö`).not.toMatch(/[åäöÅÄÖ]/);
+    }
+  });
+});
