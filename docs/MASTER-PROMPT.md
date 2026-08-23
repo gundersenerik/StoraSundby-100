@@ -398,50 +398,68 @@ Tifosi beskriver själva tjänsten som byggd från grunden utifrån hur svenska 
 
 Föreningen äger inte shoppen. Det avgör vad som är möjligt.
 
-### Kravet och verkligheten
+### Målbilden
 
-Beställaren vill att användaren "aldrig ska behöva lämna vår domän". Läs detta noga.
+Tifosi ska fortsätta driva och sköta hela e-handeln. Föreningen tar inte över lager, betalningar, frakt eller returer, och ska inte bygga någon egen kassa. Det enda målet är att **besökaren får en bättre och mer sammanhållen upplevelse**, och att den upplevelsen ligger på föreningens egen domän så långt det går.
 
-**Att lägga Tifosis kassa i en iframe fungerar inte.** Verifierat: Tifosi sätter cookies med `SameSite=Lax`. `Lax` skickar cookien enbart vid navigering på översta nivån, aldrig vid navigering inuti en iframe på en annan domän. Det räcker i sig för att varukorgen ska tappas, oberoende av webbläsarens tredjepartspolicy.
+Att det sista steget, själva köpet, sker hos Tifosi är helt i sin ordning.
 
-Ovanpå det blockerar Safari all tredjepartscookieåtkomst som standard och Firefox partitionerar den. Chrome är numera den tillåtande: Google backade från utfasningen i april 2025. En kassa som bara fungerar i Chrome är ingen kassa.
+Det gör uppgiften betydligt enklare än en full e-handelsintegration. Du ska äga **upptäckten**: hur sortimentet presenteras, hur det ser ut, hur man hittar rätt. Inte transaktionen.
 
-Tro inte att `SameSite=None; Secure` löser det. Det skulle hjälpa i Chrome men inte i Safari, och det är dessutom Tifosis cookies — föreningen kan inte ändra dem. De verkliga lösningarna heter CHIPS (`Partitioned`) och Storage Access API, och båda kräver att Tifosi implementerar dem.
+### Vad testerna visade
 
-Att `X-Frame-Options` saknas betyder bara att ramen renderas, inte att kassan fungerar. Bygg inte detta, och föreslå det inte.
+Iframe-inbäddning testades skarpt 2026-08-23 mot `tifosi.se/storasundbygoif` i Chromium, med en lokal sida på annan origin.
 
-**Även med fullt API vore en helt sömlös kassa inte rätt bygge.** Anta att Tifosi ger tillgång till sitt system. Tekniskt går det då att bygga katalog, varukorg och kassa på egen domän. Men det flyttar samtidigt en rad ansvar dit de inte hör hemma:
+**Det som fungerar:** Tifosi sätter varken `X-Frame-Options` eller `frame-ancestors`, och har inget frame-busting-skript. Sidan renderas i en cross-origin iframe, navigering inuti ramen fungerar (`/storasundbygoif` → `/storasundbygoif/products`), och ramen bryter sig inte ut till toppfönstret. En iframe är alltså tekniskt möjlig.
 
-Tifosi förblir säljare och avtalspart. Det är deras betalkonto pengarna går till, deras köpvillkor som gäller, deras ansvar för leverans, retur, reklamation och distansavtalslagens ångerrätt. En kassa under `storasundbygoif.com` där den faktiska säljaren är någon annan måste redovisa det tydligt, annars är den vilseledande mot konsument. Och supportsamtalen kommer att gå till klubben, som inte kan lösa dem.
+**Det som ändå gör den till fel verktyg för just det här målet:**
 
-Därtill hamnar betalflödet på en sajt som en ideell förening underhåller, med den PCI- och säkerhetsexponering det innebär för Tifosi. Det är en risk de har få skäl att ta, och deras produkt *är* klubbshoppen.
+Sidan är 9 269 pixlar hög. I en iframe med fast höjd ger det nästlad scroll, alltså en scrollbar inuti en scrollbar. Att låta ramen växa med innehållet kräver att Tifosi skickar sin höjd via `postMessage`, vilket cross-origin inte går att lösa från vår sida ensam.
 
-Slutsatsen: sikta på att äga **upptäckten** på egen domän, inte kassan. Det ger nästan hela den upplevda vinsten till en bråkdel av komplexiteten och utan juridiska frågetecken.
+Adressfältet ändras aldrig. Ingen kan länka till, dela eller bokmärka en produkt. Bakåtknappen gör fel sak. Sökmotorer indexerar aldrig sortimentet under föreningens domän, så den SEO-vinst man hoppades på uteblir helt.
 
-Gör därför en trappa. Börja på steg A, fall tillbaka bara om steget inte går.
+Och innehållet i ramen är fortfarande Tifosis gränssnitt. En iframe flyttar deras UI in i en låda på vår sida. Den förbättrar inte upplevelsen, vilket var hela poängen.
 
-**Steg A – produktdata från Tifosi.** Fråga efter en produktfeed i valfritt format: CSV, XML, JSON eller en Google Shopping-feed. Läsåtkomst till produktdata är en liten sak att be om, och något Tifosi kan ge utan risk. Med feed bygger du en riktig katalog på egen domän i sajtens design: `/shop`, kategorisidor, produktsidor med bilder, storlekar och priser. Vid "Lägg i varukorg" skickas kunden till Tifosis kassa med produkt och variant förvald.
+På mobil blir allt detta värre, och det är där de flesta besökarna finns.
 
-**Steg B – kurerad katalog.** Utan feed: samma katalogupplevelse, men produkterna administreras manuellt i admin med bild, namn, pris, storlekar och länk. Ge admin ett enkelt formulär och en varning när ett pris är äldre än trettio dagar. Lägg till `shop.storasundbygoif.com` som CNAME mot Tifosi om de tillåter det. Då stannar även kassan på föreningens domännamn.
+Slutsatsen: iframe löser "stanna på domänen" men inte "bättre UI/UX". Bygg katalogen själv istället, och skicka besökaren till Tifosi först i köpögonblicket. Då får man båda.
 
-**Steg C – ärlig landningssida.** Om varken A eller B går: en välgjord sida som förklarar sortimentet, visar exempelplagg och länkar ut med tydlig märkning om att kunden lämnar sajten. Ärligt slår trasigt.
+### Trappan
 
-**Reverse proxy** via Next.js rewrites finns som teknisk möjlighet men bryter troligen mot Tifosis villkor, förstör deras analytics och blir en underhållsfälla. Föreslå det enbart med skriftligt medgivande, och beskriv riskerna.
+Börja på steg A. Fall tillbaka bara om steget visar sig omöjligt.
 
-Skrapa inte Tifosis sajt utan tillstånd. Fråga först.
+**Steg A – produktdata från Tifosi, egen katalog.** Det här är målet.
+
+Be Tifosi om en produktfeed i valfritt format: CSV, XML, JSON eller en Google Shopping-feed. Det är läsåtkomst till produktdata, inget mer, och något de kan ge utan risk. Verifierat: deras sidor bär redan strukturerad produktdata i sin RSC-payload, med namn, priser, slugs och storlekar, så datan finns färdig hos dem.
+
+Med feeden bygger du `/webbshop` på egen domän i sajtens design: kategorisidor, produktsidor med bilder och storlekar, sökning och filtrering, kopplingar till rätt sektion. Vid "Köp" går besökaren till Tifosis produktsida eller varukorg med produkt och variant förvald. Produkt-URL:er ser djuplänkbara ut (`/storasundbygoif/products/<slug>` svarar 200), men bekräfta mönstret med Tifosi innan du bygger på det.
+
+Detta ger äkta bättre UX, riktig SEO, delbara länkar och full designkontroll, och Tifosi behöver inte göra något mer än att publicera en feed.
+
+**Steg B – kurerad katalog.** Får du ingen feed: samma katalogupplevelse, men produkterna läggs in manuellt i admin med bild, namn, pris, storlekar och länk. Klubbsortimentet är litet och byts sällan, så underhållet är hanterbart. Varna i admin när ett pris är äldre än trettio dagar.
+
+Skrapa inte Tifosis sajt för att fylla katalogen. Deras data ligger i en intern RSC-struktur som kan ändras när som helst, Cloudflare blockerar dessutom automatiserade webbläsare, och att ta datan utan att fråga är fel sätt att behandla en leverantör föreningen samarbetar med. Fråga först.
+
+**Steg C – iframe med Tifosis medverkan.** Om Tifosi hellre vill bädda in än att dela data: be dem lägga in ett `postMessage`-anrop som rapporterar dokumenthöjden, så att ramen kan växa och den nästlade scrollen försvinner. Kombinera med `shop.storasundbygoif.com` som CNAME. Ger noll underhåll men Tifosis gränssnitt och ingen SEO. Näst sista utvägen.
+
+**Steg D – välgjord landningssida.** Går inget av ovanstående: en sida som förklarar sortimentet, visar exempelplagg och länkar ut med tydlig märkning. Ärligt slår trasigt.
+
+Oavsett steg: när besökaren lämnar till Tifosi ska det vara tydligt att köpet sker hos dem, eftersom det är Tifosi som är säljare och avtalspart och som hanterar leverans, retur och reklamation.
 
 ### Uppgift
 
-Skriv ett kort mejl till Tifosi som styrelsen kan skicka, där du ber om produktfeed eller API-åtkomst, och förklarar vad föreningen vill uppnå. Lägg det i `TILL_KLUBBEN.md`.
+Skriv ett kort mejl till Tifosi som styrelsen kan skicka. Det ska vara vänligt och konkret: föreningen vill visa sortimentet i sin egen design på sin egen sajt, köpet sker fortfarande hos Tifosi, och det enda som behövs är en produktfeed. Nämn `postMessage`-alternativet som andrahandsval om de hellre vill bädda in. Lägg mejlet i `docs/TILL-KLUBBEN.md`.
 
 ### Definition of Done
 
-- [ ] Vilket steg som valdes är dokumenterat med motivering
-- [ ] Katalogen renderas serverside och är indexerbar
+- [ ] Vilket steg som valdes är dokumenterat med motivering i `BESLUTSLOGG.md`
+- [ ] Katalogen renderas serverside, har egna produkt-URL:er och är indexerbar
+- [ ] Produktsidor har JSON-LD av typen `Product` med pris och tillgänglighet
 - [ ] Vid feed: schemalagd synk med felhantering, loggning och notis till admin vid fel
-- [ ] Utgående länkar är tydligt märkta och öppnas korrekt
+- [ ] Djuplänken till Tifosi öppnar rätt produkt med rätt variant, verifierat manuellt
+- [ ] Det framgår tydligt att köpet genomförs hos Tifosi
 - [ ] Fungerar med tom katalog utan att krascha
-- [ ] Ingen iframe mot Tifosi förekommer i koden
+- [ ] Ingen produktdata är skrapad utan tillstånd
 
 ---
 
