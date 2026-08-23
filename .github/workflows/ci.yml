@@ -1,0 +1,67 @@
+# Kontrollerna som håller kontrakten bindande.
+#
+# Kör på varje push och varje pull request. Projektet byggs från flera
+# enheter, så kontrollerna måste ligga i CI och inte bara i någons terminal.
+#
+# swap-list:strict körs INTE här. Den avslutar med exit 1 så länge en enda
+# lanseringsblockerare finns kvar, vilket den ska göra i månader till. Den
+# ligger i ett eget jobb som bara körs manuellt eller inför produktion.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kontroller:
+    name: Typkontroll och kontrakt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typkontroll
+        run: npm run typecheck
+
+      - name: Inget klubbfaktum hårdkodat utanför config/
+        run: npm run lint:hardcoded
+
+      - name: SWAP-LIST.md speglar koden
+        run: |
+          npm run swap-list
+          if ! git diff --quiet -- docs/SWAP-LIST.md; then
+            echo "::error::docs/SWAP-LIST.md är inte i synk med config/."
+            echo "Kör 'npm run swap-list' lokalt och committa resultatet."
+            git diff -- docs/SWAP-LIST.md
+            exit 1
+          fi
+          echo "SWAP-LIST.md är aktuell."
+
+  lanseringskontroll:
+    name: Lanseringsblockerare
+    runs-on: ubuntu-latest
+    # Körs bara manuellt. Blir obligatorisk först när sajten ska till produktion.
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Inga påhittade värden kvar
+        run: npm run swap-list:strict
