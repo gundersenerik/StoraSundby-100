@@ -73,5 +73,7 @@ i [`docs/TILL-KLUBBEN.md`](docs/TILL-KLUBBEN.md), inte på sajten.
 | `docs/TILL-KLUBBEN.md` | Frågor som kräver svar från en människa |
 | `docs/BESLUTSLOGG.md` | Arkitekturbeslut med motiv |
 | `docs/KALLOR.md` | Varje faktapåstående med källa och datum |
-| `docs/GDPR.md` | Registerförteckning, laglig grund, gallring |
-| `docs/DRIFT.md` | Hur man sköter sajten |
+| `docs/KOSTNADER.md` | Vad driften kostar och när det ändras |
+| `docs/LANSERING.md` | Checklista för växlingen |
+| `docs/GDPR.md` | Ännu inte skriven. Se A8 i TILL-KLUBBEN. |
+| `docs/DRIFT.md` | Ännu inte skriven |
