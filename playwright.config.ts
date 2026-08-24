@@ -19,8 +19,19 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [
-    { name: "mobil", use: { ...devices["Pixel 7"] } },
-    { name: "skrivbord", use: { ...devices["Desktop Chrome"] } },
+    // Loggar in en gang och sparar sessionerna. Utan detta gor varje test
+    // ett eget auth-anrop, och Supabase stryper dem.
+    { name: "setup", testMatch: /auth\.setup\.ts/ },
+    {
+      name: "mobil",
+      use: { ...devices["Pixel 7"] },
+      dependencies: ["setup"],
+    },
+    {
+      name: "skrivbord",
+      use: { ...devices["Desktop Chrome"] },
+      dependencies: ["setup"],
+    },
   ],
   webServer: {
     command: "npm run build && npm run start",

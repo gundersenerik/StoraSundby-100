@@ -4,6 +4,8 @@ import { supabaseServer } from "@/lib/supabase-server";
 import type { Pass, Sektion } from "@/lib/traning";
 import { Rad } from "./rad";
 import { Sektionsatgarder } from "./sektionsatgarder";
+import { Sasongsval } from "./sasongsval";
+import { Kopiera } from "./kopiera";
 
 export const metadata: Metadata = {
   title: "Ändra träningstider",
@@ -12,10 +14,22 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const SASONG = "okand-2026";
+/** Standardsäsong tills klubben bekräftat säsongsbegreppet. Se C1. */
+const STANDARDSASONG = "okand-2026";
 
-export default async function AdminTraningstider() {
+export default async function AdminTraningstider({
+  searchParams,
+}: {
+  searchParams: Promise<{ sasong?: string }>;
+}) {
   const supabase = await supabaseServer();
+  const { sasong } = await searchParams;
+
+  // Vilka säsonger som finns. Utan den här listan går en kopierad säsong
+  // inte att öppna — kopiera_sasong skapade något osynligt.
+  const { data: allaSasonger } = await supabase.from("training_sessions").select("season");
+  const sasonger = [...new Set((allaSasonger ?? []).map((r) => r.season as string))].sort();
+  const SASONG = sasong && sasonger.includes(sasong) ? sasong : STANDARDSASONG;
 
   const [pass, sektioner] = await Promise.all([
     supabase.from("training_sessions").select("*").eq("season", SASONG).order("sort_order"),
@@ -33,6 +47,13 @@ export default async function AdminTraningstider() {
       </p>
 
       <h1>Träningstider</h1>
+
+      {sasonger.length > 1 && (
+        <div style={{ margin: "var(--spacing-4) 0" }}>
+          <Sasongsval sasonger={sasonger} vald={SASONG} />
+        </div>
+      )}
+
       <p style={{ color: "var(--ink-muted)", maxWidth: "var(--measure)" }}>
         Ändra direkt i listan. Allt sparas av sig självt när du lämnar fältet —
         det finns ingen sparaknapp. <strong>Pausa</strong> gör att passet visas
@@ -63,6 +84,8 @@ export default async function AdminTraningstider() {
           </ul>
         </section>
       ))}
+
+      {rader.length > 0 && <Kopiera fran={SASONG} />}
     </main>
   );
 }

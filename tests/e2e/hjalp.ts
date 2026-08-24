@@ -45,6 +45,9 @@ export function serviceKlient() {
   );
 }
 
+export const ADMIN_STATE = "playwright/.auth/admin.json";
+export const ICKE_ADMIN_STATE = "playwright/.auth/icke-admin.json";
+
 export const ADMIN_EPOST = "erik.gundersen@schibsted.com";
 export const ICKE_ADMIN_EPOST = "provanvandare.utan.behorighet@example.com";
 

@@ -7,6 +7,35 @@ Nyast först.
 
 ---
 
+## 2026-08-24 — Commit 207a453 innehåller arbete från en annan session
+
+**Vad som hände:** commit `207a453`, med meddelandet "CLAUDE.md sa att nasta
+instans kan ta vid", innehåller 17 filer och 981 rader. Bara CLAUDE.md hör
+till det meddelandet.
+
+Resten — `app/admin/innehall/`, massåtgärderna som databasfunktioner med
+migration `20260823235113`, `app/api/keep-alive/` och `vercel.json` — kom
+från en parallell session som arbetade mot samma filsystem och samma
+Supabase-projekt, men inte mot GitHub. Ett `git add -A` svepte in allt.
+
+**Konsekvens:** historiken beskriver inte vad som faktiskt hände i den
+commiten. Den skrivs inte om — den ligger redan på GitHub, och en
+omskriven historik är värre än en felmärkt. Den här noteringen är
+rättelsen.
+
+**Vad det kostade:** jag byggde massåtgärderna en gång till, i
+applikationslagret, utan att veta att de redan fanns i databasen. Den
+befintliga lösningen var dessutom bättre — en `update` i SQL är atomisk,
+medan en loop i JavaScript kan lämna halva schemat flyttat. Min version
+kastades.
+
+**Vad som ändras framåt:** `git status` före varje commit, inte efter, och
+namngivna filer i stället för `git add -A`. Det senare fungerade så länge
+en enda session rörde repot, och slutade fungera i samma sekund som något
+annat gjorde det.
+
+---
+
 ## 2026-08-23 — Träningstider lagras som `time`, inte `timestamptz`
 
 **Alternativ:** följa prompten bokstavligt, som säger att alla tidsstämplar
