@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { ADMIN_EPOST, ICKE_ADMIN_EPOST, loggaInSom, serviceKlient } from "./hjalp";
+import { ADMIN_STATE, ICKE_ADMIN_EPOST, loggaInSom, serviceKlient } from "./hjalp";
+
+// Sparad session i stallet for inloggning per test. Se auth.setup.ts.
+test.use({ storageState: ADMIN_STATE });
 
 /**
  * Ateruppratta via granssnittet, inte via databasen.
@@ -25,7 +28,6 @@ test("ändrad ingress slår igenom på sektionssidan", async ({ page }) => {
   const { data } = await db.from("sections").select("intro").eq("slug", "skidor").single();
   const original = data!.intro as string;
 
-  await loggaInSom(page, ADMIN_EPOST);
   await page.goto("/admin/innehall");
 
   const falt = page.locator("#ingress-skidor");
@@ -40,7 +42,6 @@ test("ändrad ingress slår igenom på sektionssidan", async ({ page }) => {
 });
 
 test("dold sektion försvinner från sajten men texten finns kvar", async ({ page }) => {
-  await loggaInSom(page, ADMIN_EPOST);
   await page.goto("/admin/innehall");
 
   const sektion = page.locator("section").filter({ hasText: "Skidor" }).first();
@@ -61,10 +62,15 @@ test("dold sektion försvinner från sajten men texten finns kvar", async ({ pag
   expect(efter.status(), "sidan kom inte tillbaka efter publicering").toBe(200);
 });
 
-test("icke-admin kommer inte åt innehållsredigeringen", async ({ page }) => {
-  await loggaInSom(page, ICKE_ADMIN_EPOST);
-  await page.goto("/admin/innehall");
-  await expect(page).toHaveURL(/fel=ej-behorig/);
+test.describe("utan behörighet", () => {
+  // Byter identitet, och måste därför logga in själv.
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test("icke-admin kommer inte åt innehållsredigeringen", async ({ page }) => {
+    await loggaInSom(page, ICKE_ADMIN_EPOST);
+    await page.goto("/admin/innehall");
+    await expect(page).toHaveURL(/fel=ej-behorig/);
+  });
 });
 
 test("keep-alive svarar", async ({ page }) => {

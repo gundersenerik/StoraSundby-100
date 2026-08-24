@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { ADMIN_EPOST, loggaInSom } from "./hjalp";
+import { ADMIN_STATE } from "./hjalp";
 
 /**
  * Noll allvarliga fel är kravet i prompten. Vi mäter på riktiga sidor med
@@ -24,14 +24,19 @@ for (const sida of ["/", "/traningstider", "/logga-in", "/fotboll", "/gymnastik"
   });
 }
 
-test("inga allvarliga tillgänglighetsfel i redigeringsvyn", async ({ page }) => {
-  await loggaInSom(page, ADMIN_EPOST);
-  await page.goto("/admin/traningstider");
-  const allvarliga = await granska(page);
-  expect(
-    allvarliga,
-    allvarliga.map((v) => `${v.id}: ${v.help}`).join("\n"),
-  ).toEqual([]);
+test.describe("inloggade vyer", () => {
+  test.use({ storageState: ADMIN_STATE });
+
+  for (const sida of ["/admin", "/admin/traningstider", "/admin/innehall"]) {
+    test(`inga allvarliga tillgänglighetsfel på ${sida}`, async ({ page }) => {
+      await page.goto(sida);
+      const allvarliga = await granska(page);
+      expect(
+        allvarliga,
+        allvarliga.map((v) => `${v.id}: ${v.help}`).join("\n"),
+      ).toEqual([]);
+    });
+  }
 });
 
 test("går att nå filtren med enbart tangentbord", async ({ page }) => {

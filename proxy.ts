@@ -4,14 +4,17 @@ import { NextResponse, type NextRequest } from "next/server";
 /**
  * Håller sessionen levande.
  *
+ * Hette middleware.ts fram till Next 16, som fasar ut den konventionen till
+ * förmån för proxy.ts. Samma funktion, nytt namn.
+ *
  * Supabase-tokens går ut. Utan en uppdatering på varje request loggas en
  * ledare ut mitt i arbetet, vilket är särskilt irriterande på en telefon.
  * Middleware förnyar token och skriver tillbaka cookien.
  *
- * Middleware gör INGEN behörighetskontroll. Den vore fel plats för det:
+ * Proxyn gör INGEN behörighetskontroll. Den vore fel plats för det:
  * spärren ska ligga i RLS, som gäller oavsett hur någon når datan.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(

@@ -76,4 +76,4 @@ i [`docs/TILL-KLUBBEN.md`](docs/TILL-KLUBBEN.md), inte på sajten.
 | `docs/KOSTNADER.md` | Vad driften kostar och när det ändras |
 | `docs/LANSERING.md` | Checklista för växlingen |
 | `docs/GDPR.md` | Ännu inte skriven. Se A8 i TILL-KLUBBEN. |
-| `docs/DRIFT.md` | Ännu inte skriven |
+| `docs/DRIFT.md` | Hur en volontär sköter sajten |
