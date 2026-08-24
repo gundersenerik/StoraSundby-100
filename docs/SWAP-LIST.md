@@ -3,7 +3,7 @@
 > Genererad automatiskt av `npm run swap-list`. Redigera inte för hand.
 > Kör `npm run swap-list` efter varje ändring i config/. CI kontrollerar det.
 
-**9 poster blockerar lansering.** 9 till bör bekräftas.
+**8 poster blockerar lansering.** 10 till bör bekräftas.
 
 Varje post motsvarar ett `todo()`-anrop i `config/`. Byt värdet och ta bort
 `todo()`-wrappern, så försvinner posten härifrån automatiskt.
@@ -16,7 +16,6 @@ Sajten får inte gå i produktion med dessa värden kvar.
 |---|---|---|
 | `club.board.members` | _(7 poster)_ | Webbplatsen anger ordförande plus 7 ledamöter. Endast ordföranden är namngiven där. laget.se listar Isabell Kärrfeldt Andersson (sekreterare), Linn Wolfram, Johan Gallardo Eriksson och Louise Gyldenlöve — men den listan är inte primärkälla och kan vara inaktuell. Be styrelsen om aktuell uppställning med roller. |
 | `club.brand` | `{"primary":"#1B4D3E","secondary":"#F0B429","ink":"#14180F","paper":"#FBFAF5"}` | PÅHITTADE FÄRGER. Hämta de riktiga från klubbdräkten, logotypen och sortimentet i webbshoppen innan designen låses. |
-| `club.identity.orgNumber` | `802XXX-XXXX` | Hämtas från Skatteverket (ideella föreningar registreras där, inte hos Bolagsverket). Krävs för Swish Handel, bidragsansökningar och integritetspolicyn. |
 | `club.membership.collectsPersonalId` | `true` | Bekräfta med kassören exakt vad LOK-stöd och IdrottOnline kräver. Samla aldrig in mer än det. Kolumnen krypteras med pgcrypto. |
 | `club.membership.seasonStartMonth` | `1` | Antaget kalenderår. Bekräfta om medlemsåret följer kalenderår eller säsong — styr när påminnelser går ut och när status sätts till inaktiv. |
 | `club.payment.swishNumber` | `123 456 78 90` | Klubbens Swish-nummer för inbetalningar. Används för QR-generering. Måste vara korrekt innan medlemsmodulen går live. |
@@ -33,6 +32,7 @@ Sajten fungerar med dessa värden, men de är inte bekräftade av klubben.
 | `club.contact.coordinates` | `{"lat":59.2833,"lng":16.1667}` | Påhittat värde | Ungefärlig position för Stora Sundby. Ersätt med exakt position för Hammargårdsvägen 1 — används i kartan och i JSON-LD för Place. |
 | `club.contact.phone` | _(tomt)_ | Från extern källa | Webbplatsen har inget kanslinummer. laget.se anger 016-621 37. Bekräfta att numret är i bruk innan det publiceras. |
 | `club.facility.cabins.count` | `6` | Härlett ur webbplatsen | Härlett ur 48 bäddar delat på 8 per stuga. Webbplatsen skriver aldrig ut antalet stugor. Bekräfta med kansliet. |
+| `club.identity.orgNumber` | `818000-3694` | Från extern källa | Hittat i två oberoende källor (allabolag.se och laget.se) och Luhn-kontrollerat. Be kassören bekräfta mot Skatteverkets registerutdrag innan Swish Handel söks. |
 | `club.payment.swishHandelNumber` | _(tomt)_ | Påhittat värde | Separat 123-nummer som fås vid tecknande av Swish Handel. Krävs för automatisk aktivering av medlemskap. |
 | `club.rental.minNights` | `1` | Påhittat värde | Antaget. Bekräfta om det finns minimikrav vid helger eller läger. |
 | `club.shop.mode` | `link-out` | Påhittat värde | Sätts till 'feed' om Tifosi kan leverera produktdata, 'curated' om produkterna underhålls manuellt i admin, annars 'link-out'. Se docs/TIFOSI-FORFRAGAN.md. |

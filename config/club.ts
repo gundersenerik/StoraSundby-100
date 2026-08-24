@@ -48,12 +48,28 @@ export const club = {
       "Föreningen har till ändamål att genom utövning av idrott och friluftsliv " +
       "verka för höjande av medlemmarnas andliga och fysiska fostran samt för " +
       "främjandet av god kamrat- och idrottsanda.",
-    orgNumber: todo("802XXX-XXXX", {
+    /**
+     * Hittat i två oberoende externa källor och matematiskt kontrollerat.
+     * Webbplatsen anger inget organisationsnummer, så externa källor får
+     * komplettera enligt källprincipen — de motsäger ingenting.
+     *
+     * allabolag.se anger STORA SUNDBY GYMNASTIK- O IDROTTSFÖRENING, ideell
+     * förening, på Hammargårdsvägen 1, 635 34 Stora Sundby. Att adressen och
+     * postnumret matchar webbplatsen exakt — och inte laget.se:s avvikande
+     * 640 40 — är det som gör källan trovärdig. laget.se anger samma nummer.
+     * Kontrollsiffran stämmer enligt Luhn, vilket kontrolleras av ett test.
+     *
+     * Står kvar som todo() eftersom numret går in i en bankansökan och i
+     * integritetspolicyn. Kassören bör stämma av mot ett registerutdrag
+     * innan Swish Handel söks — men det blockerar inte lanseringen.
+     */
+    orgNumber: todo("818000-3694", {
       path: "club.identity.orgNumber",
       note:
-        "Hämtas från Skatteverket (ideella föreningar registreras där, inte hos Bolagsverket). " +
-        "Krävs för Swish Handel, bidragsansökningar och integritetspolicyn.",
-      blocksLaunch: true,
+        "Hittat i två oberoende källor (allabolag.se och laget.se) och Luhn-kontrollerat. " +
+        "Be kassören bekräfta mot Skatteverkets registerutdrag innan Swish Handel söks.",
+      confidence: "extern",
+      source: "https://www.allabolag.se/8180003694",
     }),
   },
 

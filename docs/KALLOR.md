@@ -35,10 +35,27 @@ att kontrollera mot originalet även efter att gamla sajten släckts.
 | E-post: info@storasundbygoif.com | `/kontakta-oss` | 2026-08-23 | Bekräftat |
 | Bankgiro 342-8232 | `/bli-medlem` | 2026-08-23 | Bekräftat |
 | Medlemsavgifter 250 / 300 / 800 kr | `/bli-medlem` | 2026-08-23 | Bekräftat |
+| Organisationsnummer 818000-3694 | allabolag.se + laget.se | 2026-08-24 | Bekräftat |
 
-**Publiceras inte:** organisationsnummer saknas i alla publika källor.
-Kanslitelefon 016-621 37 finns bara på laget.se, som inte är primärkälla —
-se B4 i `TILL-KLUBBEN.md`.
+**Om organisationsnumret.** Det stod tidigare som ej publicerbart, eftersom
+det saknas på webbplatsen. Numret finns däremot i två oberoende externa
+källor, och källprincipen tillåter externa källor att komplettera där
+webbplatsen tiger — de motsäger ingenting här.
+
+[allabolag.se](https://www.allabolag.se/8180003694) anger STORA SUNDBY
+GYMNASTIK- O IDROTTSFÖRENING, ideell förening, Hammargårdsvägen 1,
+635 34 Stora Sundby, registrerad 1971-01-01. Det avgörande är att adress
+och postnummer matchar webbplatsen exakt, och alltså inte laget.se:s
+avvikande 640 40 — posten avser samma förening.
+[laget.se](https://www.laget.se/Stora-Sundby-GOIF/Contact) anger samma
+nummer. Kontrollsiffran stämmer enligt Luhn, vilket ett enhetstest bevakar.
+
+Numret publiceras därmed i strukturerad data. Det står ändå kvar som
+`todo()` under "bör bekräftas", eftersom det ska in i en bankansökan och i
+integritetspolicyn — se A1 i `TILL-KLUBBEN.md`.
+
+**Publiceras inte:** kanslitelefon 016-621 37 finns bara på laget.se, som
+inte är primärkälla — se B4 i `TILL-KLUBBEN.md`.
 
 ## Sektioner
 

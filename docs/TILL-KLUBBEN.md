@@ -4,7 +4,7 @@ Frågor som bara en människa i föreningen kan svara på.
 
 Sajten byggs vidare även utan svaren — där en uppgift saknas står ett tydligt
 märkt platshållarvärde, och `docs/SWAP-LIST.md` håller reda på vartenda ett.
-Men platshållarna kan inte följa med i produktion. Nio av dem stoppar
+Men platshållarna kan inte följa med i produktion. Åtta av dem stoppar
 lanseringen tills någon har svarat.
 
 Svaren behöver inte komma i ordning eller på en gång. Svara på det ni kan,
@@ -22,16 +22,12 @@ när ni kan, så byts värdena ut allt eftersom.
 
 ## A. Blockerar lansering
 
-### A1. Organisationsnummer
+### A1. Organisationsnummer — hittat, flyttad till C7
 
-Numret finns inte i någon publik källa vi kunnat hitta. Ideella föreningar
-registreras hos Skatteverket, inte Bolagsverket, så det bör gå att få fram
-därifrån om ni inte har det till hands.
+Vi hittade numret själva efter att listan skrevs. Det blockerar därför inte
+längre lanseringen, men vi vill fortfarande att ni bekräftar det.
 
-Behövs för Swish Handel, för bidragsansökningar och för integritetspolicyn,
-som enligt GDPR måste ange vem som är personuppgiftsansvarig.
-
-Står nu som `802XXX-XXXX`.
+Se **C7** längre ner.
 
 ### A2. Föreningens riktiga färger
 
@@ -208,6 +204,22 @@ vid läger? Vi har antagit att en natt går bra.
 Vi kunde inte läsa föreningens sida på idrottonline.se. Vet ni om den
 används aktivt, och vem som har inloggningen? Systemet kan behöva ta emot
 medlemsdata från den nya sajten.
+
+### C7. Stämmer organisationsnumret?
+
+Vi har hittat **818000-3694** och lagt in det. Det stod tidigare som en
+lanseringsblockerare, eftersom numret inte finns någonstans på er egen
+webbplats.
+
+Vi hittade det i två oberoende källor. allabolag.se har föreningen med
+fullständigt namn, formen ideell förening och exakt den adress och det
+postnummer som står på er webbplats. laget.se anger samma nummer. Numrets
+inbyggda kontrollsiffra stämmer också, vilket utesluter en felskrivning.
+
+Det räcker för att vi ska våga använda det på sajten. Men numret ska
+så småningom in i en bankansökan för Swish och i integritetspolicyn, och
+där vill vi inte gissa. Har kassören ett registerutdrag från Skatteverket
+räcker det att jämföra siffrorna en gång.
 
 ---
 

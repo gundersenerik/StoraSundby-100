@@ -85,3 +85,42 @@ describe("sidkartan och redirectkartan hänger ihop", async () => {
     }
   });
 });
+
+/**
+ * Organisationsnumret går in i integritetspolicyn, i strukturerad data och
+ * så småningom i en bankansökan. En felskriven siffra syns inte för blotta
+ * ögat men gör alla tre fel.
+ *
+ * Svenska organisationsnummer bär en kontrollsiffra enligt Luhn. Testet
+ * bevisar inte att numret tillhör just den här föreningen — det gör
+ * källorna i KALLOR.md — men det fångar felskrivningar, och det fångar om
+ * någon råkar committa tillbaka en platshållare.
+ */
+describe("club.identity.orgNumber", () => {
+  const siffror = club.identity.orgNumber.replace(/\D/g, "");
+
+  it("är inte en platshållare", () => {
+    expect(club.identity.orgNumber).not.toMatch(/X/i);
+  });
+
+  it("har tio siffror", () => {
+    expect(siffror).toHaveLength(10);
+  });
+
+  it("börjar på 8, som ideella föreningar gör", () => {
+    expect(siffror.startsWith("8")).toBe(true);
+  });
+
+  it("har en giltig kontrollsiffra enligt Luhn", () => {
+    const summa = [...siffror]
+      .map(Number)
+      .reverse()
+      .reduce((acc, siffra, i) => {
+        if (i % 2 === 0) return acc + siffra;
+        const dubblad = siffra * 2;
+        return acc + (dubblad > 9 ? dubblad - 9 : dubblad);
+      }, 0);
+
+    expect(summa % 10).toBe(0);
+  });
+});
