@@ -146,6 +146,16 @@ en parallell session, felmärkta under ett meddelande om en enda fil.
 Supabases dashboard. En adress utanför tillåtelselistan ger inget
 felmeddelande — användaren skickas tyst till Site URL.
 
+**Oscopat `getByRole("alert")` träffar Nexts route-announcer.** Next lägger
+en egen tom `role="alert"`-div på varje sida, så Playwrights strikta läge
+faller med två träffar. Skopa till formuläret eller raden, som admin-specen
+gör.
+
+**Att räkna gröna rader är inte att läsa exitkoden.** `grep -c "^✓"` på
+databasbeviset visade 20 och dolde både en röd rad och exitkod 1 — CI fick
+fånga det lokala körningen släppt igenom. Efter en pipe är `$?` dessutom
+sista kommandots kod, inte testets: läs `${PIPESTATUS[0]}`.
+
 ## Nuläge
 
 Byggt: fundament, designtokens, publikt träningsschema, sex sektionssidor,

@@ -72,7 +72,11 @@ test.describe("förfrågningsflödet", () => {
     await page.getByLabel("E-postadress").fill(E2E_BOKNINGS_EPOST);
     await page.waitForTimeout(TIDSSPARR_MS);
     await page.getByRole("button", { name: "Skicka förfrågan" }).click();
-    await expect(page.getByRole("alert")).toContainText("Avresedatumet måste vara efter");
+    // Scopat till formuläret: Next har en egen route-announcer med
+    // role="alert", och en oscopad sökning träffar båda.
+    await expect(page.locator("form").getByRole("alert")).toContainText(
+      "Avresedatumet måste vara efter",
+    );
   });
 
   test("avvisar ett datum som redan varit", async ({ page }) => {
@@ -84,7 +88,7 @@ test.describe("förfrågningsflödet", () => {
     await page.getByLabel("E-postadress").fill(E2E_BOKNINGS_EPOST);
     await page.waitForTimeout(TIDSSPARR_MS);
     await page.getByRole("button", { name: "Skicka förfrågan" }).click();
-    await expect(page.getByRole("alert")).toContainText("har redan varit");
+    await expect(page.locator("form").getByRole("alert")).toContainText("har redan varit");
   });
 
   test("en riktig förfrågan går fram och kvitteras", async ({ page }) => {

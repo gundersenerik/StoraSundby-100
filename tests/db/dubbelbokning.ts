@@ -201,10 +201,22 @@ async function main() {
   // ── 7. RLS som anon ───────────────────────────────────────────────────
   await db.query("set role anon");
   try {
-    await db.query(bokning(rad("stuga-4", "2026-12-04 13:00+00", "2026-12-06 09:00+00", "forfragan")));
-    resultat(true, "Anon får lämna en förfrågan");
+    // Speglar appens riktiga insert (boka/actions.ts): status skickas ALDRIG
+    // med — kolumngranten täcker den inte, raden får default 'forfragan',
+    // och policyn godkänner den. Ett test som listar status explicit provar
+    // något appen aldrig gör, och föll mycket riktigt på kolumngranten.
+    await db.query(`
+      insert into public.bookings (cabin_id, starts_at, ends_at, party_size, purpose, contact_name, contact_email)
+      values ('stuga-4', '2026-12-04 13:00+00', '2026-12-06 09:00+00', 4, 'overnattning', 'Test Person', 'test@example.com')`);
+    resultat(true, "Anon får lämna en förfrågan — utan att röra status eller pris");
   } catch (e) {
     resultat(false, "Anon borde få lämna en förfrågan", `felkod ${felkod(e)}`);
+  }
+  try {
+    await db.query(bokning(rad("stuga-4", "2027-05-07 13:00+00", "2027-05-09 09:00+00", "forfragan")));
+    resultat(false, "Anon borde inte kunna sätta status ens till forfragan");
+  } catch (e) {
+    resultat(felkod(e) === "42501", "Anon kan inte sätta status alls — kolumnen är inte hens");
   }
   try {
     await db.query(bokning(rad("stuga-4", "2026-12-11 13:00+00", "2026-12-13 09:00+00")));
