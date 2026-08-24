@@ -50,6 +50,10 @@ webbgränssnitt, går inte att granska i en pull request, och orsakar fel som
       för alla utom de som är inloggade på Vercel
 - [ ] **Vercel-domän** kopplad, DNS pekar rätt, SSL utfärdat
 - [ ] `NEXT_PUBLIC_SITE_URL` satt i Vercel till skarp domän
+- [ ] **GitHub-secreten `SUPABASE_DB_URL`** tillagd, annars hoppar den
+      nattliga backupen tyst över sig själv. Connection-strängen finns i
+      Supabase under Project Settings > Database, i session-läge (port
+      5432) — transaction pooler fungerar inte för `pg_dump`.
 
 ### E-post
 
@@ -66,8 +70,14 @@ webbgränssnitt, går inte att granska i en pull request, och orsakar fel som
 
 ### Drift
 
-- [ ] Schemalagd `supabase db dump` till extern lagring. **Free-nivån har
-      inga backuper alls.** Se `KOSTNADER.md`.
+- [x] Schemalagd dump byggd i `.github/workflows/backup.yml`. Kör varje
+      natt, kontrollerar att dumpen inte är tom, sparar 90 dagar.
+      **Free-nivån har inga backuper alls.** Se `KOSTNADER.md`.
+- [ ] Secreten `SUPABASE_DB_URL` tillagd så att backupen faktiskt kör —
+      se rubriken om konfiguration ovan.
+- [ ] Backupen körd minst en gång med grönt resultat, och en dump
+      återläst i en engångsdatabas. En backup ingen har återställt är en
+      förhoppning, inte en backup.
 - [ ] Keep-alive så att projektet inte pausas efter sju dagars låg aktivitet
 - [ ] `docs/DRIFT.md` skriven för en volontär
 - [ ] Search Console verifierad, sitemap inskickad

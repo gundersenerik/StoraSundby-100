@@ -40,12 +40,30 @@ Två vägar: schemalägg `supabase db dump` till extern lagring, eller
 uppgradera till Pro för cirka 25 USD per månad, vilket ger sju dagars
 dagliga backuper. Dumpen är gratis och räcker långt för en förening.
 
+**Den första vägen är nu byggd.** `.github/workflows/backup.yml` kör
+`pg_dump` varje natt och sparar resultatet som en GitHub-artefakt i
+90 dagar. Kostnad: 0 kr. Den kontrollerar också att dumpen faktiskt
+innehåller något — den tysta backup-katastrofen är inte att jobbet
+failar, utan att det grönar varje natt medan filen är tom.
+
+Kvar att göra: **lägg till secreten `SUPABASE_DB_URL`** under Settings >
+Secrets and variables > Actions. Connection-strängen finns i Supabase
+under Project Settings > Database, i session-läge (port 5432). Utan
+secreten hoppar jobbet tyst över sig självt i stället för att lysa rött
+varje natt — ett rött kryss man vänjer sig vid slutar betyda något.
+
+Begränsningar att vara ärlig om: artefakterna gallras efter 90 dagar och
+ligger hos samma leverantör som koden. Det skyddar mot ett tappat
+Supabase-projekt, inte mot ett tappat GitHub-konto. För ett
+medlemsregister i drift är Pro fortfarande det tryggare valet.
+
 **Projektet pausas efter sju dagars låg aktivitet.** Varning kommer ungefär
 en vecka i förväg, så hela förloppet är runt två veckor och avbryts av
 trafik. En sajt med dagliga besökare klarar sig, men under utvecklingen —
 när ingen besöker den — är risken verklig. En enkel keep-alive löser det.
 
-Ingen av dessa är åtgärdad ännu. Backup är beslutad att lösas senare.
+Keep-alive finns (`app/api/keep-alive`). Backupen är byggd men vilande
+tills secreten är på plats — se ovan.
 
 ## När kostnader tillkommer
 
@@ -64,9 +82,10 @@ och årsmötesprotokoll. Räkna med veckor, inte dagar. Se B2 i
 
 ## Rekommendation
 
-Kör Free tills sajten har riktigt innehåll och riktiga medlemmar. Sätt upp
-en schemalagd dump innan medlemsregistret börjar fyllas — det är den punkt
-där en förlorad databas går från irriterande till allvarlig.
+Kör Free tills sajten har riktigt innehåll och riktiga medlemmar. Den
+schemalagda dumpen är på plats och behöver bara sin secret — gör det innan
+medlemsregistret börjar fyllas, eftersom det är den punkt där en förlorad
+databas går från irriterande till allvarlig.
 
 Uppgradera till Supabase Pro först när någon av dessa stämmer: föreningen
 har personuppgifter i systemet som inte finns någon annanstans, eller

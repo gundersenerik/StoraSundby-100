@@ -1,0 +1,116 @@
+# Daglig backup av databasen.
+#
+# Supabase Free har inga backuper alls. Migrationerna ligger i git, så
+# schemat går att återskapa — men datan gör det inte. Sektionstexter,
+# träningstider och så småningom bokningar och medlemmar finns bara på
+# ett ställe, och det stället har ingen ångerknapp.
+#
+# Dumpen sparas som en GitHub-artefakt. Det är inte perfekt: artefakter
+# gallras efter 90 dagar och ligger hos samma leverantör som koden. Men
+# det kostar noll, kräver ingen ny tjänst att hålla reda på, och är
+# oändligt mycket bättre än det som gäller idag.
+#
+# KRÄVER EN SECRET: SUPABASE_DB_URL, hela connection-strängen till
+# databasen. Finns i Supabase under Project Settings > Database >
+# Connection string > URI. Använd session-läget (port 5432), inte
+# transaction pooler — pg_dump behöver en riktig session.
+#
+# Utan den secreten hoppar jobbet över sig självt i stället för att
+# failas varje natt. Ett rött kryss man vänjer sig vid slutar betyda
+# något, och då är kontrollen värdelös.
+
+name: Backup
+
+on:
+  schedule:
+    # 02:17 UTC. Udda minut med avsikt - hela timslag är hårt belastade
+    # hos GitHub och schemalagda jobb blir då köade eller överhoppade.
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  dump:
+    name: Dumpa databasen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kontrollera att secreten finns
+        id: kolla
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$DB_URL" ]; then
+            echo "har_secret=nej" >> "$GITHUB_OUTPUT"
+            echo "::warning::SUPABASE_DB_URL saknas. Ingen backup togs."
+            echo "Lagg till den under Settings > Secrets and variables > Actions."
+          else
+            echo "har_secret=ja" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Ubuntu-koren har en aldre pg_dump an databasen. En dump tagen med
+      # for gammal klient avbryts med "server version mismatch", sa
+      # klienten maste matcha serverns major.
+      - name: Installera pg_dump 17
+        if: steps.kolla.outputs.har_secret == 'ja'
+        run: |
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-17
+          pg_dump --version
+
+      - name: Dumpa
+        if: steps.kolla.outputs.har_secret == 'ja'
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          namn="storasundby-$(date -u +%Y-%m-%d).sql"
+          # Bara det egna schemat. auth och storage agas av Supabase och
+          # aterskapas av plattformen, inte av oss.
+          pg_dump "$DB_URL" \
+            --schema=public \
+            --no-owner \
+            --no-privileges \
+            --file="$namn"
+          echo "RA_DUMP=$namn" >> "$GITHUB_ENV"
+
+      # Den tysta backup-katastrofen ar inte att jobbet failar. Det ar att
+      # det gronar varje natt medan filen ar tom. Darfor kontrolleras
+      # innehallet, inte bara att kommandot gick igenom.
+      #
+      # Kontrollen sker FORE gzip. Ett forsta forsok matte den packade
+      # filen mot en troskel raknad som om den vore opackad - gzip
+      # komprimerar SQL sa hart att en fullt korrekt dump hamnade under
+      # gransen och hade fallt backupen varje natt utan orsak.
+      - name: Kontrollera att dumpen innehaller nagot
+        if: steps.kolla.outputs.har_secret == 'ja'
+        run: |
+          storlek=$(stat -c%s "$RA_DUMP")
+          echo "Dumpen ar $storlek byte opackad."
+          if [ "$storlek" -lt 2000 ]; then
+            echo "::error::Dumpen ar bara $storlek byte. Nagot gick fel."
+            exit 1
+          fi
+          # Tabellerna som maste finnas. Listan ar avsiktligt explicit:
+          # den bevisar att dumpen har riktigt innehall, inte bara rubriker.
+          for tabell in sections training_sessions admin_users; do
+            if ! grep -q "CREATE TABLE public.$tabell" "$RA_DUMP"; then
+              echo "::error::Tabellen $tabell saknas i dumpen."
+              exit 1
+            fi
+          done
+          echo "Alla vantade tabeller finns med."
+
+      - name: Packa
+        if: steps.kolla.outputs.har_secret == 'ja'
+        run: |
+          gzip "$RA_DUMP"
+          echo "DUMP=$RA_DUMP.gz" >> "$GITHUB_ENV"
+
+      - name: Spara
+        if: steps.kolla.outputs.har_secret == 'ja'
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ env.DUMP }}
+          path: ${{ env.DUMP }}
+          retention-days: 90
