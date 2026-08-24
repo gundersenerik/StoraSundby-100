@@ -7,6 +7,136 @@ Nyast först.
 
 ---
 
+## 2026-08-24 — Granskningen fällde sju fynd; alla åtgärdade före push
+
+En adversariell granskning i fyra dimensioner (logik, SQL/RLS, röst och
+kontrakt, CI-hållbarhet) kördes på hela modulen innan den committades, med
+en skeptiker per fynd som försökte motbevisa det mot koden. Sju fynd höll:
+
+1. Anon kunde sätta `estimated_price` och `paminnelse_skickad_at` via en
+   direkt REST-insert — beloppet hade flutit in i bekräftelsemejlets
+   betalinstruktion. Stängt med kolumnvis INSERT (migration 009); priset
+   sätts nu av kansliets bekräftelse, aldrig av den som frågar.
+2. Spärrar deltog inte i dubbelbokningsskyddet — en bokning kunde
+   bekräftas rakt över en spärrad period. Triggern kontrollerar nu även
+   `booking_blocks`.
+3. Korsöverlappet var racigt: stuga och hela anläggningen kunde bekräftas
+   samtidigt, eftersom olika objektnycklar inte serialiseras av exclusion-
+   constrainten. Triggern tar nu ett rådgivande transaktionslås.
+4. Tidsspärren i formuläret nollställdes vid varje rendering — en gäst som
+   rättade ett valideringsfel inom tre sekunder kastades tyst som robot,
+   med falskt "skickat"-besked. Värdet fryses nu vid montering.
+5. Påminnelse-cronen var en öppen endpoint som läste med service role och
+   skickade mejl, och stämplingen var inte atomär. Nu bakom CRON_SECRET
+   (Vercel skickar headern automatiskt) med anspråk-först-stämpling.
+6. En endagsspärr avvisades felaktigt, och spärrlistan visade det
+   exklusivt lagrade slutdatumet som om det vore inklusivt.
+7. E2E-spärrtestet lämnade en publikt synlig låtsasspärr i skarpa
+   databasen mellan körningar. Testet städar nu efter sig och specarna
+   rensar fixturer även efteråt.
+
+Punkt 1–3 och 6 är bevisade i `tests/db/dubbelbokning.ts` (20 påståenden).
+Slutsatsen för arbetssättet: den egna verifieringskedjan räckte inte —
+alla sju passerade typecheck, lint, 57 enhetstester och bygget.
+
+## 2026-08-24 — In- och utcheckningstider är ett driftbeslut, inte ett klubbfaktum
+
+Granskningen invände att tiderna 15.00 och 11.00 är antagna men ändå står
+i mejl till gäster, vilket skaver mot regeln att platshållarvärden aldrig
+publiceras. Avvägningen: regeln finns för FAKTAPÅSTÅENDEN om föreningen —
+priser, organisationsnummer, historia — där ett påhittat värde är en osann
+utsaga. In- och utcheckning är den nya sajtens egen bokningspolicy: någon
+måste välja ett standardvärde för att bokningar ska kunna vara tidpunkter,
+och 15.00/11.00 är branschnormalen. Värdena står som todo() under "bör
+bekräftas" och byts på en rad om kansliet vill annat. Ett bokningsmejl
+utan incheckningstid hade varit sämre för gästen än ett med en rimlig tid
+kansliet kan justera.
+
+## 2026-08-24 — Dubbelbokningsskyddet bor i databasen, med en trigger för korsfallet
+
+**Alternativ:** kontrollera överlapp i server-actionen, eller låta databasen
+avgöra.
+
+**Val:** en exclusion-constraint på en objektnyckel
+(`coalesce(cabin_id, 'hela-anlaggningen')`) med halvöppet intervall `[)`,
+villkorad på status bekräftad/betald, plus en trigger för korsfallet — hela
+anläggningen krockar med varje enskild stuga och tvärtom, vilket en
+constraint som jämför lika nycklar inte kan uttrycka.
+
+**Motiv:** en kontroll i en server action är ett lager som kan glömmas vid
+nästa action. Databasen glömmer inte. NULL-fällan från CLAUDE.md är stängd
+med NOT NULL på båda tidkolumnerna, och triggern släpper ogiltiga perioder
+vidare till CHECK-en så att felet blir begripligt i stället för ett
+tstzrange-kast. Bevisat i `tests/db/dubbelbokning.ts` med parallella
+transaktioner, och i CI mot en Postgres-servicecontainer på varje push.
+
+Triggern är security definer av nödvändighet: den läser bokningstabellen,
+och den som lämnar en förfrågan är anonym utan läsrätt. Med invoker hade
+RLS gömt alla rader för kontrollen, som då alltid sagt ja.
+
+## 2026-08-24 — Priser visas först när todo()-wrappern är borta
+
+**Alternativ:** visa de påhittade beloppen märkta "preliminärt", eller inte
+visa några belopp alls.
+
+**Val:** `priserArPlatshallare()` läser platshållarregistret, och så länge
+`club.rental.prices` står som placeholder visar sidan, formuläret och
+mejlen ingen summa — de säger att kansliet återkommer med pris. Den dag
+kansliet svarat byts värdena, wrappern tas bort, och prisvisningen
+aktiverar sig själv utan kodändring. Ett enhetstest bevakar gatingen.
+
+**Motiv:** "publicera aldrig ett platshållarvärde" gäller belopp lika
+mycket som organisationsnummer. Ett påhittat pris i ett bokningsflöde är
+ett felaktigt anbud till en riktig kund, och "preliminärt" i liten stil
+räddar inte det.
+
+## 2026-08-24 — Stugorna som bokningsobjekt trots att antalet är härlett
+
+KALLOR.md slog fast att antalet stugor inte publiceras, eftersom det är
+uträknat (48 bäddar ÷ 8) och inte utskrivet. Bokningsflödet kräver ändå
+bokningsbara objekt — utan dem finns ingen kalender och inget formulär.
+
+**Val:** sex stugor seedas som data (`supabase/seed/003_stugor.sql`), med
+tillfälliga namn och `dog_friendly = null` på samtliga — webbplatsen säger
+att EN stuga tillåter hund men inte vilken, och att gissa vilken vore att
+hitta på ett faktum. Sidan listar objekten men skriver aldrig ut antalet
+som ett påstående i löptext. Ett enhetstest ser till att seedens antal och
+`club.facility.cabins.count` inte glider isär, så när kansliet svarar (B3)
+ändras båda i samma leverans.
+
+**Motiv:** prompten säger uttryckligen att bygget inte får stanna på ett
+obesvarat mejl — det är hela poängen med platshållarmekaniken. Alternativet,
+att vänta med hela modulen, hade gjort svaret på B3 till en blockerare i
+stället för en rättelse på en rad.
+
+## 2026-08-24 — Kalendern läses med kolumnrättigheter, inte security definer
+
+**Vad som hände:** den publika kalendern behöver veta vad som är upptaget
+utan att kontaktuppgifter läcker. Första versionen löste det med en
+security definer-funktion med snäv kolumnlista. Supabase säkerhetsgranskning
+flaggade den — en definer-funktion anropbar av anon i det publika API:et är
+onödig angreppsyta även när den inget läcker.
+
+**Val (migration 008):** kolumnrättigheter i Postgres. Anon får SELECT på
+exakt fyra kolumner i bokningstabellen och en radpolicy som bara släpper
+igenom blockerande bokningar; spärrarnas anledning är inte läsbar alls.
+Funktionen blev security invoker. Ett försök att läsa `contact_name` som
+anon får 42501 av Postgres själv — bevisat i databastestet.
+
+**Motiv:** samma princip som is_admin-flytten i migration 005: spärren ska
+ligga så långt ner det går, och en rättighet Postgres upprätthåller slår
+en kolumnlista någon lovat att inte ändra.
+
+## 2026-08-24 — Migrationsfilnamnen 004–006 matchade inte registrerade versioner
+
+Samma fälla som redan rättats för 001–003 i commit `71a038c`, upptäckt när
+migration 007 skulle namnges: filerna för admin, is_admin-flytten och
+massåtgärderna bar andra tidsstämplar än de versioner Supabase registrerat.
+`supabase db push` hade försökt applicera dem igen mot en databas som redan
+har dem. Omdöpta till 215225, 215357 och 235113. Kontrollera alltid
+`list_migrations` efter en applicering — verktyget stämplar med sin egen
+klocka, inte med filnamnets.
+
 ## 2026-08-24 — Commit 207a453 innehåller arbete från en annan session
 
 **Vad som hände:** commit `207a453`, med meddelandet "CLAUDE.md sa att nasta

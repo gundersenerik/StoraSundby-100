@@ -110,6 +110,41 @@ Skriv tidsintervall som **19.00–20.00**, med punkt och långt streck.
 
 ---
 
+## Hantera en bokningsförfrågan
+
+När någon skickar en förfrågan via sajten hamnar den under **Bokningar** i
+admin, överst under "Att ta ställning till". Ingenting är bokat förrän du
+säger det.
+
+1. **Bekräfta** — tiden reserveras i kalendern och gästen får ett
+   bekräftelsemejl med betalinstruktioner. Säger systemet att tiden redan
+   är upptagen har en annan bokning eller spärr hunnit före; avböj den ena.
+2. **Markera betald** när pengarna synts på kontot.
+3. **Markera genomförd** när vistelsen är över, eller **Avboka** om den
+   ställs in.
+
+**Avböj** använder du när det inte passar. Gästen får inget automatiskt
+mejl vid avböjning — hör av dig personligen, det är trevligare.
+
+Så länge priserna inte är inlagda visar sajten inga belopp, och mejlen
+säger att kansliet återkommer med pris. Skriv priset i ditt svar till
+gästen tills dess.
+
+### Spärra datum
+
+Under bokningslistan finns **Spärrade datum**. Använd dem när något inte
+ska gå att boka — underhåll, egna läger, en helg ni vill hålla fri. Spärren
+syns som upptagen i sajtens kalender direkt. Anledningen du skriver är bara
+synlig i admin.
+
+### Bokningarna i din egen kalender
+
+Det går att prenumerera på bokningarna i Google Kalender eller Apple
+Kalender, så att du ser dem utan att logga in. Det kräver att en nyckel är
+inlagd i driften — se `LANSERING.md`. Adressen är
+`/api/uthyrning/kalender?nyckel=…` och delas bara med den som sköter
+uthyrningen: den innehåller gästernas namn.
+
 ## Sådant du inte ska göra själv
 
 **Ändra klubbuppgifter** — adress, organisationsnummer, medlemsavgifter,

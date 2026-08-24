@@ -106,6 +106,42 @@ jobs:
             test-results/
           retention-days: 7
 
+  dubbelbokningsskydd:
+    name: Dubbelbokningsskyddet bevisas mot Postgres
+    runs-on: ubuntu-latest
+
+    # Kör alla migrationer från tomt schema mot en riktig Postgres och
+    # bevisar exclusion-constrainten med parallella transaktioner, NULL-
+    # fällan, korsöverlappet och RLS-reglerna. Servicecontainern är en
+    # engångsdatabas — ingenting rör den skarpa.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Migrationer och konstraintbevis
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+        run: npm run test:db
+
   lanseringskontroll:
     name: Lanseringsblockerare
     runs-on: ubuntu-latest

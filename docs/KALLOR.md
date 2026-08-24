@@ -100,9 +100,15 @@ rakt ut till besökaren i stället för att låta säkrare än vi är. Se C1.
 | Stugor med 8 bäddar vardera, totalt 48 personer | `/uthyrning`, `/läger` | 2026-08-23 | Bekräftat |
 | En stuga tillåter hund | `/uthyrning` | 2026-08-23 | Bekräftat |
 | Skolan och idrottshallen kan nyttjas vid större läger | `/läger` | 2026-08-23 | Bekräftat |
+| Läger kan välja självhushåll eller lagad och serverad mat | `/läger` | 2026-08-23 | Bekräftat |
+| Stugor hyrs för övernattning, "perfekt vid en större fest eller långväga besök" | `/uthyrning` | 2026-08-23 | Bekräftat |
 | Antal stugor: sex | härlett ur 48 ÷ 8 | 2026-08-23 | Obekräftat |
 
-**Antalet stugor publiceras inte.** Det är uträknat, inte utskrivet. Se B3.
+**Antalet stugor skrivs aldrig ut som ett påstående.** Det är uträknat,
+inte utskrivet — se B3. Bokningsflödet behöver dock bokningsbara objekt,
+så sex stugor ligger som data med tillfälliga namn och byts på en rad när
+kansliet svarat. Avvägningen står i `BESLUTSLOGG.md` 2026-08-24. Vilken
+stuga som tillåter hund är medvetet omärkt tills B3 är besvarad.
 
 ## Mätningar av gamla sajten
 

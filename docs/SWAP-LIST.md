@@ -3,7 +3,7 @@
 > Genererad automatiskt av `npm run swap-list`. Redigera inte för hand.
 > Kör `npm run swap-list` efter varje ändring i config/. CI kontrollerar det.
 
-**8 poster blockerar lansering.** 10 till bör bekräftas.
+**8 poster blockerar lansering.** 12 till bör bekräftas.
 
 Varje post motsvarar ett `todo()`-anrop i `config/`. Byt värdet och ta bort
 `todo()`-wrappern, så försvinner posten härifrån automatiskt.
@@ -34,6 +34,8 @@ Sajten fungerar med dessa värden, men de är inte bekräftade av klubben.
 | `club.facility.cabins.count` | `6` | Härlett ur webbplatsen | Härlett ur 48 bäddar delat på 8 per stuga. Webbplatsen skriver aldrig ut antalet stugor. Bekräfta med kansliet. |
 | `club.identity.orgNumber` | `818000-3694` | Från extern källa | Hittat i två oberoende källor (allabolag.se och laget.se) och Luhn-kontrollerat. Be kassören bekräfta mot Skatteverkets registerutdrag innan Swish Handel söks. |
 | `club.payment.swishHandelNumber` | _(tomt)_ | Påhittat värde | Separat 123-nummer som fås vid tecknande av Swish Handel. Krävs för automatisk aktivering av medlemskap. |
+| `club.rental.checkInTime` | `15:00` | Påhittat värde | Antagen incheckningstid. Bekräfta med kansliet. |
+| `club.rental.checkOutTime` | `11:00` | Påhittat värde | Antagen utcheckningstid. Bekräfta med kansliet. |
 | `club.rental.minNights` | `1` | Påhittat värde | Antaget. Bekräfta om det finns minimikrav vid helger eller läger. |
 | `club.shop.mode` | `link-out` | Påhittat värde | Sätts till 'feed' om Tifosi kan leverera produktdata, 'curated' om produkterna underhålls manuellt i admin, annars 'link-out'. Se docs/TIFOSI-FORFRAGAN.md. |
 | `club.social.instagramOcr` | `https://www.instagram.com/storasundbygoifocr/` | Från extern källa | OCR-konto som hittades i sökresultat men aldrig nämns på webbplatsen. Bekräfta att sektionen finns innan den publiceras. |

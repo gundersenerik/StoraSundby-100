@@ -86,3 +86,44 @@ export async function nollstallFotboll() {
 
   await db.from("training_sessions").delete().eq("grupp", "Ny grupp");
 }
+
+/* ─── Uthyrningens fixturer ────────────────────────────────────────────── */
+
+/**
+ * Egen fixtur, aldrig riktig data — konventionen från träningstiderna
+ * gäller även här. E2E-bokningar märks med en adress ingen riktig gäst
+ * har, läggs långt fram i tiden, och rensas FÖRE varje test: ett test som
+ * kraschar lämnar kvar sitt tillstånd, och nästa körning ska inte ärva det.
+ */
+export const E2E_BOKNINGS_EPOST = "e2e-uthyrning@example.com";
+
+export async function rensaUthyrningsfixturer() {
+  const db = serviceKlient();
+  await db.from("bookings").delete().eq("contact_email", E2E_BOKNINGS_EPOST);
+  await db.from("booking_blocks").delete().like("reason", "E2E:%");
+}
+
+export async function skapaForfragan(input: {
+  cabin_id: string | null;
+  fran: string; // "2027-07-10T13:00:00Z"
+  till: string;
+  namn?: string;
+}) {
+  const db = serviceKlient();
+  const { data, error } = await db
+    .from("bookings")
+    .insert({
+      cabin_id: input.cabin_id,
+      starts_at: input.fran,
+      ends_at: input.till,
+      party_size: 6,
+      purpose: "overnattning",
+      contact_name: input.namn ?? "E2E Testgäst",
+      contact_email: E2E_BOKNINGS_EPOST,
+      status: "forfragan",
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(`Kunde inte skapa testförfrågan: ${error.message}`);
+  return data.id as string;
+}

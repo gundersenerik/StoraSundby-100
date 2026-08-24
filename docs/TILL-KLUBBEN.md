@@ -56,8 +56,11 @@ extern part. Vi har hittat på siffror för att kunna bygga bokningsflödet:
 1 200 kr per stuga och natt, 900 kr för medlem, 6 000 kr för hela
 anläggningen, 500 kr i städavgift.
 
-Samtliga är påhittade och kommer att offerera fel pris till riktiga kunder
-om de får ligga kvar.
+Samtliga är påhittade. Bokningsflödet är nu byggt, och tills ni svarat
+visar sajten INGA belopp alls — varken på uthyrningssidan, i formuläret
+eller i mejlen. Gäster får i stället beskedet att kansliet återkommer med
+pris. Den dag ni skickar priserna läggs de in, och prisvisningen slår på
+av sig själv överallt samtidigt.
 
 Vi behöver: pris per stuga och natt, eventuellt medlemspris, pris för hela
 anläggningen vid läger, städavgift, och om det finns helg- eller
@@ -147,6 +150,12 @@ ger sex stugor. Men antalet står aldrig utskrivet, så vi har räknat ut det.
 Vi behöver också veta vilken stuga som tillåter hund, och gärna vad varje
 stuga heter eller numreras som, eftersom varje stuga blir ett bokningsbart
 objekt med egen kalender.
+
+Bokningen är nu byggd med sex stugor som heter Stuga 1 till Stuga 6 tills
+ni sagt annat. Ingen av dem är märkt som hundvänlig än — vi vet att en av
+dem är det, men inte vilken, så gäster med hund ombeds skriva det i
+förfrågan så placerar ni dem rätt. Vi antog också incheckning 15.00 och
+utcheckning 11.00 — säg till om andra tider gäller.
 
 ### B4. Finns det ett telefonnummer till kansliet?
 

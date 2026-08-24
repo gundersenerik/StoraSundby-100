@@ -300,6 +300,19 @@ export const club = {
       path: "club.rental.minNights",
       note: "Antaget. Bekräfta om det finns minimikrav vid helger eller läger.",
     }),
+    /**
+     * In- och utcheckning i Europe/Stockholm. Bokningar lagras som
+     * tidpunkter (timestamptz), och en tidpunkt kräver ett klockslag —
+     * annars går dubbelbokningsskyddet inte att uttrycka.
+     */
+    checkInTime: todo("15:00", {
+      path: "club.rental.checkInTime",
+      note: "Antagen incheckningstid. Bekräfta med kansliet.",
+    }),
+    checkOutTime: todo("11:00", {
+      path: "club.rental.checkOutTime",
+      note: "Antagen utcheckningstid. Bekräfta med kansliet.",
+    }),
     /** Kansliet bekräftar manuellt. Sätt till true den dag direktbokning önskas. */
     instantBooking: false,
   },

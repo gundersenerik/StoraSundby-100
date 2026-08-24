@@ -12,10 +12,15 @@ export const dynamic = "force-dynamic";
 export default async function Admin() {
   const supabase = await supabaseServer();
 
-  const [{ count: antalPass }, { count: antalSektioner }] = await Promise.all([
-    supabase.from("training_sessions").select("*", { count: "exact", head: true }),
-    supabase.from("sections").select("*", { count: "exact", head: true }),
-  ]);
+  const [{ count: antalPass }, { count: antalSektioner }, { count: antalForfragningar }] =
+    await Promise.all([
+      supabase.from("training_sessions").select("*", { count: "exact", head: true }),
+      supabase.from("sections").select("*", { count: "exact", head: true }),
+      supabase
+        .from("bookings")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "forfragan"),
+    ]);
 
   return (
     <main style={{ padding: "var(--spacing-6)", maxWidth: "48rem", margin: "0 auto" }}>
@@ -36,6 +41,24 @@ export default async function Admin() {
           <p style={{ color: "var(--ink-muted)", fontSize: "var(--text-sm)", marginBottom: 0 }}>
             {antalPass ?? 0} pass i {antalSektioner ?? 0} sektioner. Klicka på en tid
             och ändra den direkt i listan.
+          </p>
+        </li>
+        <li
+          style={{
+            border: "1px solid var(--line)",
+            borderRadius: "var(--radius-lg)",
+            padding: "var(--spacing-5)",
+            marginTop: "var(--spacing-4)",
+          }}
+        >
+          <h2 style={{ fontSize: "var(--text-lg)", margin: 0 }}>
+            <Link href="/admin/bokningar">Hantera bokningar</Link>
+          </h2>
+          <p style={{ color: "var(--ink-muted)", fontSize: "var(--text-sm)", marginBottom: 0 }}>
+            {antalForfragningar
+              ? `${antalForfragningar} ${antalForfragningar === 1 ? "förfrågan väntar" : "förfrågningar väntar"} på svar.`
+              : "Inga obesvarade förfrågningar just nu."}{" "}
+            Bekräfta, avböj och spärra datum.
           </p>
         </li>
         <li

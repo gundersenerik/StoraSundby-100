@@ -21,7 +21,7 @@ export const huvudmeny: MenyPost[] = [
   { href: routes.news, etikett: "Nyheter", byggd: false },
   { href: routes.training, etikett: "Träningstider", byggd: true },
   { href: routes.calendar, etikett: "Kalender", byggd: false },
-  { href: routes.rental, etikett: "Uthyrning", byggd: false },
+  { href: routes.rental, etikett: "Uthyrning", byggd: true },
   { href: routes.membership, etikett: "Bli medlem", byggd: false },
   { href: routes.shop, etikett: "Webbshop", byggd: false },
   { href: routes.about, etikett: "Om föreningen", byggd: false },

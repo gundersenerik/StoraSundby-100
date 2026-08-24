@@ -151,18 +151,30 @@ felmeddelande — användaren skickas tyst till Site URL.
 Byggt: fundament, designtokens, publikt träningsschema, sex sektionssidor,
 startsida, admin med magisk länk, inline-redigering av träningstider,
 massåtgärder som databasfunktioner, säsongsbyte och kopiering, redigering
-av sektionstexter, JSON-LD, sitemap, robots, 404, redirects, keep-alive.
+av sektionstexter, JSON-LD, sitemap, robots, 404, redirects, keep-alive,
+nattlig databasbackup (väntar på secreten SUPABASE_DB_URL), och hela
+uthyrningen: publik sida med tillgänglighetskalender, förfrågningsflöde,
+kansli-admin med spärrar, fyra mejlmallar och nyckelskyddad iCal-feed.
+Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
+i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
+CI mot en Postgres-servicecontainer.
 
-Testat: 23 enhetstester och 124 E2E-körningar i mobil och skrivbord,
-axe-core utan allvarliga fel på samtliga publika och inloggade vyer.
+Priser visas INTE förrän todo()-wrappern kring `club.rental.prices` är
+borta — `priserArPlatshallare()` gatar sida, formulär och mejl. Samma
+mekanik som gör att organisationsnumret (numera hittat: 818000-3694,
+bekräftat i två källor) höll sig ur strukturerad data tills det fanns.
+
+Testat: 57 enhetstester, 156 E2E i mobil och skrivbord, 16
+databaspåståenden mot riktig Postgres, axe-core utan allvarliga fel på
+samtliga publika och inloggade vyer inklusive uthyrningen.
 
 Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
 `LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
 personnummer.
 
-Ej byggt: nyheter, kalender, uthyrning, medlemsportal, webbshop, historik.
+Ej byggt: nyheter, kalender, medlemsportal, webbshop, historik.
 
-**Nio lanseringsblockerare** står kvar i `SWAP-LIST.md`.
+**Åtta lanseringsblockerare** står kvar i `SWAP-LIST.md`.
 `npm run swap-list:strict` vägrar produktionsdeploy tills de är lösta.
 
 **Det som låser upp mest just nu är inte kod utan två mejl.** Tifosi om

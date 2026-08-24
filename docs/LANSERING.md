@@ -54,6 +54,20 @@ webbgränssnitt, går inte att granska i en pull request, och orsakar fel som
       nattliga backupen tyst över sig själv. Connection-strängen finns i
       Supabase under Project Settings > Database, i session-läge (port
       5432) — transaction pooler fungerar inte för `pg_dump`.
+- [ ] **`UTHYRNING_ICAL_NYCKEL`** satt i Vercel om kansliet vill prenumerera
+      på bokningarna i sin kalender. Feeden innehåller gästuppgifter och är
+      avstängd tills nyckeln finns. Valfri lång slumpsträng.
+- [ ] **`RESEND_API_KEY`** satt — utan den skickas inga bokningsmejl
+      (kvittens, notis, bekräftelse, påminnelse). Flödet fungerar ändå, men
+      kansliet måste då mejla gästerna själva och admin säger det vid varje
+      bekräftelse.
+      **OBS: sätt nyckeln bara i Vercel, aldrig i GitHub Actions** — E2E-
+      sviten skickar riktiga formulär, och med nyckel i CI hade varje
+      testkörning mejlat kansliets inkorg.
+- [ ] **`CRON_SECRET`** satt i Vercel. Vercel skickar automatiskt
+      Authorization-headern till schemalagda anrop när variabeln finns, och
+      påminnelserutten är avstängd utan den — den läser med service role
+      och skickar mejl, så den får inte vara öppen.
 
 ### E-post
 
@@ -67,6 +81,18 @@ webbgränssnitt, går inte att granska i en pull request, och orsakar fel som
 - [ ] Erik Gundersens tillfälliga adminrad borttagen om den inte ska vara kvar
 - [ ] Någon i föreningen har tillgång till Supabase, Vercel och GitHub —
       sajten får inte hänga på en enda person
+
+### Uthyrningen
+
+- [ ] Riktiga stugpriser inlagda (A4) och `todo()`-wrappern borttagen —
+      prisvisningen på sidan, i formuläret och i mejlen aktiverar sig själv
+- [ ] Stugornas riktiga namn och vilken som tillåter hund (B3) inlagda i
+      `supabase/seed/003_stugor.sql` och i databasen
+- [ ] Bokningsmejlen provskickade och lästa i Gmail, Outlook och Apple Mail
+      när Resend är uppsatt
+- [ ] iCal-feeden prenumererad skarpt i Google Kalender och Apple Kalender
+- [ ] In- och utcheckningstiderna bekräftade av kansliet (står som antagna
+      15.00 och 11.00)
 
 ### Drift
 
