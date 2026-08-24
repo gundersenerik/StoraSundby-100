@@ -27,20 +27,30 @@ export function Bokningsrad({ bokning, stugnamn }: { bokning: Bokning; stugnamn:
   function byt(status: BokningsStatus, lyckat: string) {
     setBesked(null);
     start(async () => {
-      const svar = await sattStatus(rad.id, status);
-      if (svar.ok) {
-        setRad((r) => ({ ...r, status }));
+      // Utan catch försvinner ett tappat svar spårlöst: åtgärden kan ha
+      // sparats i databasen fast anropet föll, och kansliet står kvar utan
+      // besked. Säg det i stället rakt ut.
+      try {
+        const svar = await sattStatus(rad.id, status);
+        if (svar.ok) {
+          setRad((r) => ({ ...r, status }));
+          setBesked({
+            ok: true,
+            text:
+              svar.mejlSkickat === undefined
+                ? lyckat
+                : svar.mejlSkickat
+                  ? `${lyckat} Bekräftelsemejl skickat.`
+                  : `${lyckat} Inget mejl gick ut — e-posten är inte konfigurerad än, så hör av dig till gästen själv.`,
+          });
+        } else {
+          setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
+        }
+      } catch {
         setBesked({
-          ok: true,
-          text:
-            svar.mejlSkickat === undefined
-              ? lyckat
-              : svar.mejlSkickat
-                ? `${lyckat} Bekräftelsemejl skickat.`
-                : `${lyckat} Inget mejl gick ut — e-posten är inte konfigurerad än, så hör av dig till gästen själv.`,
+          ok: false,
+          text: "Svaret från servern kom aldrig fram. Ladda om sidan och kontrollera om ändringen gick igenom.",
         });
-      } else {
-        setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
       }
     });
   }

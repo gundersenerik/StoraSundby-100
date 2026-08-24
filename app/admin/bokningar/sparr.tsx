@@ -26,15 +26,24 @@ export function Sparrar({ sparrar, stugor }: { sparrar: SparrRad[]; stugor: Stug
 
   const stugnamn = new Map(stugor.map((s) => [s.id, s.namn]));
 
+  // Samma skydd som i bokningsraden: ett tappat svar får inte lämna
+  // kansliet utan besked, för åtgärden kan ha sparats ändå.
+  const TAPPAT_SVAR =
+    "Svaret från servern kom aldrig fram. Ladda om sidan och kontrollera om ändringen gick igenom.";
+
   function lagg(formData: FormData) {
     setBesked(null);
     start(async () => {
-      const svar = await skapaSparr(formData);
-      if (svar.ok) {
-        formularRef.current?.reset();
-        setBesked({ ok: true, text: "Perioden är spärrad. Ladda om sidan för att se den i listan." });
-      } else {
-        setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
+      try {
+        const svar = await skapaSparr(formData);
+        if (svar.ok) {
+          formularRef.current?.reset();
+          setBesked({ ok: true, text: "Perioden är spärrad. Ladda om sidan för att se den i listan." });
+        } else {
+          setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
+        }
+      } catch {
+        setBesked({ ok: false, text: TAPPAT_SVAR });
       }
     });
   }
@@ -42,12 +51,16 @@ export function Sparrar({ sparrar, stugor }: { sparrar: SparrRad[]; stugor: Stug
   function taBort(id: string) {
     setBesked(null);
     start(async () => {
-      const svar = await taBortSparr(id);
-      if (svar.ok) {
-        setLista((l) => l.filter((s) => s.id !== id));
-        setBesked({ ok: true, text: "Spärren är borttagen." });
-      } else {
-        setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
+      try {
+        const svar = await taBortSparr(id);
+        if (svar.ok) {
+          setLista((l) => l.filter((s) => s.id !== id));
+          setBesked({ ok: true, text: "Spärren är borttagen." });
+        } else {
+          setBesked({ ok: false, text: svar.meddelande ?? "Något gick fel." });
+        }
+      } catch {
+        setBesked({ ok: false, text: TAPPAT_SVAR });
       }
     });
   }

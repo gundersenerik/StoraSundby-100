@@ -7,6 +7,29 @@ Nyast först.
 
 ---
 
+## 2026-08-24 — Expect-timeout 10 s, och tappade action-svar visas för kansliet
+
+CI fällde bekräfta-flödet tre gånger i en körning som gått grön dagen
+innan: beskedet med `role="status"` dök aldrig upp inom Playwrights
+standardtimeout på 5 sekunder. Ingen data var fel — bekräftelsen är den
+tyngsta åtgärden (uppdatering, revalidering, omrendering och mejlmall),
+och på en belastad runner hann svaret inte fram. Serverns "destination
+stream closed early"-rader var följdbrus: sidor som stängdes medan
+omrenderingen ännu strömmade.
+
+**Val:** `expect.timeout` höjs till 10 sekunder globalt, i stället för
+längre timeoutar på enskilda rader. Testet mäter fortfarande att åtgärden
+svarar rimligt — det slutar bara mäta runnerns dagsform.
+
+Samma diagnos blottade ett riktigt hål i gränssnittet: transitionerna i
+bokningsraden och spärrlistan saknade catch, så ett tappat svar — CI-race
+eller dålig uppkoppling på landet — lämnade kansliet helt utan besked,
+fast åtgärden kan ha sparats i databasen. Nu sägs det rakt ut: "Svaret
+från servern kom aldrig fram. Ladda om sidan och kontrollera om ändringen
+gick igenom."
+
+---
+
 ## 2026-08-24 — Granskningen fällde sju fynd; alla åtgärdade före push
 
 En adversariell granskning i fyra dimensioner (logik, SQL/RLS, röst och

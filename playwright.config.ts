@@ -14,6 +14,11 @@ export default defineConfig({
   workers: 1,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
+  // Standardens 5 s är för snävt för en server action på en belastad
+  // CI-runner: bekräfta-åtgärden hann inte svara och testet föll fast
+  // åtgärden lyckades. Tio sekunder mäter fortfarande "svarar rimligt",
+  // utan att fälla körningen för maskinens dagsform.
+  expect: { timeout: 10_000 },
   use: {
     baseURL: "http://localhost:3000",
     trace: "retain-on-failure",
