@@ -7,6 +7,14 @@
  *
  * Exit-kod 1 om någon lanseringsblockerare finns kvar och --strict är satt.
  * Sätt --strict i pipelinen som deployar till produktion.
+ *
+ * INGEN DATUMSTÄMPEL I UTDATAN. Filen innehöll tidigare "Senast genererad"
+ * med dagens datum, vilket gjorde att den ändrades varje dygn även när
+ * ingenting i config hade rörts — och CI-kontrollen som jämför genererat
+ * mot committat föll då varje midnatt. En kontroll som failar av skäl som
+ * inte har med det den bevakar att göra blir ignorerad, och slutar därmed
+ * bevaka någonting. Att listan är aktuell garanteras av CI, inte av ett
+ * datum i en rubrik.
  */
 
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -38,13 +46,11 @@ function fmt(value: unknown): string {
   return `\`${String(value)}\``;
 }
 
-const now = new Date().toISOString().slice(0, 10);
-
 const lines: string[] = [
   "# Vad som måste bytas ut",
   "",
   "> Genererad automatiskt av `npm run swap-list`. Redigera inte för hand.",
-  `> Senast genererad: ${now}`,
+  "> Kör `npm run swap-list` efter varje ändring i config/. CI kontrollerar det.",
   "",
   `**${blockers.length} poster blockerar lansering.** ` +
     `${entries.length - blockers.length} till bör bekräftas.`,

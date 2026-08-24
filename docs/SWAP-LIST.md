@@ -1,7 +1,7 @@
 # Vad som måste bytas ut
 
 > Genererad automatiskt av `npm run swap-list`. Redigera inte för hand.
-> Senast genererad: 2026-08-23
+> Kör `npm run swap-list` efter varje ändring i config/. CI kontrollerar det.
 
 **9 poster blockerar lansering.** 9 till bör bekräftas.
 
