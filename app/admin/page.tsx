@@ -38,6 +38,22 @@ export default async function Admin() {
             och ändra den direkt i listan.
           </p>
         </li>
+        <li
+          style={{
+            border: "1px solid var(--line)",
+            borderRadius: "var(--radius-lg)",
+            padding: "var(--spacing-5)",
+            marginTop: "var(--spacing-4)",
+          }}
+        >
+          <h2 style={{ fontSize: "var(--text-lg)", margin: 0 }}>
+            <Link href="/admin/innehall">Ändra sektionstexter</Link>
+          </h2>
+          <p style={{ color: "var(--ink-muted)", fontSize: "var(--text-sm)", marginBottom: 0 }}>
+            Rubrik, ingress och text per sektion. Dölj en sektion utan att
+            radera den.
+          </p>
+        </li>
       </ul>
     </main>
   );

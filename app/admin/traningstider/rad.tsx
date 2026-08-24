@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { sparaPass, type Falt } from "./actions";
+import { sparaPass, taBortPass, type Falt } from "./actions";
 import { VECKODAGAR, type Pass } from "@/lib/traning";
 
 /**
@@ -28,8 +28,12 @@ export function Rad({ pass }: { pass: Pass }) {
   const [rad, setRad] = useState(pass);
   const [fel, setFel] = useState<string | null>(null);
   const [sparar, startTransition] = useTransition();
+  const [bekraftar, setBekraftar] = useState(false);
+  const [borttagen, setBorttagen] = useState(false);
 
   const pausat = rad.status === "uppehall";
+
+  if (borttagen) return null;
 
   function spara(falt: Falt, varde: string) {
     const foregaende = rad;
@@ -41,6 +45,25 @@ export function Rad({ pass }: { pass: Pass }) {
       if (!svar.ok) {
         setRad(foregaende);
         setFel(svar.meddelande ?? "Kunde inte spara.");
+      }
+    });
+  }
+
+  function taBort() {
+    // Ingen webbläsardialog. confirm() blockerar tråden och ser olika ut i
+    // varje webbläsare. Knappen byter läge i stället, så ett felklick inte
+    // raderar något.
+    if (!bekraftar) {
+      setBekraftar(true);
+      return;
+    }
+    startTransition(async () => {
+      const svar = await taBortPass(rad.id);
+      if (!svar.ok) {
+        setFel(svar.meddelande ?? "Kunde inte ta bort.");
+        setBekraftar(false);
+      } else {
+        setBorttagen(true);
       }
     });
   }
@@ -133,6 +156,23 @@ export function Rad({ pass }: { pass: Pass }) {
         }}
       >
         {pausat ? "Uppehåll" : "Pausa"}
+      </button>
+
+      <button
+        type="button"
+        onClick={taBort}
+        onBlur={() => setBekraftar(false)}
+        style={{
+          ...kontroll,
+          flex: "0 0 auto",
+          padding: "0 var(--spacing-3)",
+          cursor: "pointer",
+          background: bekraftar ? "var(--danger)" : "transparent",
+          color: bekraftar ? "var(--paper)" : "var(--ink-muted)",
+          borderColor: bekraftar ? "var(--danger)" : "var(--line)",
+        }}
+      >
+        {bekraftar ? "Säkert?" : "Ta bort"}
       </button>
 
       {fel && (

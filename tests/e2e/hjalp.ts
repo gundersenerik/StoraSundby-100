@@ -47,3 +47,39 @@ export function serviceKlient() {
 
 export const ADMIN_EPOST = "erik.gundersen@schibsted.com";
 export const ICKE_ADMIN_EPOST = "provanvandare.utan.behorighet@example.com";
+
+/**
+ * Nollställer fotbollens pass till gamla sajtens värden.
+ *
+ * Körs FÖRE varje muterande test, inte efter. Att städa efteråt räcker inte:
+ * ett test som kraschar lämnar kvar sitt tillstånd, och nästa test hittar då
+ * en knapp som heter "Uppehåll" där det väntade sig "Pausa". Att i stället
+ * garantera utgångsläget gör varje test oberoende av de andra.
+ *
+ * Direktskrivning duger här eftersom adminvyerna är force-dynamic och alltid
+ * läser färskt. Publika vyer är ISR-cachade, men varje publik kontroll i
+ * testen sker efter en åtgärd i gränssnittet, som kör revalidatePath.
+ */
+export async function nollstallFotboll() {
+  const db = serviceKlient();
+  const original: Record<string, [string | null, string | null]> = {
+    "F/P 2013–2016": ["19:00", "20:00"],
+    "F/P 2017": ["18:30", "19:30"],
+    "F/P 2018–2019": ["18:00", "19:00"],
+  };
+
+  for (const [grupp, [start, slut]] of Object.entries(original)) {
+    await db
+      .from("training_sessions")
+      .update({ starts_at: start, ends_at: slut, status: "aktiv", place: null })
+      .eq("grupp", grupp)
+      .eq("season", "okand-2026");
+  }
+
+  await db
+    .from("training_sessions")
+    .update({ starts_at: null, ends_at: null, weekday: null, status: "uppehall" })
+    .eq("grupp", "Bollek från 2022");
+
+  await db.from("training_sessions").delete().eq("grupp", "Ny grupp");
+}

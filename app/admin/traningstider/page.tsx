@@ -3,6 +3,7 @@ import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase-server";
 import type { Pass, Sektion } from "@/lib/traning";
 import { Rad } from "./rad";
+import { Sektionsatgarder } from "./sektionsatgarder";
 
 export const metadata: Metadata = {
   title: "Ändra träningstider",
@@ -37,6 +38,11 @@ export default async function AdminTraningstider() {
         det finns ingen sparaknapp. <strong>Pausa</strong> gör att passet visas
         som uppehåll på sajten i stället för att försvinna.
       </p>
+      <p style={{ color: "var(--ink-muted)", maxWidth: "var(--measure)", fontSize: "var(--text-sm)" }}>
+        Knapparna ovanför varje sektion ändrar alla pass i sektionen på en gång.
+        Byter hallen tid är <strong>en timme tidigare</strong> en knapptryckning
+        i stället för fyra separata ändringar.
+      </p>
 
       {rader.length === 0 && (
         <p style={{ color: "var(--ink-muted)" }}>
@@ -47,6 +53,7 @@ export default async function AdminTraningstider() {
       {medPass.map((s) => (
         <section key={s.slug} style={{ marginTop: "var(--spacing-6)" }}>
           <h2 style={{ fontSize: "var(--text-lg)" }}>{s.heading ?? s.slug}</h2>
+          <Sektionsatgarder sektion={s.slug} sasong={SASONG} />
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {rader
               .filter((r) => r.section_slug === s.slug)

@@ -24,9 +24,14 @@ import { design } from "../config/design";
 
 const ROOT = resolve(import.meta.dirname, "..");
 
-/** Kataloger som aldrig granskas. config/ är undantaget per definition. */
+/**
+ * Kataloger som aldrig granskas. config/ är undantaget per definition.
+ * Testartefakter och byggutdata är genererade — Playwright sparar hela
+ * CSS-filer i sina traces, och de innehåller naturligtvis hex-värden.
+ */
 const SKIP_DIRS = new Set([
   "config", "docs", "node_modules", ".git", ".next", "dist", "build", ".vercel",
+  "test-results", "playwright-report", "blob-report", "content",
 ]);
 
 /** Prosa granskas inte. README och markdown får nämna adressen i klartext. */
