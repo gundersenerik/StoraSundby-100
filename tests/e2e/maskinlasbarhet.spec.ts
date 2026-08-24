@@ -26,9 +26,18 @@ test.describe("strukturerad data", () => {
   test("publicerar aldrig ett platshållarvärde", async ({ page }) => {
     await page.goto("/");
     const allt = JSON.stringify(await strukturerad(page));
-    // Organisationsnumret står som 802XXX-XXXX tills klubben svarat.
-    // Ett sådant värde i Googles index är värre än inget alls.
+    // Ett platshållarvärde i Googles index är värre än inget alls.
+    // Fältet utelämnas hellre — se arPlatshallare i strukturerad-data.ts.
     expect(allt).not.toContain("XXX");
+  });
+
+  test("organisationsnumret når strukturerad data och kommer ur config", async ({ page }) => {
+    await page.goto("/");
+    const klubb = (await strukturerad(page)).find((d) => d["@type"] === "SportsClub");
+    // Numret är belagt i två oberoende källor (se KALLOR.md) och publiceras
+    // därför. Testet vaktar kedjan config -> JSON-LD: byts numret i club.ts
+    // ska det slå igenom här utan att någon rör den här filen.
+    expect(klubb.taxID).toBe(club.identity.orgNumber);
   });
 
   test("träningstider bär BreadcrumbList", async ({ page }) => {
