@@ -130,6 +130,18 @@ bokningar i modul 3. Sätt `NOT NULL` eller villkora på status.
 **`getUser()`, aldrig `getSession()`.** `getSession()` läser cookien utan att
 verifiera den och släpper igenom en förfalskad session.
 
+**En genererad fil får inte innehålla dagens datum.** `swap-list` stämplade
+in "Senast genererad", vilket gjorde att filen ändrades varje dygn även när
+ingenting rörts — och CI-kontrollen som jämför genererat mot committat föll
+vid nästa midnatt. En kontroll som failar av skäl som inte har med det den
+bevakar att göra blir ignorerad.
+
+**`git add -A` är förbjudet.** Kör `git status` före varje commit och lägg
+till namngivna filer. Connectorer är kontoövergripande: en annan session med
+samma verktyg kan skriva till både repot och databasen utan att du vet om
+det. Det har redan hänt en gång — commit `207a453` innehåller 981 rader från
+en parallell session, felmärkta under ett meddelande om en enda fil.
+
 **Auth-konfigurationen är inte kod.** Site URL och Redirect URLs finns bara i
 Supabases dashboard. En adress utanför tillåtelselistan ger inget
 felmeddelande — användaren skickas tyst till Site URL.
@@ -137,17 +149,46 @@ felmeddelande — användaren skickas tyst till Site URL.
 ## Nuläge
 
 Byggt: fundament, designtokens, publikt träningsschema, sex sektionssidor,
-startsida, admin med magisk länk och inline-redigering av träningstider,
-JSON-LD, sitemap, robots, 404, redirects.
+startsida, admin med magisk länk, inline-redigering av träningstider,
+massåtgärder som databasfunktioner, säsongsbyte och kopiering, redigering
+av sektionstexter, JSON-LD, sitemap, robots, 404, redirects, keep-alive.
 
-Testat: 23 enhetstester, 96 E2E-körningar i mobil och skrivbord, axe-core
-utan allvarliga fel.
+Testat: 23 enhetstester och 124 E2E-körningar i mobil och skrivbord,
+axe-core utan allvarliga fel på samtliga publika och inloggade vyer.
 
-Ej byggt: nyheter, kalender, uthyrning, medlemsportal, webbshop,
-sektionsredigering i admin, massåtgärder i schemat, historik.
+Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
+`LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
+personnummer.
+
+Ej byggt: nyheter, kalender, uthyrning, medlemsportal, webbshop, historik.
 
 **Nio lanseringsblockerare** står kvar i `SWAP-LIST.md`.
 `npm run swap-list:strict` vägrar produktionsdeploy tills de är lösta.
+
+**Det som låser upp mest just nu är inte kod utan två mejl.** Tifosi om
+produktfeeden och kansliet om stugpriserna, båda färdigskrivna i
+`TILL-KLUBBEN.md` bilaga 1 och 2. Uthyrningen kan inte byggas klar utan
+priser och antal stugor. Medlemsportalen hänger på om personnummer krävs —
+räcker födelseår försvinner kryptering, adminroller och halva GDPR-arbetet
+ur uppdraget.
+
+## Så skrivs testerna
+
+Konventionerna nedan är inte stilfrågor. Var och en kom av ett fel som
+kostade tid.
+
+**Egen fixtur, aldrig den riktiga datan.** Test som muterar `okand-2026`
+sänker de publika testerna. Skapa en egen säsong med unikt namn i
+`beforeEach` och riv den i `afterEach`.
+
+**Sparad session, inte inloggning per test.** `auth.setup.ts` loggar in en
+gång och sparar tillståndet; testfiler använder `test.use({ storageState:
+ADMIN_STATE })`. Loggar varje test in för sig blir det trettio auth-anrop
+per körning, Supabase stryper dem, och resultatet ser ut som slumpmässig
+flakighet. Bara test som byter identitet loggar in själva.
+
+**Testa flödet, inte att komponenten renderar.** Kan en ledare faktiskt
+flytta ett pass, och syns det publikt?
 
 ## Vad som kräver en människa
 
