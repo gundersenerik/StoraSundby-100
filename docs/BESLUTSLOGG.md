@@ -7,6 +7,20 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — /bli-medlem publicerar dagens betalrutin trots öppen personnummerfråga
+
+Informationssidan för medlemskap återger gamla sajtens betalinstruktion
+ordagrant — inklusive att personnummer anges i betalningen. Frågan om
+personnummer alls ska samlas in är öppen (A-fråga i TILL-KLUBBEN), men
+den gäller den kommande medlemsportalens datainsamling. Att återge
+föreningens gällande rutin är status quo, ingen ny behandling: samma
+instruktion står på den publika sajten idag. Ändrar kassören rutinen
+efter GDPR-svaret uppdateras en mening. Alternativet — att utelämna
+betalinstruktionen — hade gjort sidan obrukbar för den som faktiskt vill
+bli medlem.
+
+---
+
 ## 2026-08-25 — Föreningssidorna: styrelsen och kontaktformuläret gatar sig själva
 
 Fyra sidor ur belagda källor: `/om-foreningen`, `/kontakt`, `/anlaggningen`

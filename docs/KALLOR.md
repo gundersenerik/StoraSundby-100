@@ -35,6 +35,8 @@ att kontrollera mot originalet även efter att gamla sajten släckts.
 | E-post: info@storasundbygoif.com | `/kontakta-oss` | 2026-08-23 | Bekräftat |
 | Bankgiro 342-8232 | `/bli-medlem` | 2026-08-23 | Bekräftat |
 | Medlemsavgifter 250 / 300 / 800 kr | `/bli-medlem` | 2026-08-23 | Bekräftat |
+| Betalrutin: personnummer anges i betalningen, annars mejlas kansliet | `/bli-medlem` | 2026-08-25 | Bekräftat |
+| Medlemsförmåner: aktiviteter, försäkring under aktiviteter, "Tackförhjälpen"-fester, tillhörighet | `/bli-medlem` | 2026-08-25 | Bekräftat |
 | Organisationsnummer 818000-3694 | allabolag.se + laget.se | 2026-08-24 | Bekräftat |
 | Ordförandens telefon 070-543 71 33 | `/om-föreningen` (tel-länk i html) | 2026-08-25 | Bekräftat |
 | Facebook: facebook.com/storasundbygoif | startsidans sociala ikoner | 2026-08-25 | Bekräftat |

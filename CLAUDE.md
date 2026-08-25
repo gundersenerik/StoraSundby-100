@@ -175,7 +175,8 @@ läsklienten (RLS, bevisat i tests/db sektion 9). Därtill föreningssidorna
 styrelsen visas inte förrän namnen är riktiga (club.board.members-todo),
 och kontaktformuläret visas bara när RESEND_API_KEY finns — annars
 mejluppmaning. /lager var redirectmålet för gamla /läger men var en 404
-tills nu.
+tills nu. /bli-medlem finns som informationssida med belagda avgifter och
+dagens betalrutin — portalflödet väntar på personnummerfrågan.
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.

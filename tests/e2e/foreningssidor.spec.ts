@@ -56,6 +56,21 @@ test.describe("/kontakt", () => {
   });
 });
 
+test.describe("/bli-medlem", () => {
+  test("avgifterna och bankgirot kommer ur config", async ({ page }) => {
+    await page.goto("/bli-medlem");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(
+      page.getByText(`${club.membership.fees.junior.amount} kr`),
+    ).toBeVisible();
+    // exact: bankgirot står också i sidfotens löptext på varje sida.
+    await expect(page.getByText(club.payment.bankgiro, { exact: true })).toBeVisible();
+    // Förmånslistan är gamla sajtens egen — försäkringen är ett
+    // faktapåstående och får bara stå här för att det är belagt.
+    await expect(page.getByText("Försäkring under aktiviteter")).toBeVisible();
+  });
+});
+
 test.describe("/anlaggningen och /lager", () => {
   test("anläggningen listar planerna, stugorna och padelbokningen", async ({ page }) => {
     await page.goto("/anlaggningen");
