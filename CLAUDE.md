@@ -218,8 +218,10 @@ axe-core utan allvarliga fel på samtliga publika och inloggade vyer
 inklusive uthyrningen, nyheterna och kalendern.
 
 Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
-`LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
-personnummer.
+`LANSERING`, `DRIFT`, samt `DESIGN-TRENDER` — researchunderlag (2026-svep,
+39 belagda fynd) för en framtida formgivningsomgång: startsidemoduler,
+foton ur legacy-arkivet, mobilmeny. Inget ur det är beslutat eller byggt.
+Kvar att skriva: `GDPR.md`, som väntar på svaret om personnummer.
 
 Ej byggt: medlemsportal, webbshop (riktig produktupplevelse), dedikerad
 mobilmeny.
