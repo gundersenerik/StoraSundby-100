@@ -3,6 +3,7 @@ import Link from "next/link";
 import { routes } from "@/config/content";
 import { supabaseServer } from "@/lib/supabase-server";
 import type { Bokning, Stuga } from "@/lib/uthyrning";
+import { BeskedProvider } from "./besked";
 import { Bokningsrad } from "./bokningsrad";
 import { Sparrar, type SparrRad } from "./sparr";
 
@@ -56,6 +57,10 @@ export default async function AdminBokningar() {
         när du bekräftar eller spärrar.
       </p>
 
+      {/* BeskedProvider ligger stabilt i trädet: när ett statusbyte flyttar
+          en rad mellan listorna nedan monteras raden om, men beskedet bor
+          här och följer bokningen — se besked.tsx. */}
+      <BeskedProvider>
       <section style={{ marginTop: "var(--spacing-6)" }}>
         <h2 style={{ fontSize: "var(--text-lg)" }}>
           Att ta ställning till{forfragningar.length > 0 ? ` (${forfragningar.length})` : ""}
@@ -106,6 +111,7 @@ export default async function AdminBokningar() {
           </ul>
         </section>
       )}
+      </BeskedProvider>
     </main>
   );
 }

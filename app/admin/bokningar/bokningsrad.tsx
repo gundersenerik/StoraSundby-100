@@ -9,6 +9,7 @@ import {
   type BokningsStatus,
 } from "@/lib/uthyrning";
 import { sattStatus } from "./actions";
+import { useBesked } from "./besked";
 
 /**
  * En bokning i kansliets lista, med ett klick per åtgärd.
@@ -19,7 +20,10 @@ import { sattStatus } from "./actions";
  */
 export function Bokningsrad({ bokning, stugnamn }: { bokning: Bokning; stugnamn: string | null }) {
   const [rad, setRad] = useState(bokning);
-  const [besked, setBesked] = useState<{ ok: boolean; text: string } | null>(null);
+  // Beskedet bor i sidans BeskedProvider, inte i raden: när statusbytet
+  // flyttar raden till en annan lista monteras komponenten om, och ett
+  // lokalt besked hade försvunnit precis när det behövdes.
+  const [besked, setBesked] = useBesked(bokning.id);
   const [pagar, start] = useTransition();
 
   const objekt = rad.cabin_id === null ? "Hela anläggningen" : stugnamn ?? rad.cabin_id;

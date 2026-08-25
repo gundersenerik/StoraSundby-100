@@ -7,6 +7,32 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Bekräfta-flimret: beskedet ägs av sidan, inte raden
+
+Fyra CI-varv föll intermittent på samma påstående — beskedet efter
+Bekräfta — och två teorier hann åtgärdas innan den verkliga mekanismen
+syntes i Playwright-rapportens ögonblicksbild: **åtgärden lyckades varje
+gång**. Bokningen stod som bekräftad, men raden hade flyttat från "Att ta
+ställning till" till "Kommande bokningar" i serverns omrendering, och med
+flytten monterades komponenten om — det lokala beskedet försvann. En
+kapplöpning: hann Playwright (eller kansliet) se beskedet före
+omrenderingen fanns det, annars inte.
+
+De två första teorierna var fel eller ofullständiga och ska ägas som det:
+höjd expect-timeout (teori: långsam runner) och borttagen revalidering av
+egna force-dynamic-sidan (riktig förbättring i sig, men inte roten). Det
+som till slut gav svaret var att ladda ner testrapportens sidögonblick i
+stället för att resonera vidare från felmeddelandet.
+
+**Fix:** beskeden bor nu i en BeskedProvider på sidnivå, adresserade per
+boknings-id. Providern ligger stabilt i trädet och överlever
+omrenderingen, så "Inget mejl gick ut — hör av dig till gästen själv"
+står kvar var raden än hamnar. Det var ett verkligt gränssnittsfel, inte
+bara testflimmer: beskedet försvann för kansliet precis när det angick
+dem som mest.
+
+---
+
 ## 2026-08-25 — /bli-medlem publicerar dagens betalrutin trots öppen personnummerfråga
 
 Informationssidan för medlemskap återger gamla sajtens betalinstruktion

@@ -156,6 +156,16 @@ databasbeviset visade 20 och dolde både en röd rad och exitkod 1 — CI fick
 fånga det lokala körningen släppt igenom. Efter en pipe är `$?` dessutom
 sista kommandots kod, inte testets: läs `${PIPESTATUS[0]}`.
 
+**Lokalt tillstånd i en rad som byter lista dör vid omrenderingen.** En
+server action som revaliderar något får sidan omrenderad i svaret; flyttar
+raden då till en annan lista monteras komponenten om och useState-besked
+försvinner — ibland före, ibland efter att någon hunnit se det. Fyra CI-varv
+med intermittenta fall och två felteorier innan Playwright-rapportens
+sidögonblick visade det. Tillstånd som ska överleva läggs i en provider på
+stabil plats i trädet (se admin/bokningar/besked.tsx), och vid oförklarligt
+flimmer: ladda ner rapportartefakten och läs ögonblicksbilden i stället för
+att teoretisera vidare från felmeddelandet.
+
 ## Nuläge
 
 Byggt: fundament, designtokens, publikt träningsschema, sex sektionssidor,
