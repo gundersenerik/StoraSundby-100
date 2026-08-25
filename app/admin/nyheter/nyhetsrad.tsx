@@ -119,7 +119,12 @@ export function Nyhetsrad({ nyhet }: { nyhet: Nyhet }) {
         background: pagar ? "var(--surface-alt)" : "transparent",
       }}
     >
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--spacing-3)" }}>
+      {/* Rubriken som synlig text, inte bara som värde i ett fält: en
+          lista där utkasten bara går att skilja åt genom att läsa
+          formulärfält går inte att skumma — och går inte heller att
+          hitta med en textsökning, mänsklig eller automatisk. */}
+      <h2 style={{ margin: 0, fontSize: "var(--text-lg)" }}>{rad.title}</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--spacing-3)", marginTop: "var(--spacing-2)" }}>
         <p style={{ margin: 0, flex: 1, color: "var(--ink-muted)", fontSize: "var(--text-sm)" }}>
           {publicerad ? (
             <>

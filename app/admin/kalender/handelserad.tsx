@@ -140,7 +140,10 @@ export function Handelserad({ handelse }: { handelse: Evenemang }) {
         background: pagar ? "var(--surface-alt)" : "transparent",
       }}
     >
-      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--spacing-3)" }}>
+      {/* Samma skäl som i nyhetsraden: rubriken måste vara text, inte
+          bara ett fältvärde, för att listan ska gå att skumma och söka. */}
+      <h2 style={{ margin: 0, fontSize: "var(--text-lg)" }}>{rad.title}</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--spacing-3)", marginTop: "var(--spacing-2)" }}>
         <p style={{ margin: 0, flex: 1, color: "var(--ink-muted)", fontSize: "var(--text-sm)" }}>
           {formateraNar(rad)} · {EVENEMANG_ETIKETT[rad.kind]}
           {!rad.published && " · dold"}
