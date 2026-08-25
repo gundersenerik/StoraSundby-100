@@ -7,6 +7,61 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Färg- och typografiprofilen: rollkontraktet behölls, värdena byttes
+
+Erik levererade två profilpaket byggda på en inventering av
+storasundbygoif.com (`content/design/fargprofil/` och
+`content/design/typografi/`).
+
+**Val:** profilens semantiska tokens mappades in i kontraktets tolv
+befintliga rollnamn i stället för att profilens fulla tokenuppsättning
+infördes. Rollnamnen är bindande; ingen komponent behövde röras — hela
+bytet var värden, inte struktur. Det var poängen med kontraktet, och det
+höll.
+
+**Statusfärgerna ligger på 700-nivån i ljust och 300-nivån i mörkt**, inte
+på profilens 600/ikonnivå. Skälet är att samma roll används både som text
+på ljus yta och som knappbakgrund med ljus text (Publicera-knappen,
+paus-badgen) — värdet måste klara 4,5:1 åt båda hållen. Bevisas i
+`tests/enhet/kontrast.test.ts`: varje textroll mot varje yta den används
+på, i båda teman, 40 kombinationer, med kravet läst ur `design.a11y`.
+
+**Archivo Variable laddas via next/font** — självhostad och versionslåst
+vid bygget, en familj för allt, vikt via `font-weight` och bredd via
+`font-stretch` (wdth-axeln). Värt att äga tydligt: Fraunces/Inter i det
+gamla kontraktet var bara namn i en stack — ingen webbfont har någonsin
+laddats förrän nu, sajten renderade i fallbacks.
+
+**Rubrikskalan sätts i `@layer base` ur `design.type.headings`.** Tailwinds
+preflight nollställer rubriker till brödtextstorlek, och tidigare satte
+ingen bas om dem — publika sidors h2 renderade i brödtextstorlek. Nu bär
+h1–h3 displayuttrycket (smalare och tyngre per profilen), h4 är
+läsrubrik i normalbredd, och admin-raderna behåller sina inline-satta
+mindre storlekar eftersom inline alltid vinner.
+
+**Läsbredden förblir per komponent, inte global.** Första versionen la
+profilens measure-regel som `p, li, dd { max-inline-size: 66ch }` i basen.
+Granskningen före commit visade att den klippte admins flex-rader (byggda
+för 64rem) och gav taggiga högerkanter på publika listkort — profilens
+egen regel är skopad till löpande text, inte till varje li. Regeln togs
+bort; sidorna sätter `maxWidth: var(--measure)` medvetet där text flödar,
+vilket de redan gjorde. Kvar i basen: radrytm och `text-wrap: pretty` på p.
+
+**Den preliminära cobalten (`#1424A8`, rasterprovad ur logotypen) bor
+enbart i accent-rollen**, som ingen komponent använder än. Den läcker
+alltså inte in i UI:t förrän kulören är bekräftad ur en vektorlogotyp
+(TILL-KLUBBEN D2).
+
+**Mobilnavigationen fick `flex-basis: 16rem`:** utan den klämdes menyn i en
+smal kolumn bredvid titeln med en post per rad — synligt först i
+skärmbildskontrollen, inte i något test. En riktig mobilmeny är fortfarande
+framtida arbete.
+
+`todo()` togs bort från `design.color`, `design.type.family` och
+`club.brand`. Lanseringsblockerarna gick från 8 till 6.
+
+---
+
 ## 2026-08-25 — Historiesidan: dubbelverifierad research, attribuering och en fråga i stället för ett fynd
 
 Historien researchades i fem parallella källvinklar (tidningsarkiv,

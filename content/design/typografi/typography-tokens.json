@@ -1,0 +1,454 @@
+{
+  "metadata": {
+    "name": "Stora Sundby GoIF Typography",
+    "version": "1.0.0",
+    "date": "2026-08-24",
+    "status": "recommended",
+    "font": "Archivo Variable",
+    "license": "SIL Open Font License 1.1",
+    "languageCoverage": "Basic Latin and Latin-1 Supplement (including ÅÄÖåäö), plus required Latin Extended characters",
+    "referenceRootPx": 16,
+    "note": "Pixel values are reference equivalents only. Implement size tokens in rem/clamp."
+  },
+  "fontFamily": {
+    "body": [
+      "Archivo",
+      "ui-sans-serif",
+      "system-ui",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      "Segoe UI",
+      "Arial",
+      "sans-serif"
+    ],
+    "display": [
+      "Archivo",
+      "Arial Narrow",
+      "Aptos Narrow",
+      "ui-sans-serif",
+      "system-ui",
+      "sans-serif"
+    ],
+    "mono": [
+      "ui-monospace",
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ]
+  },
+  "variableAxes": {
+    "weight": {
+      "tag": "wght",
+      "available": [100, 900],
+      "allowedInSystem": [400, 500, 600, 700, 750, 800, 850]
+    },
+    "width": {
+      "tag": "wdth",
+      "availablePercent": [62, 125],
+      "allowedInSystemPercent": [75, 80, 86, 92, 100]
+    }
+  },
+  "fontWeight": {
+    "regular": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700,
+    "heading": 750,
+    "heavy": 800,
+    "display": 850
+  },
+  "fontWidthPercent": {
+    "display": 75,
+    "h1": 80,
+    "h2": 86,
+    "h3": 92,
+    "normal": 100
+  },
+  "fontSize": {
+    "display": {
+      "css": "clamp(3rem, 2.25rem + 3.75vw, 5.5rem)",
+      "minRem": 3,
+      "maxRem": 5.5,
+      "referencePx": [48, 88]
+    },
+    "h1": {
+      "css": "clamp(2.5rem, 2rem + 2.5vw, 4rem)",
+      "minRem": 2.5,
+      "maxRem": 4,
+      "referencePx": [40, 64]
+    },
+    "h2": {
+      "css": "clamp(2rem, 1.7rem + 1.5vw, 3rem)",
+      "minRem": 2,
+      "maxRem": 3,
+      "referencePx": [32, 48]
+    },
+    "h3": {
+      "css": "clamp(1.625rem, 1.475rem + 0.75vw, 2rem)",
+      "minRem": 1.625,
+      "maxRem": 2,
+      "referencePx": [26, 32]
+    },
+    "h4": {
+      "css": "clamp(1.375rem, 1.3rem + 0.375vw, 1.625rem)",
+      "minRem": 1.375,
+      "maxRem": 1.625,
+      "referencePx": [22, 26]
+    },
+    "h5": {
+      "css": "clamp(1.25rem, 1.2rem + 0.25vw, 1.375rem)",
+      "minRem": 1.25,
+      "maxRem": 1.375,
+      "referencePx": [20, 22]
+    },
+    "h6": {
+      "css": "1.125rem",
+      "minRem": 1.125,
+      "maxRem": 1.125,
+      "referencePx": [18, 18]
+    },
+    "lead": {
+      "css": "clamp(1.125rem, 1.1rem + 0.125vw, 1.25rem)",
+      "minRem": 1.125,
+      "maxRem": 1.25,
+      "referencePx": [18, 20]
+    },
+    "bodyLg": {
+      "css": "clamp(1.0625rem, 1.0425rem + 0.1vw, 1.125rem)",
+      "minRem": 1.0625,
+      "maxRem": 1.125,
+      "referencePx": [17, 18]
+    },
+    "body": {
+      "css": "1rem",
+      "minRem": 1,
+      "maxRem": 1,
+      "referencePx": [16, 16]
+    },
+    "bodySm": {
+      "css": "0.875rem",
+      "minRem": 0.875,
+      "maxRem": 0.875,
+      "referencePx": [14, 14]
+    },
+    "caption": {
+      "css": "0.8125rem",
+      "minRem": 0.8125,
+      "maxRem": 0.8125,
+      "referencePx": [13, 13]
+    },
+    "eyebrow": {
+      "css": "0.8125rem",
+      "minRem": 0.8125,
+      "maxRem": 0.8125,
+      "referencePx": [13, 13]
+    },
+    "nav": {
+      "css": "clamp(0.9375rem, 0.9175rem + 0.1vw, 1rem)",
+      "minRem": 0.9375,
+      "maxRem": 1,
+      "referencePx": [15, 16]
+    },
+    "navMobile": {
+      "css": "1.25rem",
+      "minRem": 1.25,
+      "maxRem": 1.25,
+      "referencePx": [20, 20]
+    },
+    "button": {
+      "css": "1rem",
+      "referencePx": [16, 16]
+    },
+    "buttonSm": {
+      "css": "0.875rem",
+      "referencePx": [14, 14]
+    },
+    "input": {
+      "css": "1rem",
+      "referencePx": [16, 16]
+    },
+    "label": {
+      "css": "0.875rem",
+      "referencePx": [14, 14]
+    },
+    "tableCell": {
+      "css": "clamp(0.875rem, 0.825rem + 0.25vw, 1rem)",
+      "minRem": 0.875,
+      "maxRem": 1,
+      "referencePx": [14, 16]
+    },
+    "score": {
+      "css": "clamp(2.25rem, 1.75rem + 2.5vw, 4rem)",
+      "minRem": 2.25,
+      "maxRem": 4,
+      "referencePx": [36, 64]
+    },
+    "quote": {
+      "css": "clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)",
+      "minRem": 1.25,
+      "maxRem": 1.5,
+      "referencePx": [20, 24]
+    }
+  },
+  "lineHeight": {
+    "display": 0.95,
+    "h1": 1,
+    "h2": 1.05,
+    "h3": 1.1,
+    "h4": 1.2,
+    "h5": 1.25,
+    "h6": 1.3,
+    "lead": 1.5,
+    "body": 1.625,
+    "compact": 1.4,
+    "control": 1.25
+  },
+  "letterSpacingEm": {
+    "display": -0.01,
+    "heading": -0.005,
+    "body": 0,
+    "ui": 0.01,
+    "uppercase": 0.08
+  },
+  "measureCh": {
+    "body": 66,
+    "compact": 60,
+    "lead": 58,
+    "display": 14,
+    "h1": 18,
+    "heading": 26
+  },
+  "roles": {
+    "display": {
+      "family": "display",
+      "size": "display",
+      "weight": 850,
+      "widthPercent": 75,
+      "lineHeight": 0.95,
+      "letterSpacingEm": -0.01,
+      "case": "sentence-case-preferred",
+      "maxMeasureCh": 14
+    },
+    "h1": {
+      "family": "display",
+      "size": "h1",
+      "weight": 800,
+      "widthPercent": 80,
+      "lineHeight": 1,
+      "letterSpacingEm": -0.005,
+      "case": "sentence-case",
+      "maxMeasureCh": 18
+    },
+    "h2": {
+      "family": "display",
+      "size": "h2",
+      "weight": 750,
+      "widthPercent": 86,
+      "lineHeight": 1.05,
+      "letterSpacingEm": -0.005,
+      "case": "sentence-case",
+      "maxMeasureCh": 26
+    },
+    "h3": {
+      "family": "display",
+      "size": "h3",
+      "weight": 700,
+      "widthPercent": 92,
+      "lineHeight": 1.1,
+      "letterSpacingEm": 0,
+      "case": "sentence-case",
+      "maxMeasureCh": 26
+    },
+    "h4": {
+      "family": "body",
+      "size": "h4",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.2,
+      "letterSpacingEm": 0,
+      "case": "sentence-case"
+    },
+    "h5": {
+      "family": "body",
+      "size": "h5",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.25,
+      "letterSpacingEm": 0,
+      "case": "sentence-case"
+    },
+    "h6": {
+      "family": "body",
+      "size": "h6",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.3,
+      "letterSpacingEm": 0,
+      "case": "sentence-case"
+    },
+    "lead": {
+      "family": "body",
+      "size": "lead",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5,
+      "maxMeasureCh": 58
+    },
+    "bodyEditorial": {
+      "family": "body",
+      "size": "bodyLg",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.625,
+      "maxMeasureCh": 66
+    },
+    "bodyUi": {
+      "family": "body",
+      "size": "body",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.625
+    },
+    "bodySmall": {
+      "family": "body",
+      "size": "bodySm",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5,
+      "maxMeasureCh": 60
+    },
+    "link": {
+      "family": "body",
+      "size": "inherit",
+      "weight": 600,
+      "widthPercent": 100,
+      "lineHeight": "inherit",
+      "decoration": "underline"
+    },
+    "nav": {
+      "family": "body",
+      "size": "nav",
+      "weight": 600,
+      "widthPercent": 100,
+      "lineHeight": 1.3,
+      "letterSpacingEm": 0.01
+    },
+    "navMobile": {
+      "family": "body",
+      "size": "navMobile",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.3,
+      "letterSpacingEm": 0
+    },
+    "button": {
+      "family": "body",
+      "size": "button",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.25,
+      "letterSpacingEm": 0.01
+    },
+    "buttonSmall": {
+      "family": "body",
+      "size": "buttonSm",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.25,
+      "letterSpacingEm": 0.01
+    },
+    "input": {
+      "family": "body",
+      "size": "input",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5
+    },
+    "label": {
+      "family": "body",
+      "size": "label",
+      "weight": 600,
+      "widthPercent": 100,
+      "lineHeight": 1.4
+    },
+    "helper": {
+      "family": "body",
+      "size": "bodySm",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5,
+      "maxMeasureCh": 60
+    },
+    "caption": {
+      "family": "body",
+      "size": "caption",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.4,
+      "maxMeasureCh": 60
+    },
+    "eyebrow": {
+      "family": "body",
+      "size": "eyebrow",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.25,
+      "letterSpacingEm": 0.08,
+      "case": "uppercase-short-label-only"
+    },
+    "breadcrumb": {
+      "family": "body",
+      "size": "bodySm",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5
+    },
+    "tableHeader": {
+      "family": "body",
+      "size": "caption",
+      "weight": 700,
+      "widthPercent": 100,
+      "lineHeight": 1.4,
+      "letterSpacingEm": 0.01
+    },
+    "tableCell": {
+      "family": "body",
+      "size": "tableCell",
+      "weight": 400,
+      "widthPercent": 100,
+      "lineHeight": 1.5
+    },
+    "score": {
+      "family": "display",
+      "size": "score",
+      "weight": 850,
+      "widthPercent": 86,
+      "lineHeight": 1,
+      "numeric": "lining-nums tabular-nums",
+      "numericFeatureVerificationRequired": true
+    },
+    "quote": {
+      "family": "body",
+      "size": "quote",
+      "weight": 500,
+      "widthPercent": 100,
+      "lineHeight": 1.45,
+      "style": "italic",
+      "maxMeasureCh": 58
+    }
+  },
+  "accessibilityAcceptance": {
+    "minViewportCssPx": 320,
+    "textResizePercent": 200,
+    "zoomReflowPercent": 400,
+    "userTextSpacing": {
+      "lineHeightEm": 1.5,
+      "paragraphAfterEm": 2,
+      "letterSpacingEm": 0.12,
+      "wordSpacingEm": 0.16
+    },
+    "bodyTextContrastMinimum": "4.5:1",
+    "largeTextContrastMinimum": "3:1"
+  }
+}

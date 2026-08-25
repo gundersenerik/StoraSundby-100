@@ -1,0 +1,34 @@
+/*
+ * Produktionsmall för självhostad Archivo Variable.
+ * Ersätt sökvägarna med versionslåsta, licensierade WOFF2-filer.
+ * Den kombinerade subsetten ska innehålla Basic Latin, Latin-1 Supplement
+ * (där ÅÄÖåäö ligger) och de Latin Extended-tecken som föreningen behöver.
+ */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-plus-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+
+/* Den kursiva filen hämtas först när italic faktiskt förekommer i innehållet. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-plus-variable-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+
+/*
+ * Preloada bara den upright-fil som syns i första vyn:
+ * <link rel="preload" href="/fonts/archivo-latin-plus-variable.woff2"
+ *       as="font" type="font/woff2" crossorigin>
+ *
+ * Mät sedan verkliga fallbackmått innan size-adjust/ascent-override läggs till.
+ * Gissade metric overrides kan skapa mer layoutskifte än de löser.
+ */

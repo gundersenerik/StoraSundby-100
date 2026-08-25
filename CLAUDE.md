@@ -193,7 +193,15 @@ i löptexten; 1932-sammanslagningen publicerades INTE utan ligger som C8
 i TILL-KLUBBEN). /tillganglighet är en frivillig redogörelse skriven
 strikt ur det som faktiskt testas. /webbshop finns i link-out-läge —
 hela huvudmenyn är därmed byggd; feed/curated byggs när Tifosi svarat
-(club.shop.mode, B1).
+(club.shop.mode, B1). Klubbens riktiga färger och typografi är
+implementerade ur Eriks profilpaket (content/design/fargprofil/ och
+/typografi/, byggda på inventering av storasundbygoif.com): navy/digitalblå
+i alla tolv färgroller, Archivo Variable via next/font (första riktiga
+webbfonten — Fraunces/Inter laddades aldrig), rubrikskala med breddaxel i
+@layer base, länk- och radrytm ur profilen. Kontrasten bevisas i
+tests/enhet/kontrast.test.ts (40 kombinationer ur design.color) utöver axe.
+Logotypens cobalt är preliminär och bor enbart i oanvända accent-rollen
+tills vektorlogotypen kommit (D2).
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.
@@ -203,18 +211,20 @@ borta — `priserArPlatshallare()` gatar sida, formulär och mejl. Samma
 mekanik som gör att organisationsnumret (numera hittat: 818000-3694,
 bekräftat i två källor) höll sig ur strukturerad data tills det fanns.
 
-Testat: 74 enhetstester, ~170 E2E i mobil och skrivbord, 29
-databaspåståenden mot riktig Postgres, axe-core utan allvarliga fel på
-samtliga publika och inloggade vyer inklusive uthyrningen, nyheterna och
-kalendern.
+Testat: 128 enhetstester (inkl. WCAG-kontrast för alla textroller —
+linjefärgen bär aldrig text och är otestad), ~224 E2E i mobil och
+skrivbord, 33 databaspåståenden mot riktig Postgres,
+axe-core utan allvarliga fel på samtliga publika och inloggade vyer
+inklusive uthyrningen, nyheterna och kalendern.
 
 Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
 `LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
 personnummer.
 
-Ej byggt: medlemsportal, webbshop.
+Ej byggt: medlemsportal, webbshop (riktig produktupplevelse), dedikerad
+mobilmeny.
 
-**Åtta lanseringsblockerare** står kvar i `SWAP-LIST.md`.
+**Sex lanseringsblockerare** står kvar i `SWAP-LIST.md`.
 `npm run swap-list:strict` vägrar produktionsdeploy tills de är lösta.
 
 **Det som låser upp mest just nu är inte kod utan två mejl.** Tifosi om

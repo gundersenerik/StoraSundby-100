@@ -262,6 +262,9 @@ det är i så fall värt att veta.
 ### D2. Logotyp och bilder
 
 Logotypen som vektorfil om den finns, annars högsta upplösning ni har.
+Den har blivit viktigare: sajtens färgprofil har kunnat läsa klubbens blå
+ur webbplatsens kod, men logotypens exakta kulör är bara uppmätt ur en
+komprimerad bild och räknas som preliminär tills vi sett originalet.
 
 Foton från anläggningen: gräsplanerna, stugorna inifrån och utifrån,
 elljusspåret, padelbanan, gärna från verksamheten. Bilder från

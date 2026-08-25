@@ -68,7 +68,10 @@ export default function PublikLayout({ children }: { children: React.ReactNode }
             {identity.shortName}
           </Link>
 
-          <nav aria-label="Huvudmeny" style={{ flex: 1 }}>
+          {/* flex-basis 16rem: får menyn inte plats bredvid titeln bryter
+              den till en egen rad i full bredd, i stället för att klämmas
+              till en smal kolumn med en post per rad på mobilen. */}
+          <nav aria-label="Huvudmeny" style={{ flex: "1 1 16rem" }}>
             <Meny poster={byggda(huvudmeny)} />
           </nav>
         </div>

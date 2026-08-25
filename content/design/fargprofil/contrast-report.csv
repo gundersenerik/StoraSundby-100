@@ -1,0 +1,28 @@
+theme,use_case,foreground,background,contrast_ratio,required_ratio,result,note
+light,Primär text på canvas,#001D3B,#FFFFFF,16.95,4.5,PASS,AAA för normal text
+light,Sekundär text på canvas,#40566C,#FFFFFF,7.59,4.5,PASS,AAA för normal text
+light,Dämpad text på canvas,#596A7B,#FFFFFF,5.57,4.5,PASS,AA för normal text
+light,Invers text på brandyta,#FFFFFF,#001D3B,16.95,4.5,PASS,AAA för normal text
+light,Primär knapp,#FFFFFF,#094B92,8.63,4.5,PASS,AAA för normal text
+light,Primär knapp hover,#FFFFFF,#083F7A,10.49,4.5,PASS,AAA för normal text
+light,Sekundär knapp,#094B92,#FFFFFF,8.63,4.5,PASS,AAA för normal text
+light,"Besökt länk, preliminär cobalt",#1424A8,#FFFFFF,11.37,4.5,PASS,AAA; kulören är preliminär
+light,Focus ring mot vitt,#005FCC,#FFFFFF,5.98,3.0,PASS,UI/fokus
+light,Selection text,#001D3B,#DDEAF7,13.87,4.5,PASS,AAA för normal text
+light,Success message,#075034,#ECFDF5,9.04,4.5,PASS,Normal text
+light,Warning message,#6F3D0B,#FFF8E6,8.44,4.5,PASS,Normal text
+light,Error message,#841B29,#FFF1F2,8.81,4.5,PASS,Normal text
+light,Info message,#052D59,#F2F7FC,12.77,4.5,PASS,Normal text
+light,Vit text över navy 65 % på vit bild,#FFFFFF,#596C80,5.41,4.5,PASS,Beräknat ljusaste fotobakgrund
+dark,Primär text på surface,#FFFFFF,#001D3B,16.95,4.5,PASS,AAA för normal text
+dark,Sekundär text på surface,#DFE3E7,#001D3B,13.14,4.5,PASS,AAA för normal text
+dark,Dämpad text på surface,#99A5B1,#001D3B,6.76,4.5,PASS,AA för normal text
+dark,Länk på surface,#8BB4DC,#001D3B,7.80,4.5,PASS,AAA för normal text
+dark,Primär knapp,#001D3B,#B9D2EA,10.87,4.5,PASS,AAA för normal text
+dark,Selection text,#FFFFFF,#083F7A,10.49,4.5,PASS,AAA för normal text
+dark,Focus ring mot canvas,#8BB4DC,#001225,8.68,3.0,PASS,UI/fokus
+dark,Success message,#D1FAE5,#063F2A,10.57,4.5,PASS,Normal text
+dark,Warning message,#FFEDBF,#5C330D,9.37,4.5,PASS,Normal text
+dark,Error message,#FFE0E2,#701C27,9.03,4.5,PASS,Normal text
+dark,Info message,#DDEAF7,#052D59,11.26,4.5,PASS,Normal text
+legacy,Gammal formulärfokus mot vitt,#129FEA,#FFFFFF,2.93,3.0,FAIL,Avsiktligt underkänd; ska inte användas ensam

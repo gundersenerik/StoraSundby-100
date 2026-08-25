@@ -1,0 +1,448 @@
+/*
+ * Stora Sundby GoIF — typografitokens och recept
+ * Version 1.0, 2026-08-24
+ *
+ * Rekommenderad familj: Archivo Variable
+ * Axlar: vikt 100–900, bredd 62–125. Brödtext använder 100 % bredd.
+ * Applicera .ssg-typography på sidans eller appens rot.
+ */
+
+:root {
+  /* Familjer */
+  --ssg-font-family-body: "Archivo", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --ssg-font-family-display: "Archivo", "Arial Narrow", "Aptos Narrow",
+    ui-sans-serif, system-ui, sans-serif;
+  --ssg-font-family-mono: ui-monospace, "SFMono-Regular", Consolas,
+    "Liberation Mono", monospace;
+
+  /* Vikter */
+  --ssg-font-weight-regular: 400;
+  --ssg-font-weight-medium: 500;
+  --ssg-font-weight-semibold: 600;
+  --ssg-font-weight-bold: 700;
+  --ssg-font-weight-heading: 750;
+  --ssg-font-weight-heavy: 800;
+  --ssg-font-weight-display: 850;
+
+  /* Breddaxel — håll löptext och små UI-texter på 100 % */
+  --ssg-font-width-display: 75%;
+  --ssg-font-width-h1: 80%;
+  --ssg-font-width-h2: 86%;
+  --ssg-font-width-h3: 92%;
+  --ssg-font-width-normal: 100%;
+
+  /* Responsiv storleksskala. Min/max är rem för zoom och användarinställningar. */
+  --ssg-font-size-display: clamp(3rem, 2.25rem + 3.75vw, 5.5rem); /* 48–88 */
+  --ssg-font-size-h1: clamp(2.5rem, 2rem + 2.5vw, 4rem); /* 40–64 */
+  --ssg-font-size-h2: clamp(2rem, 1.7rem + 1.5vw, 3rem); /* 32–48 */
+  --ssg-font-size-h3: clamp(1.625rem, 1.475rem + 0.75vw, 2rem); /* 26–32 */
+  --ssg-font-size-h4: clamp(1.375rem, 1.3rem + 0.375vw, 1.625rem); /* 22–26 */
+  --ssg-font-size-h5: clamp(1.25rem, 1.2rem + 0.25vw, 1.375rem); /* 20–22 */
+  --ssg-font-size-h6: 1.125rem; /* 18 */
+  --ssg-font-size-lead: clamp(1.125rem, 1.1rem + 0.125vw, 1.25rem); /* 18–20 */
+  --ssg-font-size-body-lg: clamp(1.0625rem, 1.0425rem + 0.1vw, 1.125rem); /* 17–18 */
+  --ssg-font-size-body: 1rem; /* 16 */
+  --ssg-font-size-body-sm: 0.875rem; /* 14 */
+  --ssg-font-size-caption: 0.8125rem; /* 13 */
+  --ssg-font-size-eyebrow: 0.8125rem; /* 13 */
+  --ssg-font-size-nav: clamp(0.9375rem, 0.9175rem + 0.1vw, 1rem); /* 15–16 */
+  --ssg-font-size-nav-mobile: 1.25rem; /* 20 */
+  --ssg-font-size-button: 1rem; /* 16 */
+  --ssg-font-size-button-sm: 0.875rem; /* 14 */
+  --ssg-font-size-input: 1rem; /* 16; undviker automatisk iOS-zoom */
+  --ssg-font-size-label: 0.875rem; /* 14 */
+  --ssg-font-size-table-cell: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14–16 */
+  --ssg-font-size-score: clamp(2.25rem, 1.75rem + 2.5vw, 4rem); /* 36–64 */
+  --ssg-font-size-quote: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20–24 */
+
+  /* Radavstånd */
+  --ssg-line-height-display: 0.95;
+  --ssg-line-height-h1: 1;
+  --ssg-line-height-h2: 1.05;
+  --ssg-line-height-h3: 1.1;
+  --ssg-line-height-h4: 1.2;
+  --ssg-line-height-h5: 1.25;
+  --ssg-line-height-h6: 1.3;
+  --ssg-line-height-lead: 1.5;
+  --ssg-line-height-body: 1.625;
+  --ssg-line-height-compact: 1.4;
+  --ssg-line-height-control: 1.25;
+
+  /* Teckenavstånd */
+  --ssg-letter-spacing-display: -0.01em;
+  --ssg-letter-spacing-heading: -0.005em;
+  --ssg-letter-spacing-body: 0;
+  --ssg-letter-spacing-ui: 0.01em;
+  --ssg-letter-spacing-uppercase: 0.08em;
+
+  /* Läsbredder */
+  --ssg-measure-body: 66ch;
+  --ssg-measure-compact: 60ch;
+  --ssg-measure-lead: 58ch;
+  --ssg-measure-display: 14ch;
+  --ssg-measure-h1: 18ch;
+  --ssg-measure-heading: 26ch;
+
+  /* Vertikal rytm */
+  --ssg-space-paragraph: 1em;
+  --ssg-space-heading-before: 1.5em;
+  --ssg-space-heading-after: 0.55em;
+}
+
+.ssg-typography {
+  font-family: var(--ssg-font-family-body);
+  font-size: var(--ssg-font-size-body);
+  font-weight: var(--ssg-font-weight-regular);
+  font-stretch: var(--ssg-font-width-normal);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums proportional-nums;
+  line-height: var(--ssg-line-height-body);
+  letter-spacing: var(--ssg-letter-spacing-body);
+  overflow-wrap: break-word;
+  text-align: start;
+}
+
+.ssg-typography :where(p, li, dd) {
+  font-family: var(--ssg-font-family-body);
+  font-size: inherit;
+  font-weight: inherit;
+  font-stretch: var(--ssg-font-width-normal);
+  line-height: inherit;
+  max-inline-size: var(--ssg-measure-body);
+  text-wrap: pretty;
+}
+
+.ssg-typography :where(p) {
+  margin-block: 0 var(--ssg-space-paragraph);
+}
+
+.ssg-type-display,
+.ssg-typography h1,
+.ssg-typography h2,
+.ssg-typography h3,
+.ssg-type-h1,
+.ssg-type-h2,
+.ssg-type-h3 {
+  font-family: var(--ssg-font-family-display);
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.ssg-type-display {
+  max-inline-size: var(--ssg-measure-display);
+  font-size: var(--ssg-font-size-display);
+  font-weight: var(--ssg-font-weight-display);
+  font-stretch: var(--ssg-font-width-display);
+  line-height: var(--ssg-line-height-display);
+  letter-spacing: var(--ssg-letter-spacing-display);
+}
+
+.ssg-typography h1,
+.ssg-type-h1 {
+  max-inline-size: var(--ssg-measure-h1);
+  font-size: var(--ssg-font-size-h1);
+  font-weight: var(--ssg-font-weight-heavy);
+  font-stretch: var(--ssg-font-width-h1);
+  line-height: var(--ssg-line-height-h1);
+  letter-spacing: var(--ssg-letter-spacing-heading);
+}
+
+.ssg-typography h2,
+.ssg-type-h2 {
+  max-inline-size: var(--ssg-measure-heading);
+  font-size: var(--ssg-font-size-h2);
+  font-weight: var(--ssg-font-weight-heading);
+  font-stretch: var(--ssg-font-width-h2);
+  line-height: var(--ssg-line-height-h2);
+  letter-spacing: var(--ssg-letter-spacing-heading);
+}
+
+.ssg-typography h3,
+.ssg-type-h3 {
+  max-inline-size: var(--ssg-measure-heading);
+  font-size: var(--ssg-font-size-h3);
+  font-weight: var(--ssg-font-weight-bold);
+  font-stretch: var(--ssg-font-width-h3);
+  line-height: var(--ssg-line-height-h3);
+  letter-spacing: 0;
+}
+
+.ssg-typography h4,
+.ssg-typography h5,
+.ssg-typography h6,
+.ssg-type-h4,
+.ssg-type-h5,
+.ssg-type-h6 {
+  font-family: var(--ssg-font-family-body);
+  font-stretch: var(--ssg-font-width-normal);
+}
+
+.ssg-typography h4,
+.ssg-type-h4 {
+  max-inline-size: var(--ssg-measure-heading);
+  font-size: var(--ssg-font-size-h4);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: var(--ssg-line-height-h4);
+}
+
+.ssg-typography h5,
+.ssg-type-h5 {
+  font-size: var(--ssg-font-size-h5);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: var(--ssg-line-height-h5);
+}
+
+.ssg-typography h6,
+.ssg-type-h6 {
+  font-size: var(--ssg-font-size-h6);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: var(--ssg-line-height-h6);
+}
+
+.ssg-typography :where(h1, h2, h3, h4, h5, h6),
+.ssg-type-display,
+.ssg-type-h1,
+.ssg-type-h2,
+.ssg-type-h3,
+.ssg-type-h4,
+.ssg-type-h5,
+.ssg-type-h6 {
+  margin-block: var(--ssg-space-heading-before) var(--ssg-space-heading-after);
+  text-transform: none;
+}
+
+.ssg-type-lead {
+  max-inline-size: var(--ssg-measure-lead);
+  font-size: var(--ssg-font-size-lead);
+  font-weight: var(--ssg-font-weight-regular);
+  line-height: var(--ssg-line-height-lead);
+}
+
+.ssg-type-prose,
+.ssg-type-lead,
+.ssg-type-body-lg,
+.ssg-type-body,
+.ssg-type-body-sm,
+.ssg-type-breadcrumb,
+.ssg-type-helper,
+.ssg-type-caption,
+.ssg-type-meta,
+.ssg-type-eyebrow,
+.ssg-type-nav,
+.ssg-type-nav-mobile,
+.ssg-type-label,
+.ssg-type-table-header,
+.ssg-type-table-cell {
+  font-family: var(--ssg-font-family-body);
+  font-stretch: var(--ssg-font-width-normal);
+}
+
+.ssg-type-body-lg {
+  font-size: var(--ssg-font-size-body-lg);
+  line-height: var(--ssg-line-height-body);
+}
+
+.ssg-type-body {
+  font-size: var(--ssg-font-size-body);
+  line-height: var(--ssg-line-height-body);
+}
+
+.ssg-type-body-sm,
+.ssg-type-helper {
+  max-inline-size: var(--ssg-measure-compact);
+  font-size: var(--ssg-font-size-body-sm);
+  line-height: 1.5;
+}
+
+.ssg-type-breadcrumb {
+  font-size: var(--ssg-font-size-body-sm);
+  line-height: 1.5;
+}
+
+.ssg-type-caption,
+.ssg-type-meta {
+  max-inline-size: var(--ssg-measure-compact);
+  font-size: var(--ssg-font-size-caption);
+  line-height: var(--ssg-line-height-compact);
+}
+
+.ssg-type-eyebrow {
+  font-size: var(--ssg-font-size-eyebrow);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: 1.25;
+  letter-spacing: var(--ssg-letter-spacing-uppercase);
+  text-transform: uppercase;
+}
+
+.ssg-type-nav {
+  font-size: var(--ssg-font-size-nav);
+  font-weight: var(--ssg-font-weight-semibold);
+  line-height: 1.3;
+  letter-spacing: var(--ssg-letter-spacing-ui);
+  text-transform: none;
+}
+
+.ssg-type-nav-mobile {
+  font-size: var(--ssg-font-size-nav-mobile);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.ssg-type-button,
+.ssg-type-button-sm {
+  font-family: var(--ssg-font-family-body);
+  font-style: normal;
+  font-weight: var(--ssg-font-weight-bold);
+  font-stretch: var(--ssg-font-width-normal);
+  line-height: var(--ssg-line-height-control);
+  letter-spacing: var(--ssg-letter-spacing-ui);
+  text-transform: none;
+}
+
+.ssg-type-button {
+  font-size: var(--ssg-font-size-button);
+}
+
+.ssg-type-button-sm {
+  font-size: var(--ssg-font-size-button-sm);
+}
+
+.ssg-type-label {
+  font-size: var(--ssg-font-size-label);
+  font-weight: var(--ssg-font-weight-semibold);
+  line-height: var(--ssg-line-height-compact);
+}
+
+.ssg-type-table-header {
+  font-size: var(--ssg-font-size-caption);
+  font-weight: var(--ssg-font-weight-bold);
+  line-height: var(--ssg-line-height-compact);
+  letter-spacing: var(--ssg-letter-spacing-ui);
+}
+
+.ssg-type-table-cell {
+  font-size: var(--ssg-font-size-table-cell);
+  font-weight: var(--ssg-font-weight-regular);
+  line-height: 1.5;
+}
+
+.ssg-typography :where(input, textarea, select),
+.ssg-type-input {
+  font-family: var(--ssg-font-family-body);
+  font-size: var(--ssg-font-size-input);
+  font-style: normal;
+  font-weight: var(--ssg-font-weight-regular);
+  font-stretch: var(--ssg-font-width-normal);
+  line-height: 1.5;
+}
+
+.ssg-type-score,
+.ssg-type-stat,
+.ssg-type-time,
+.ssg-type-table-number {
+  /* Verifiera att den versionslåsta WOFF2-builden behåller OpenType tnum. */
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ssg-type-score,
+.ssg-type-stat {
+  font-family: var(--ssg-font-family-display);
+  font-size: var(--ssg-font-size-score);
+  font-weight: var(--ssg-font-weight-display);
+  font-stretch: var(--ssg-font-width-h2);
+  line-height: 1;
+}
+
+.ssg-type-quote {
+  max-inline-size: var(--ssg-measure-lead);
+  font-family: var(--ssg-font-family-body);
+  font-size: var(--ssg-font-size-quote);
+  font-style: italic;
+  font-weight: var(--ssg-font-weight-medium);
+  line-height: 1.45;
+}
+
+.ssg-typography :where(a),
+.ssg-type-link {
+  color: var(--ssg-color-link-default, #094b92);
+  text-decoration-line: underline;
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.18em;
+  text-decoration-skip-ink: auto;
+}
+
+.ssg-typography :where(p, li, dd) a,
+.ssg-type-link {
+  font-weight: var(--ssg-font-weight-semibold);
+}
+
+.ssg-typography :where(a:hover),
+.ssg-type-link:hover {
+  color: var(--ssg-color-link-hover, #083f7a);
+  text-decoration-thickness: max(0.12em, 2px);
+}
+
+.ssg-typography :where(a:visited),
+.ssg-type-link:visited {
+  color: var(--ssg-color-link-visited, #1424a8);
+}
+
+.ssg-typography :where(a:active),
+.ssg-type-link:active {
+  color: var(--ssg-color-link-pressed, #001d3b);
+}
+
+.ssg-typography :where(a:focus-visible),
+.ssg-type-link:focus-visible {
+  outline: 2px solid var(--ssg-color-focus-ring, #005fcc);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.ssg-typography :where(strong, b) {
+  font-weight: bolder;
+}
+
+.ssg-typography :where(code, kbd, samp) {
+  font-family: var(--ssg-font-family-mono);
+  font-size: 0.9em;
+}
+
+/* Svensk avstavning kräver lang="sv" i HTML. Aldrig på kontroller eller navigation. */
+.ssg-type-prose {
+  font-size: var(--ssg-font-size-body-lg);
+  line-height: var(--ssg-line-height-body);
+}
+
+.ssg-type-prose:lang(sv) {
+  hyphens: auto;
+}
+
+.ssg-type-nav,
+.ssg-type-nav-mobile,
+.ssg-type-button,
+.ssg-type-button-sm,
+.ssg-type-eyebrow {
+  hyphens: none;
+}
+
+/* Visuell storlek och semantisk rubriknivå är separata beslut. */
+@media (max-width: 30rem) {
+  :root {
+    --ssg-measure-display: 12ch;
+    --ssg-measure-h1: 16ch;
+    --ssg-space-heading-before: 1.25em;
+  }
+}
+
+@media print {
+  :root {
+    --ssg-font-size-display: 32pt;
+    --ssg-font-size-h1: 28pt;
+    --ssg-font-size-h2: 22pt;
+    --ssg-font-size-h3: 18pt;
+    --ssg-font-size-body: 10.5pt;
+  }
+}

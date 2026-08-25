@@ -157,6 +157,21 @@ innehåller enligt [Eskilstuna kommuns register](https://www.eskilstuna.se/downl
 en artikel av Nils Dencker om idrott, lek och spel i Öja socken — finns
 på Eskilstuna stadsbibliotek. Kan innehålla föreningens tidiga historia.
 
+## Designprofilen
+
+Färg- och typografiprofilerna levererades av Erik 2026-08-25 och ligger i
+`content/design/fargprofil/` och `content/design/typografi/`. Båda bygger
+på en teknisk inventering av storasundbygoif.com gjord 2026-08-24
+(kompilerad CSS, computed styles, inbäddade SVG:er).
+
+| Påstående | Källa | Hämtat | Klass |
+|---|---|---|---|
+| Klubbfärgerna navy `#001D3B` och digitalblå `#094B92` är webbplatsens explicita `:root`-tokens | `content/design/fargprofil/raw-color-inventory-appendix.md` | 2026-08-25 | Bekräftat |
+| Vit canvas och `#F1F1F1` som sekundär ljus yta | samma inventering | 2026-08-25 | Bekräftat |
+| Logotypens cobalt är ungefär `#1424A8` | rasterprovning av komprimerad logotyp, `content/design/fargprofil/README.md` | 2026-08-25 | Preliminärt — vektorlogotyp efterfrågas i TILL-KLUBBEN D2 |
+| Gamla sajten: Open Sans + Open Sans Condensed, ingen H1 på fem granskade sidtyper | `content/design/typografi/current-site-typography-audit.md` | 2026-08-25 | Bekräftat |
+| Archivo Variable som gemensam familj, skalor och roller | `content/design/typografi/README.md` — Eriks profilbeslut, inte ett klubbfaktum | 2026-08-25 | Beslut |
+
 ## Mätningar av gamla sajten
 
 Gjorda med `npm run inventory:legacy` 2026-08-23. Underlag, inte

@@ -33,8 +33,10 @@ export function Meny({ poster }: { poster: MenyPost[] }) {
                 display: "inline-flex",
                 alignItems: "center",
                 minHeight: "44px",
+                // Navigationsvikt 600 ur typografiprofilen; aktiv sida
+                // markeras med färg, understrykning och aria-current.
                 color: aktiv ? "var(--brand)" : "var(--ink)",
-                fontWeight: aktiv ? 600 : 400,
+                fontWeight: 600,
                 textDecoration: aktiv ? "underline" : "none",
                 textUnderlineOffset: "0.3em",
               }}

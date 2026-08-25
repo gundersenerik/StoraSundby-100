@@ -111,17 +111,70 @@ out.push("}", "");
 
 /* ── Basregler som följer av a11y-kontraktet ──────────────────────────── */
 out.push(
-  "/* Följer av design.a11y. Krav, inte ambition. */",
+  "/* Följer av design.a11y och design.type. Krav, inte ambition. */",
   "@layer base {",
   "  body {",
   "    background: var(--paper);",
   "    color: var(--ink);",
   "    font-family: var(--font-body);",
+  "    line-height: var(--leading-normal);",
   "  }",
   "",
+);
+
+/*
+ * Rubrikerna får storlek, vikt och bredd ur design.type.headings. Tailwinds
+ * preflight nollställer annars rubriker till brödtextens storlek, och att
+ * varje sida skulle sätta om dem själv är exakt den duplicering kontraktet
+ * förbjuder. h1–h3 bär displayuttrycket (smalare och tyngre per profilen),
+ * h4 är läsrubriken i normalbredd.
+ */
+for (const [tag, r] of Object.entries(design.type.headings)) {
+  const familj = r.stretch === "100%" ? "body" : "display";
+  out.push(
+    `  ${tag} {`,
+    `    font-family: var(--font-${familj});`,
+    `    font-size: var(--text-${r.size});`,
+    `    font-weight: ${r.weight};`,
+    `    font-stretch: ${r.stretch};`,
+    `    line-height: ${r.leading};`,
+    `    margin-block: ${tag === "h1" ? "0" : "1.5em"} 0.55em;`,
+    "  }",
+    "",
+  );
+}
+
+out.push(
   "  h1, h2, h3 {",
-  "    font-family: var(--font-display);",
-  "    line-height: var(--leading-tight);",
+  "    text-wrap: balance;",
+  "  }",
+  "",
+  "  /* Radrytm ur typografiprofilen. Läsbredden sätts däremot MEDVETET per",
+  "     komponent (maxWidth: var(--measure)) — profilens measure-regel gäller",
+  "     löpande text, och en global elementselektor träffar även layout-li",
+  "     och flex-rader i admin, som den klippte vid 66ch innan granskningen",
+  "     fångade det. */",
+  "  p {",
+  "    margin-block: 0 1em;",
+  "    text-wrap: pretty;",
+  "  }",
+  "",
+  "  /* Länkar är understrukna i löptext — igenkänning före dekor. */",
+  "  a {",
+  "    color: var(--brand);",
+  "    text-decoration-line: underline;",
+  "    text-decoration-thickness: max(0.08em, 1px);",
+  "    text-underline-offset: 0.18em;",
+  "    text-decoration-skip-ink: auto;",
+  "  }",
+  "",
+  "  a:hover {",
+  "    text-decoration-thickness: max(0.12em, 2px);",
+  "  }",
+  "",
+  "  /* Klockslag och datum hoppar inte när innehållet byts. */",
+  "  time {",
+  "    font-variant-numeric: lining-nums tabular-nums;",
   "  }",
   "",
 );

@@ -349,21 +349,18 @@ export const club = {
   },
 
   // ─── Varumärke ──────────────────────────────────────────────────────────
-  brand: todo(
-    {
-      primary: "#1B4D3E",
-      secondary: "#F0B429",
-      ink: "#14180F",
-      paper: "#FBFAF5",
-    },
-    {
-      path: "club.brand",
-      note:
-        "PÅHITTADE FÄRGER. Hämta de riktiga från klubbdräkten, logotypen och " +
-        "sortimentet i webbshoppen innan designen låses.",
-      blocksLaunch: true,
-    },
-  ),
+  /**
+   * Observerade på storasundbygoif.com 2026-08-24 — navy och digitalblå är
+   * webbplatsens explicita :root-tokens, se content/design/fargprofil/.
+   * Logotypens cobalt (~#1424A8) är rasterprovad och PRELIMINÄR; den bor i
+   * design.ts som accentroll tills en vektorlogotyp bekräftar kulören.
+   */
+  brand: {
+    primary: "#001D3B",
+    secondary: "#094B92",
+    ink: "#001D3B",
+    paper: "#FFFFFF",
+  },
 
   // ─── Drift ──────────────────────────────────────────────────────────────
   site: {
