@@ -5,6 +5,8 @@ import { club } from "@/config/club";
 import { hamtaSektion, publiceradeSektioner, sektionsFakta } from "@/lib/sektioner";
 import { VECKODAGAR, formateraAlder, formateraTid } from "@/lib/traning";
 import { bassadress, breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
+import { sektionsbilder } from "@/lib/bilder";
+import { Figur } from "../figur";
 
 export const revalidate = 300;
 
@@ -59,6 +61,11 @@ export default async function Sektionssida({
           {stycke}
         </p>
       ))}
+
+      {/* Sektioner utan eget foto i arkivet står utan bild — hellre ingen
+          bild än en genrebild. Ingen preload: bilden ligger efter den
+          admin-redigerbara brödtexten och hamnar under vecket på mobil. */}
+      {sektionsbilder[sektion] && <Figur foto={sektionsbilder[sektion]} />}
 
       {sektion === "padel" && club.facility.padelBookingUrl && (
         <p>

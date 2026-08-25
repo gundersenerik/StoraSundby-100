@@ -172,6 +172,22 @@ på en teknisk inventering av storasundbygoif.com gjord 2026-08-24
 | Gamla sajten: Open Sans + Open Sans Condensed, ingen H1 på fem granskade sidtyper | `content/design/typografi/current-site-typography-audit.md` | 2026-08-25 | Bekräftat |
 | Archivo Variable som gemensam familj, skalor och roller | `content/design/typografi/README.md` — Eriks profilbeslut, inte ett klubbfaktum | 2026-08-25 | Beslut |
 
+## Fotografierna
+
+De publicerade fotona är curerade ur de 28 som hämtades från gamla sajten
+(`content/legacy/bilder/`, provenans per sida i
+`content/legacy/inventering.json`). Kopiorna i bruk ligger i `bilder/`
+med beskrivande filnamn; alt-texterna beskriver bara det som syns och
+testas mot röstreglerna i `tests/enhet/bilder.test.ts`.
+
+| Påstående | Källa | Hämtat | Klass |
+|---|---|---|---|
+| Samtycke till publicering av fotona, inklusive bilder med personer | Erik, i projektsessionen | 2026-08-25 | Bekräftat |
+| Skylten "Hammargärdets IP" sitter på klubbstugan | fotot `klubbstugan-hammargardets-ip.jpeg` (gamla `/om-föreningen`) — ytterligare belägg för anläggningsnamnet | 2026-08-25 | Bekräftat |
+| Orienteringskartan "Öja Norra 1" anger Stora Sundby GoIF som upphovsman och Arne Hall under kvalitetssäkring | fotot `orienteringskarta-oja-norra.jpeg` (gamla `/orientering`) — stödjer Arne Halls orienteringskoppling i historiken | 2026-08-25 | Bekräftat |
+| Det historiska fotot visar att gräsmattan lades för hand | fotot `grasmattan-laggs.jpeg` (gamla `/om-föreningen`) — år, plats och personer är okända och påstås inte; efterlysning i bildtexten | 2026-08-25 | Bekräftat, avgränsat |
+| Gamla prislistan (PNG från `/uthyrning`) publiceras INTE | priserna är gatade bakom `priserArPlatshallare()` tills kansliet svarat (A4) | 2026-08-25 | Beslut |
+
 ## Mätningar av gamla sajten
 
 Gjorda med `npm run inventory:legacy` 2026-08-23. Underlag, inte

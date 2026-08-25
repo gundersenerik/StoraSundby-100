@@ -6,6 +6,8 @@ import { breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
 import { priserArPlatshallare } from "@/lib/uthyrning";
 import { hamtaStugor, hamtaUpptagnaPerioder } from "@/lib/uthyrning-data";
 import { Kalender } from "./kalender";
+import { Figur } from "../figur";
+import { bilder } from "@/lib/bilder";
 
 export const metadata: Metadata = {
   title: "Hyr våra stugor",
@@ -47,6 +49,10 @@ export default async function Uthyrning() {
         {cabins.bedsPerCabin} bäddar, och i en av stugorna är det tillåtet
         att ha hund.
       </p>
+
+      {/* Stugbilden är sidans viktigaste innehåll: hyresgäster fattar
+          beslut på foton. Den ligger först och förladdas därför. */}
+      <Figur foto={bilder.stugorna} preload />
 
       <section style={{ marginTop: "var(--spacing-7)" }}>
         <h2>Stugorna</h2>

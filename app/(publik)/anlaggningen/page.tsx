@@ -4,6 +4,8 @@ import { club } from "@/config/club";
 import { routes } from "@/config/content";
 import { skolnamnArPlatshallare } from "@/lib/foreningen";
 import { breadcrumbs, jsonLd, place } from "@/lib/strukturerad-data";
+import { Figur } from "../figur";
+import { bilder } from "@/lib/bilder";
 
 export const metadata: Metadata = {
   title: "Anläggningen",
@@ -33,6 +35,8 @@ export default function Anlaggningen() {
         {contact.address.city}. Här finns våra fina gräsplaner, stugorna,
         padelbanan och elljusspåret — och på sommaren fylls området av läger.
       </p>
+
+      <Figur foto={bilder.klubbstugan} preload />
 
       <section style={{ marginTop: "var(--spacing-7)" }}>
         <h2>Gräsplanerna</h2>

@@ -80,6 +80,14 @@ Swish Handel kräver dessutom organisationsnummer, föreningskonto, stadgar
 och årsmötesprotokoll. Räkna med veckor, inte dagar. Se B2 i
 `TILL-KLUBBEN.md`.
 
+## Bildoptimeringen på Vercel
+
+next/image optimerar fotona (AVIF, storleksvarianter) via Vercels
+bildtjänst, som har en kvot på Free/Pro-planerna. Med sajtens ~12 bilder
+och cachade varianter är det en icke-fråga i dag, men värt att veta om
+bildantalet växer kraftigt: kvoten räknas per unik transformation, inte
+per visning.
+
 ## Rekommendation
 
 Kör Free tills sajten har riktigt innehåll och riktiga medlemmar. Den

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { club } from "@/config/club";
 import { routes } from "@/config/content";
 import { breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
+import { Figur } from "../figur";
+import { bilder } from "@/lib/bilder";
 
 export const metadata: Metadata = {
   title: "Kom på läger",
@@ -29,6 +31,8 @@ export default function Lager() {
         Vi anordnar läger, stora som små. Till oss kan era lag komma och
         utvecklas och skapa minnen för livet!
       </p>
+
+      <Figur foto={bilder.sommardagPaPlanerna} preload />
 
       <p style={{ maxWidth: "var(--measure)", lineHeight: "var(--leading-normal)" }}>
         Ni får utnyttja våra stora fina gräsplaner ({facility.pitches.count}{" "}

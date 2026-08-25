@@ -9,6 +9,8 @@ import { publiceradeSektioner } from "@/lib/sektioner";
 import { formateraDatum, tillLokaltDatum } from "@/lib/tid";
 import { hamtaSchema } from "@/lib/traning-data";
 import { VECKODAGAR, formateraTid } from "@/lib/traning";
+import { Figur } from "./figur";
+import { bilder } from "@/lib/bilder";
 
 export const revalidate = 300;
 
@@ -66,6 +68,10 @@ export default async function Start() {
           Ur föreningens ändamålsparagraf, {club.identity.foundedYear}
         </footer>
       </blockquote>
+
+      {/* Ingen preload: på mobil ligger bilden under vecket efter
+          ändamålsparagrafen — uppmätt 832 px på Pixel 7-viewporten. */}
+      <Figur foto={bilder.bollarPaGras} />
 
       {/* Aktuellt-sektionen aktiverar sig själv när det finns innehåll,
           samma mekanik som prislistan i uthyrningen. En tom rubrik med

@@ -4,6 +4,8 @@ import { club } from "@/config/club";
 import { routes } from "@/config/content";
 import { stiftelsedatum } from "@/lib/foreningen";
 import { breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
+import { Figur } from "../../figur";
+import { bilder } from "@/lib/bilder";
 
 export const metadata: Metadata = {
   title: "Föreningens historia",
@@ -80,6 +82,7 @@ export default function Historia() {
           att han var föreningen trogen hela livet — och att han 1976 togs
           ut i orienteringslandslaget, där han sprang i några år.
         </p>
+        <Figur foto={bilder.grasmattanLaggs} />
         <p style={{ maxWidth: "var(--measure)", lineHeight: "var(--leading-normal)" }}>
           Det ideella byggandet har fortsatt. 2014 fick föreningen 200 000
           kronor i bidrag från Eskilstuna kommun för att rusta elljusspåret

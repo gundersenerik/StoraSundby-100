@@ -7,6 +7,49 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Fotona ur legacy-arkivet i bruk: en bild per sida, där den belägger något
+
+Erik gav klartecken och bekräftade samtycke, även för personbilder. Alla
+28 hemtagna foton granskades visuellt före urval — flera visade sig vara
+dubbletter (samma foto under olika filnamn, plus cirkelbeskurna
+PNG-kopior), och en var gamla prislistan, som INTE publiceras eftersom
+priserna är gatade bakom `priserArPlatshallare()` tills kansliet svarat.
+
+**Elva foton valdes enligt DESIGN-TRENDER-principen "få men bärande":**
+stugorna på /uthyrning (hyresgäster beslutar på foton), klubbstugan med
+Hammargärdets IP-skylten på /anlaggningen (skylten är dessutom ett nytt
+belägg för anläggningsnamnet), bollhögen på startsidan, lägerdagen på
+/lager, klubbflaggan på /om-foreningen, det historiska fotot där
+gräsmattan läggs för hand i historikens eldsjälar-avsnitt (med
+efterlysning i bildtexten — år och personer är okända och påstås inte),
+samt sektionsfoton för fotboll, orientering, padel, gymnastik och skidor.
+Sektioner utan eget foto står utan bild — hellre ingen bild än en
+genrebild.
+
+**Tekniken följer researchen:** statiska importer via next/image (mått
+och blur-platshållare utan CLS), AVIF i next.config, `preload` på högst
+en bild per sida (lazy på förstabilden är ett dokumenterat LCP-fel),
+alt-texter som beskriver det som syns och röst-testas mot
+`voice.forbidden` i tests/enhet/bilder.test.ts, E2E som kräver att varje
+foto renderas med sin alt-text. Vitest fick en bildimport-stub i
+konfigurationen — måtten i stubben är låtsade och får aldrig testas.
+
+**Granskningen före commit justerade fyra saker:** webp lades tillbaka
+som fallback bredvid AVIF (bara AVIF hade gett äldre webbläsare omkodad
+JPEG), preload togs bort från bilder som på mobilviewporten uppmätt
+ligger under vecket (startsidan, /om-foreningen, sektionssidorna — kvar
+bara där bilden faktiskt syns direkt), Figur fick ett tak på källbildens
+egen bredd så att små arkivbilder inte CSS-uppskalas mjukt, och
+"efter träning" ströks ur en alt-text — det syns inte i bilden att
+passet är slut.
+
+**Rastermärket från gamla sajten sitter nu i sidhuvudet** med tom alt
+(länktexten är redan föreningens namn) och hörnradie så att den inbakade
+vita bakgrunden blir en liten bricka även i mörkt läge. Ersätts av
+vektorlogotypen när den kommer (D2).
+
+---
+
 ## 2026-08-25 — Färg- och typografiprofilen: rollkontraktet behölls, värdena byttes
 
 Erik levererade två profilpaket byggda på en inventering av

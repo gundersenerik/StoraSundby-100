@@ -201,7 +201,12 @@ webbfonten — Fraunces/Inter laddades aldrig), rubrikskala med breddaxel i
 @layer base, länk- och radrytm ur profilen. Kontrasten bevisas i
 tests/enhet/kontrast.test.ts (40 kombinationer ur design.color) utöver axe.
 Logotypens cobalt är preliminär och bor enbart i oanvända accent-rollen
-tills vektorlogotypen kommit (D2).
+tills vektorlogotypen kommit (D2). Elva foton ur legacy-arkivet är i bruk
+(lib/bilder.ts, bilder/, samtycke bekräftat av Erik 2026-08-25): en bild
+per sida där den belägger något sidan påstår, via next/image med AVIF och
+blur-platshållare, alt-texter röst-testade i enhetstesterna, rastermärket
+i sidhuvudet i väntan på vektorlogotypen. Dubbletter och gamla prislistan
+(gatade priser!) valdes bort vid curationen.
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.
@@ -211,9 +216,10 @@ borta — `priserArPlatshallare()` gatar sida, formulär och mejl. Samma
 mekanik som gör att organisationsnumret (numera hittat: 818000-3694,
 bekräftat i två källor) höll sig ur strukturerad data tills det fanns.
 
-Testat: 128 enhetstester (inkl. WCAG-kontrast för alla textroller —
-linjefärgen bär aldrig text och är otestad), ~224 E2E i mobil och
-skrivbord, 33 databaspåståenden mot riktig Postgres,
+Testat: 152 enhetstester (inkl. WCAG-kontrast för alla textroller —
+linjefärgen bär aldrig text och är otestad — och röstregler för
+alt-texter), ~248 E2E i mobil och skrivbord, 33 databaspåståenden mot
+riktig Postgres,
 axe-core utan allvarliga fel på samtliga publika och inloggade vyer
 inklusive uthyrningen, nyheterna och kalendern.
 

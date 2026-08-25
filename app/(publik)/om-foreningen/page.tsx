@@ -4,6 +4,8 @@ import { club } from "@/config/club";
 import { routes } from "@/config/content";
 import { stiftelsedatum, styrelsenArPlatshallare } from "@/lib/foreningen";
 import { breadcrumbs, jsonLd } from "@/lib/strukturerad-data";
+import { Figur } from "../figur";
+import { bilder } from "@/lib/bilder";
 
 export const metadata: Metadata = {
   title: "Om föreningen",
@@ -54,6 +56,10 @@ export default function OmForeningen() {
           Ur föreningens ändamålsparagraf, {identity.foundedYear}
         </footer>
       </blockquote>
+
+      {/* Ingen preload: bilden ligger efter blockquoten, under vecket på
+          mobil (uppmätt 874 px på Pixel 7-viewporten). */}
+      <Figur foto={bilder.klubbflaggan} />
 
       <section style={{ marginTop: "var(--spacing-7)" }}>
         <h2>Styrelsen</h2>

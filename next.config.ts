@@ -20,6 +20,18 @@ import { legacyRedirects } from "./config/content";
  *    hanterar 301 mer förutsägbart. Ingen anledning att avvika.
  */
 const nextConfig: NextConfig = {
+  /**
+   * AVIF först — typiskt ~50 % mindre än JPEG, med automatisk fallback via
+   * Accept-headern. Formatvalet bor här i config, aldrig i komponenterna;
+   * bildfilerna i bilder/ röras inte manuellt.
+   */
+  images: {
+    // AVIF forst, webp som fallback — bara ["image/avif"] hade ersatt
+    // Nexts webp-default och gett aldre Safari/Chrome omkodad JPEG,
+    // 2-3x storre, pa just de forladdade LCP-bilderna.
+    formats: ["image/avif", "image/webp"],
+  },
+
   async redirects() {
     return Object.entries(legacyRedirects)
       .filter(([from, to]) => from !== to)

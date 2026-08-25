@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import klubbmarke from "@/bilder/klubbmarke.jpg";
 import { club } from "@/config/club";
 import { byggda, huvudmeny, sektionsmeny, sidfotsmeny } from "@/lib/navigation";
 import { Meny } from "./meny";
@@ -63,8 +65,20 @@ export default function PublikLayout({ children }: { children: React.ReactNode }
               minHeight: "44px",
               display: "inline-flex",
               alignItems: "center",
+              gap: "var(--spacing-2)",
             }}
           >
+            {/* Rastermärket från gamla sajten, i väntan på vektorlogotypen
+                (D2). Vit bakgrund är inbakad i filen — hörnradien gör den
+                till en liten bricka som fungerar även i mörkt läge. Tom
+                alt: länkens namn är redan föreningens namn i text. */}
+            <Image
+              src={klubbmarke}
+              alt=""
+              width={36}
+              height={28}
+              style={{ borderRadius: "var(--radius-sm)", height: "28px", width: "auto" }}
+            />
             {identity.shortName}
           </Link>
 
