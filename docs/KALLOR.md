@@ -124,6 +124,38 @@ så sex stugor ligger som data med tillfälliga namn och byts på en rad när
 kansliet svarat. Avvägningen står i `BESLUTSLOGG.md` 2026-08-24. Vilken
 stuga som tillåter hund är medvetet omärkt tills B3 är besvarad.
 
+## Historia
+
+Samtliga påståenden på `/om-foreningen/historia`. Uppgifter ur en enda
+källa attribueras i sidans löptext ("enligt seriearkiven", "skrev
+Eskilstuna-Kuriren") så att läsaren ser varifrån de kommer. Varje källa
+nedan är öppnad och kontrolläst 2026-08-25 av två oberoende granskare.
+
+| Påstående | Källa | Hämtat | Klass |
+|---|---|---|---|
+| Herrlaget i seriespel, med uppehåll, 1930–31 till 2015, mest division 6–7, hemmaplan Hammargärdet | [svenskafotbollsklubbar.se](https://svenskafotbollsklubbar.se/showclub.php?clubid=9268) | 2026-08-25 | Attribuerat |
+| Damlag i seriespel periodvis 1972–2010, högst division 4 (1985–1990) | [svenskafotbollsklubbar.se](https://svenskafotbollsklubbar.se/showclub.php?clubid=9268) | 2026-08-25 | Attribuerat |
+| Arne Hall drivande bakom Hammargärdets IP och lägercamp; uttagen i orienteringslandslaget 1976; avled 2015 | [Minnesord, Eskilstuna-Kuriren 2015-08-04](https://www.ekuriren.se/familj/personligt/artikel/arne-hall/jodw2myr) | 2026-08-25 | Bekräftat |
+| 200 000 kr i kommunbidrag 2014 för att rusta elljusspåret; "viktig landsbygdssatsning" | [Eskilstuna-Kuriren 2014-08-15](https://www.ekuriren.se/nyheter/eskilstuna/artikel/stora-sundby-goif-far-bidrag-till-elljusspar/jv8m8eor) | 2026-08-25 | Bekräftat |
+| Padelbana byggd sommaren 2021 av fyra eldsjälar, initiativ Rickard Granander, vid Hammargärdets IP | [Eskilstuna-Kuriren 2021-08-11](https://ekuriren.se/artikel/rx154g8l) | 2026-08-25 | Bekräftat |
+| En av fyra föreningar bakom Hitta ut i Eskilstuna 2021 | [Strengnäs Tidning 2021-06-28](https://www.strengnastidning.se/nyheter/eskilstuna/artikel/orientering-for-alla-nu-finns-hitta-ut-i-eskilstuna/lwp8n7wr) | 2026-08-25 | Bekräftat |
+| Medlemsklubb i Södermanlands orienteringsdistrikt; registrerad i Eventor | [orientering.se, distriktets klubblista](https://www.orientering.se/sodermanland/trana-tavla/trana/klubbar-i-distriktet/) + [Eventor](https://eventor.orientering.se/ranking/ol/club/index/353) | 2026-08-25 | Bekräftat |
+| Fem åkare anmälda för föreningen till Vasaloppet 2026 | [Newsworthy (Vasaloppets anmälningslista)](https://www.newsworthy.se/artikel/399392/) | 2026-08-25 | Attribuerat |
+| Initiativ till Facebookgruppen Stora Sundby Samhälle maj 2025 tillsammans med slottet och hembygdsföreningen | [Stora Sundby slott på Facebook, publikt inlägg 2025-05-07](https://www.facebook.com/storasundbyslott/) | 2026-08-25 | Bekräftat |
+
+**Publiceras inte: sammanslagningen 1932.** svenskafotbollsklubbar.se
+anger att klubben "bildades 1932 efter en sammanslagning mellan Stora
+Sundby IF och Öja GF" och att damlaget senare bytte namn till Stora
+Sundby GIF/Valskog IK. Uppgiften är intressant men kommer från en
+entusiastdatabas utan angivna källor, och årtalet motsäger webbplatsens
+stiftelsedatum 14 juni 1925 — källprincipen säger att webbplatsen vinner.
+Frågan ligger hos klubben som C8 i `TILL-KLUBBEN.md`.
+
+**Researchspår för framtiden.** Hembygdsårsboken Sörmlandsbygden 1949
+innehåller enligt [Eskilstuna kommuns register](https://www.eskilstuna.se/download/18.22acd6711784a1f3a5b117e0/1617169772352/)
+en artikel av Nils Dencker om idrott, lek och spel i Öja socken — finns
+på Eskilstuna stadsbibliotek. Kan innehålla föreningens tidiga historia.
+
 ## Mätningar av gamla sajten
 
 Gjorda med `npm run inventory:legacy` 2026-08-23. Underlag, inte

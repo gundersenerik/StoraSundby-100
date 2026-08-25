@@ -36,7 +36,8 @@ export default function OmForeningen() {
       <p style={{ fontSize: "var(--text-lg)", maxWidth: "var(--measure)", lineHeight: "var(--leading-normal)" }}>
         {identity.legalName} stiftades den {stiftelsedatum()}. Efter{" "}
         {identity.ageAt()} år är vi fortfarande en ideell byförening i{" "}
-        {contact.address.city} — och fortfarande igång.
+        {contact.address.city} — och fortfarande igång. Nyfiken på hur det
+        började? Läs <Link href={routes.history}>föreningens historia</Link>.
       </p>
 
       <blockquote

@@ -40,10 +40,11 @@ export const sektionsmeny: MenyPost[] = club.sections
 export const sidfotsmeny: MenyPost[] = [
   { href: routes.facility, etikett: "Anläggningen", byggd: true },
   { href: routes.camps, etikett: "Läger", byggd: true },
+  { href: routes.history, etikett: "Historia", byggd: true },
   { href: routes.documents, etikett: "Dokument", byggd: false },
   { href: routes.sponsors, etikett: "Sponsorer", byggd: false },
   { href: routes.privacy, etikett: "Integritetspolicy", byggd: false },
-  { href: routes.accessibility, etikett: "Tillgänglighet", byggd: false },
+  { href: routes.accessibility, etikett: "Tillgänglighet", byggd: true },
 ];
 
 export const byggda = (poster: MenyPost[]) => poster.filter((p) => p.byggd);

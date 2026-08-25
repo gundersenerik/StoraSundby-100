@@ -7,6 +7,35 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Historiesidan: dubbelverifierad research, attribuering och en fråga i stället för ett fynd
+
+Historien researchades i fem parallella källvinklar (tidningsarkiv,
+förbund/resultat, föreningsplattformar, myndighet/kommun, bygdehistoria)
+där varje påstående krävde URL och citat — och varje påstående därefter
+verifierades av en oberoende skeptiker som själv öppnade källan igen.
+35 påståenden höll, 2 kasserades (bl.a. Facebook-uppgifter bakom
+inloggningsvägg som inte gick att kontrollera).
+
+**Uppgifter ur en enda källa attribueras i löptexten** ("enligt
+seriearkiven", "skrev Eskilstuna-Kuriren i minnesorden") — då är det
+belagda påståendet att källan säger det, inte att det är sant, och
+läsaren ser skillnaden.
+
+**Det mest spännande fyndet publicerades inte.** svenskafotbollsklubbar.se
+anger att klubben bildades 1932 genom sammanslagning av Stora Sundby IF
+och Öja GF — entusiastdatabas utan källor, och årtalet motsäger
+webbplatsens 14 juni 1925. Källprincipen säger att webbplatsen vinner:
+uppgiften ligger som fråga C8 i TILL-KLUBBEN i stället för som faktum på
+sidan. Sidan avslutas med en efterlysning av bilder, klipp och minnen —
+hundraårig historia hämtas bäst från dem som var med.
+
+Tillgänglighetsredogörelsen (/tillganglighet) byggdes i samma leverans:
+frivillig, och därför skriven strikt ur det som faktiskt görs och testas
+— WCAG 2.1 AA via axe-core i CI, tangentbordsnavigering — med ärlig
+brasklapp om vad automatiska tester inte fångar och en kontaktväg.
+
+---
+
 ## 2026-08-25 — Bekräfta-flimret: beskedet ägs av sidan, inte raden
 
 Fyra CI-varv föll intermittent på samma påstående — beskedet efter

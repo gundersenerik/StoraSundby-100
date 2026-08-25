@@ -71,6 +71,39 @@ test.describe("/bli-medlem", () => {
   });
 });
 
+test.describe("/om-foreningen/historia", () => {
+  test("historien berättas ur belagda källor med efterlysning och exakt en h1", async ({ page }) => {
+    await page.goto("/om-foreningen/historia");
+    await expect(page.locator("h1")).toHaveCount(1);
+    // Attribueringen är en del av innehållet: läsaren ska se varifrån
+    // uppgifterna kommer.
+    await expect(page.getByText("Eskilstuna-Kuriren").first()).toBeVisible();
+    await expect(page.getByText(club.identity.purposeVerbatim)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Hjälp oss med resten" })).toBeVisible();
+  });
+
+  test("sidan nås från Om föreningen och sidfoten", async ({ page }) => {
+    await page.goto("/om-foreningen");
+    await page.getByRole("link", { name: "föreningens historia" }).click();
+    await expect(page).toHaveURL(/\/om-foreningen\/historia$/);
+    // Testnamnet lovar sidfoten också — då ska sidfoten exerceras.
+    await page.goto("/");
+    await page.getByRole("contentinfo").getByRole("link", { name: "Historia" }).click();
+    await expect(page).toHaveURL(/\/om-foreningen\/historia$/);
+  });
+});
+
+test.describe("/tillganglighet", () => {
+  test("redogörelsen finns med kontaktväg och exakt en h1", async ({ page }) => {
+    await page.goto("/tillganglighet");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.getByText("WCAG 2.1")).toBeVisible();
+    await expect(
+      page.locator("main, body").getByRole("link", { name: club.contact.email }).first(),
+    ).toBeVisible();
+  });
+});
+
 test.describe("/anlaggningen och /lager", () => {
   test("anläggningen listar planerna, stugorna och padelbokningen", async ({ page }) => {
     await page.goto("/anlaggningen");

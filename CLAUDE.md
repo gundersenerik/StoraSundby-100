@@ -187,6 +187,11 @@ och kontaktformuläret visas bara när RESEND_API_KEY finns — annars
 mejluppmaning. /lager var redirectmålet för gamla /läger men var en 404
 tills nu. /bli-medlem finns som informationssida med belagda avgifter och
 dagens betalrutin — portalflödet väntar på personnummerfrågan.
+/om-foreningen/historia är byggd ur dubbelverifierad research (35
+belagda påståenden, alla i KALLOR med URL; enkälleuppgifter attribueras
+i löptexten; 1932-sammanslagningen publicerades INTE utan ligger som C8
+i TILL-KLUBBEN). /tillganglighet är en frivillig redogörelse skriven
+strikt ur det som faktiskt testas.
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.
@@ -205,7 +210,7 @@ Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
 `LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
 personnummer.
 
-Ej byggt: medlemsportal, webbshop, historik.
+Ej byggt: medlemsportal, webbshop.
 
 **Åtta lanseringsblockerare** står kvar i `SWAP-LIST.md`.
 `npm run swap-list:strict` vägrar produktionsdeploy tills de är lösta.

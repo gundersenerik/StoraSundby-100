@@ -230,6 +230,21 @@ så småningom in i en bankansökan för Swish och i integritetspolicyn, och
 där vill vi inte gissa. Har kassören ett registerutdrag från Skatteverket
 räcker det att jämföra siffrorna en gång.
 
+### C8. Bildades klubben 1932 genom en sammanslagning?
+
+Klubbdatabasen svenskafotbollsklubbar.se anger att klubben "bildades
+1932 efter en sammanslagning mellan Stora Sundby IF och Öja GF", och att
+damlaget efter 2010 gick ihop till Stora Sundby GIF/Valskog IK. Det är
+spännande historia — men databasen är entusiastdriven utan angivna
+källor, och årtalet 1932 går emot ert eget stiftelsedatum 14 juni 1925.
+
+Vi har därför **inte** publicerat uppgiften på historiesidan. Kanske
+handlar 1932 om fotbollssektionen snarare än föreningen? Vet någon i
+föreningen hur det ligger till — eller finns det en jubileumsskrift eller
+gamla protokoll som reder ut det — kan historiesidan få ett riktigt lyft.
+Ett annat spår: hembygdsårsboken Sörmlandsbygden 1949 har en artikel om
+idrott och lek i Öja socken, den finns på Eskilstuna stadsbibliotek.
+
 ---
 
 ## D. Material vi behöver
