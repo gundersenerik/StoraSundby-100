@@ -41,6 +41,7 @@ att kontrollera mot originalet även efter att gamla sajten släckts.
 | Ordförandens telefon 070-543 71 33 | `/om-föreningen` (tel-länk i html) | 2026-08-25 | Bekräftat |
 | Facebook: facebook.com/storasundbygoif | startsidans sociala ikoner | 2026-08-25 | Bekräftat |
 | Instagram: instagram.com/storasundbygoif | startsidans sociala ikoner (sameAs) | 2026-08-25 | Bekräftat |
+| Webbshoppen drivs av Tifosi: tifosi.se/storasundbygoif | `/webbshop` (länken i html) | 2026-08-25 | Bekräftat |
 
 **Om Instagram-stavningen.** Sidfotens brödtextlänk på gamla sajten stavade
 `storasunbygoif` (utan d), men startsidans sociala ikoner och Hemsida24:s

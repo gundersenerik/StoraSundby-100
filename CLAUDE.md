@@ -191,7 +191,9 @@ dagens betalrutin — portalflödet väntar på personnummerfrågan.
 belagda påståenden, alla i KALLOR med URL; enkälleuppgifter attribueras
 i löptexten; 1932-sammanslagningen publicerades INTE utan ligger som C8
 i TILL-KLUBBEN). /tillganglighet är en frivillig redogörelse skriven
-strikt ur det som faktiskt testas.
+strikt ur det som faktiskt testas. /webbshop finns i link-out-läge —
+hela huvudmenyn är därmed byggd; feed/curated byggs när Tifosi svarat
+(club.shop.mode, B1).
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.

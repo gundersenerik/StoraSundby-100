@@ -93,6 +93,17 @@ test.describe("/om-foreningen/historia", () => {
   });
 });
 
+test.describe("/webbshop", () => {
+  test("länkar till butiken hos Tifosi ur config", async ({ page }) => {
+    await page.goto("/webbshop");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.getByRole("link", { name: "Besök vår webbshop" })).toHaveAttribute(
+      "href",
+      club.shop.url,
+    );
+  });
+});
+
 test.describe("/tillganglighet", () => {
   test("redogörelsen finns med kontaktväg och exakt en h1", async ({ page }) => {
     await page.goto("/tillganglighet");
