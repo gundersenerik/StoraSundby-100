@@ -16,9 +16,11 @@ export default defineConfig({
   reporter: process.env.CI ? "github" : "list",
   // Standardens 5 s är för snävt för en server action på en belastad
   // CI-runner: bekräfta-åtgärden hann inte svara och testet föll fast
-  // åtgärden lyckades. Tio sekunder mäter fortfarande "svarar rimligt",
-  // utan att fälla körningen för maskinens dagsform.
-  expect: { timeout: 10_000 },
+  // åtgärden lyckades. Även 10 s föll en gång innan roten åtgärdades —
+  // actions som revaliderade sin egen force-dynamic-sida fick hela sidan
+  // omrenderad inne i svaret. Femton sekunder är marginalen ovanpå den
+  // fixen: mäter fortfarande "svarar rimligt", inte runnerns dagsform.
+  expect: { timeout: 15_000 },
   use: {
     baseURL: "http://localhost:3000",
     trace: "retain-on-failure",

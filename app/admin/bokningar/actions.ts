@@ -35,7 +35,11 @@ const TILLATNA: ReadonlySet<string> = new Set([
 ]);
 
 function uppdatera() {
-  revalidatePath("/admin/bokningar");
+  // Bara den publika sidan. Adminsidan är force-dynamic och renderas
+  // färskt vid varje besök ändå — att revalidera den här tvingade Next
+  // att rendera om hela sidan (tre databasfrågor till) inne i action-
+  // svaret, och det var den fördröjningen som fällde bekräfta-flödet i
+  // CI när svaret inte hann fram inom expect-timeouten.
   revalidatePath(routes.rental);
 }
 

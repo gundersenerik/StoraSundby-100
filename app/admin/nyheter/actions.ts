@@ -27,7 +27,9 @@ export type NyhetsFalt = "title" | "lead" | "body" | "author";
 const NYHETSFALT: ReadonlySet<string> = new Set(["title", "lead", "body", "author"]);
 
 function uppdateraPublikt(slug?: string) {
-  revalidatePath("/admin/nyheter");
+  // Bara publika sidor — adminsidan är force-dynamic och renderas färskt
+  // vid varje besök; att revalidera den skulle bara göra action-svaret
+  // långsammare (se bokningarnas actions).
   revalidatePath(routes.news);
   if (slug) revalidatePath(`${routes.news}/${slug}`);
   revalidatePath("/");

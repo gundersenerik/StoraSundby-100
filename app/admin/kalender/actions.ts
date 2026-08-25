@@ -30,7 +30,9 @@ const KLOCKSLAG = /^\d{2}:\d{2}$/;
 const sektionsslugs: ReadonlySet<string> = new Set(club.sections.map((s) => s.slug));
 
 function uppdateraPublikt() {
-  revalidatePath("/admin/kalender");
+  // Bara publika sidor — adminsidan är force-dynamic och renderas färskt
+  // vid varje besök; att revalidera den skulle bara göra action-svaret
+  // långsammare (se bokningarnas actions).
   revalidatePath(routes.calendar);
   revalidatePath("/");
 }
