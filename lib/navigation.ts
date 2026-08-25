@@ -24,8 +24,8 @@ export const huvudmeny: MenyPost[] = [
   { href: routes.rental, etikett: "Uthyrning", byggd: true },
   { href: routes.membership, etikett: "Bli medlem", byggd: false },
   { href: routes.shop, etikett: "Webbshop", byggd: false },
-  { href: routes.about, etikett: "Om föreningen", byggd: false },
-  { href: routes.contact, etikett: "Kontakt", byggd: false },
+  { href: routes.about, etikett: "Om föreningen", byggd: true },
+  { href: routes.contact, etikett: "Kontakt", byggd: true },
 ];
 
 /**
@@ -38,7 +38,8 @@ export const sektionsmeny: MenyPost[] = club.sections
   .map((s) => ({ href: `/${s.slug}`, etikett: s.name, byggd: true }));
 
 export const sidfotsmeny: MenyPost[] = [
-  { href: routes.facility, etikett: "Anläggningen", byggd: false },
+  { href: routes.facility, etikett: "Anläggningen", byggd: true },
+  { href: routes.camps, etikett: "Läger", byggd: true },
   { href: routes.documents, etikett: "Dokument", byggd: false },
   { href: routes.sponsors, etikett: "Sponsorer", byggd: false },
   { href: routes.privacy, etikett: "Integritetspolicy", byggd: false },

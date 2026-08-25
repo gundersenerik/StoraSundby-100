@@ -36,6 +36,18 @@ att kontrollera mot originalet även efter att gamla sajten släckts.
 | Bankgiro 342-8232 | `/bli-medlem` | 2026-08-23 | Bekräftat |
 | Medlemsavgifter 250 / 300 / 800 kr | `/bli-medlem` | 2026-08-23 | Bekräftat |
 | Organisationsnummer 818000-3694 | allabolag.se + laget.se | 2026-08-24 | Bekräftat |
+| Ordförandens telefon 070-543 71 33 | `/om-föreningen` (tel-länk i html) | 2026-08-25 | Bekräftat |
+| Facebook: facebook.com/storasundbygoif | startsidans sociala ikoner | 2026-08-25 | Bekräftat |
+| Instagram: instagram.com/storasundbygoif | startsidans sociala ikoner (sameAs) | 2026-08-25 | Bekräftat |
+
+**Om Instagram-stavningen.** Sidfotens brödtextlänk på gamla sajten stavade
+`storasunbygoif` (utan d), men startsidans sociala ikoner och Hemsida24:s
+sajtkonfiguration anger båda det rättstavade `storasundbygoif` — rättelsen
+är alltså belagd i primärkällan, inte en gissning.
+
+**Skolans namn är obelagt.** Gamla sajten skriver bara "skolan", "skolans
+gympasal" och "skolans idrottshall" — aldrig ett namn. Namnet i config är
+wrappat i `todo()` och publiceras inte förrän det bekräftats mot kommunen.
 
 **Om organisationsnumret.** Det stod tidigare som ej publicerbart, eftersom
 det saknas på webbplatsen. Numret finns däremot i två oberoende externa

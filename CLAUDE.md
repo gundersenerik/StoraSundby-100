@@ -170,7 +170,12 @@ med NewsArticle/SportsEvent-JSON-LD, admin för utkast → publicera →
 avpublicera och händelser med dölj-läge, Aktuellt på startsidan, nyhets-
 slugs i sitemap. En nyhets slug sätts vid skapandet och ändras aldrig —
 delade länkar får inte dö. Utkast och dolda händelser når aldrig
-läsklienten (RLS, bevisat i tests/db sektion 9).
+läsklienten (RLS, bevisat i tests/db sektion 9). Därtill föreningssidorna
+/om-foreningen, /kontakt, /anlaggningen och /lager ur belagda källor:
+styrelsen visas inte förrän namnen är riktiga (club.board.members-todo),
+och kontaktformuläret visas bara när RESEND_API_KEY finns — annars
+mejluppmaning. /lager var redirectmålet för gamla /läger men var en 404
+tills nu.
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.

@@ -231,7 +231,20 @@ export const club = {
     padelBookingUrl:
       "https://playtomic.io/stora-sundby-goif-padel/2211e147-172c-4413-b2f7-e44ba565bf15",
     school: {
-      name: "Hammargärdets skola",
+      /**
+       * Gamla sajten namnger aldrig skolan — den säger bara "skolans
+       * gympasal" och "skolan och skolans idrottshall". Namnet nedan
+       * saknar källa (och stavningen matchar inte ens Hammargårdsvägen),
+       * så det publiceras inte: sidorna skriver "skolan" tills namnet
+       * är bekräftat och wrappern borttagen.
+       */
+      name: todo("Hammargärdets skola", {
+        path: "club.facility.school.name",
+        note:
+          "Namnet är obelagt: webbplatsen skriver bara 'skolan'. Bekräfta " +
+          "skolans namn (och stavningen — jämför Hammargårdsvägen) mot " +
+          "kommunen innan det publiceras.",
+      }),
       note: "Gympasal används för gymnastik. Idrottshall kan nyttjas vid större läger.",
     },
     /**

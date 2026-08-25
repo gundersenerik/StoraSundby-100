@@ -46,8 +46,17 @@ export async function skickaForfragan(
 ): Promise<ForfraganResultat> {
   const honeypot = String(formData.get("webbplats") ?? "");
   const renderadKl = Number(formData.get("renderadKl") ?? 0);
-  if (honeypot || (renderadKl > 0 && Date.now() - renderadKl < 3000)) {
+  const tidAtgangen = Date.now() - renderadKl;
+  if (honeypot || (renderadKl > 0 && tidAtgangen >= 0 && tidAtgangen < 3000)) {
     return { status: "skickad", mejlSkickat: false };
+  }
+  // Negativ tid är en enhetsklocka som går före serverns, inte en robot.
+  // Ett tyst "tack" hade slängt en riktig förfrågan — säg till i stället.
+  if (renderadKl > 0 && tidAtgangen < 0) {
+    return {
+      status: "fel",
+      meddelande: `Något gick fel med formuläret. Försök igen, eller mejla oss på ${club.contact.email}.`,
+    };
   }
 
   const objekt = String(formData.get("objekt") ?? "");

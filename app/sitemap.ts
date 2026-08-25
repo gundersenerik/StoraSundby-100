@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { routes } from "@/config/content";
 import { hamtaPublicerade } from "@/lib/nyheter-data";
 import { bassadress } from "@/lib/strukturerad-data";
-import { byggda, huvudmeny, sidfotsmeny } from "@/lib/navigation";
+import { byggda, huvudmeny, sektionsmeny, sidfotsmeny } from "@/lib/navigation";
 
 /**
  * Sitemap härledd ur menyn, som i sin tur är härledd ur sidkartan, plus de
@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: bas, lastModified: nu, changeFrequency: "weekly", priority: 1 },
-    ...[...byggda(huvudmeny), ...byggda(sidfotsmeny)].map((post) => ({
+    ...[...byggda(huvudmeny), ...byggda(sektionsmeny), ...byggda(sidfotsmeny)].map((post) => ({
       url: `${bas}${post.href}`,
       lastModified: nu,
       changeFrequency: "weekly" as const,

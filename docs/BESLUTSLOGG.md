@@ -7,6 +7,48 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Föreningssidorna: styrelsen och kontaktformuläret gatar sig själva
+
+Fyra sidor ur belagda källor: `/om-foreningen`, `/kontakt`, `/anlaggningen`
+och `/lager`. Föreningens egna texter återges ordagrant — ändamålsparagrafen,
+"alla gör nytta"-stycket och lägertexten.
+
+**Styrelsen publiceras inte förrän namnen är riktiga.** Ledamöterna utöver
+ordföranden är platshållare (blockerar lansering), så sidan visar det
+webbplatsen faktiskt säger — ordförande plus sju ledamöter, med ordföranden
+namngiven — och hela listan aktiverar sig själv när todo()-wrappern kring
+`club.board.members` tas bort. Ett E2E-test bevakar att "Ledamot 2" aldrig
+syns publikt.
+
+**Kontaktformuläret visas bara när e-posten är konfigurerad.** Utan
+RESEND_API_KEY skickar skickaEpost ingenting, och ett formulär som tyst
+tappar meddelanden är värre än inget formulär. Tills nyckeln finns i Vercel
+visas en mejluppmaning; sektionen byter själv vid nästa deploy. Samma
+spamskydd som bokningsformuläret: honeypot och frusen tidsspärr.
+
+**`/lager` var ett utlovat redirectmål utan sida.** `/läger` har redirectat
+till `/lager` sedan redirectleveransen — men målet var en 404. Gamla
+lägersidans text bor nu där, med länkar till uthyrningens förfrågningsflöde
+som redan har ändamålet läger. En gammal URL ska inte bara byta adress,
+den ska landa på något.
+
+**Granskningen fällde sju fynd, alla åtgärdade före push.** Det
+allvarligaste: skolans namn publicerades utan källa — gamla sajten skriver
+bara "skolan", och namnet i config saknade todo()-wrapper, så ingen
+automatisk spärr täckte det. Namnet är nu wrappat och sidan skriver
+"skolan" tills det bekräftats. Övriga: besökarens namn i mejlets ämnesrad
+hade loggats vid Resend-fel (ämnesraden är nu personuppgiftsfri);
+tidsspärren klassade en enhetsklocka som går före serverns som robot och
+slängde riktiga meddelanden med ett falskt tack (negativ tid ger nu ett
+ärligt fel — även i bokningsformuläret, som hade samma mönster);
+"11-mannasplaner" i metadata och Place-JSON-LD; Instagram-handtaget
+hårdkodat i stället för härlett; sitemap saknade sedan tidigare de sex
+sektionssidorna; och kontaktformulärets logik testades ingenstans — nu
+bevakar enhetstester spamskyddet, klockskevet och felvägarna direkt på
+servern-actionen, eftersom formulärläget aldrig renderas i CI.
+
+---
+
 ## 2026-08-25 — Granskningen av nyhetsmodulen fällde tolv fynd; alla åtgärdade före push
 
 Samma adversariella upplägg som för uthyrningen: fyra dimensioner, en

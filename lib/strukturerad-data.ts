@@ -88,7 +88,7 @@ export function place() {
     amenityFeature: [
       {
         "@type": "LocationFeatureSpecification",
-        name: `${facility.pitches.count} ${facility.pitches.type}splaner i ${facility.pitches.surface}`,
+        name: `${facility.pitches.count} ${facility.pitches.type}planer i ${facility.pitches.surface}`,
         value: true,
       },
       {
