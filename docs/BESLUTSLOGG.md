@@ -7,6 +7,88 @@ Nyast först.
 
 ---
 
+## 2026-08-25 — Granskningen av nyhetsmodulen fällde tolv fynd; alla åtgärdade före push
+
+Samma adversariella upplägg som för uthyrningen: fyra dimensioner, en
+skeptiker per fynd. Tolv unika fynd höll, varav ett blockerande:
+
+1. **E2E-testernas `form.first()` träffade utloggningsformuläret** i
+   admin-headern — båda kalendertesterna hade fallit deterministiskt i CI.
+   Skapa-formulären fick aria-label och testerna söker nu namngivet.
+2. Spara tid i händelseraden synkade aldrig radens lokala tillstånd — admin
+   såg gamla tiden trots lyckad sparning och hade sparat igen. Tillståndet
+   uppdateras nu ur samma tolkningsregler som servern använder.
+3. Hårdkodade fixturdatum ("2027-09-11") hade gjort testerna permanent röda
+   den dag datumet passerat. Fixturerna använder nu alltid nästa
+   kalenderår, och veckodagen ingår inte i påståendena.
+4. Ett hårt avbrutet CI-jobb hoppar över afterEach och kunde lämna en
+   publicerad "E2E:"-nyhet synlig på skarpa sajten. CI har nu ett
+   städsteg med `if: always()` (`scripts/rensa-e2e-fixturer.ts`).
+5. Databasbeviset provade bara anon — men den realistiska angriparen är
+   den inloggade icke-administratören (vem som helst kan begära en magisk
+   länk). Sektion 10 byter JWT-stubben till en icke-admin och bevisar
+   42501 respektive noll rader.
+6. Taket på 50 i `hamtaPublicerade` gjorde att artikel 51+ tyst föll ur
+   både listan och sitemapen fast sidan lever. Sitemapen hämtar nu utan
+   tak; listan visar de 50 senaste tills paginering behövs — det är det
+   dokumenterade beslutet.
+7. Återpublicering ger dagens datum (en konsekvens av
+   en-kolumnsdesignen). Beslutet står fast men är nu dokumenterat här och
+   i DRIFT, i stället för att överraska kansliet.
+8. Månadsrubrikerna bröt headingCase-regeln ("september 2027" som rubrik).
+   `manadsrubrik` versaliserar nu första bokstaven.
+9. En nyhet med enbart rubrik publicerade tom meta description och tom
+   description i JSON-LD. Tomma fält utelämnas nu, samma regel som för
+   platshållarvärden.
+10. Inline-fälten i admin saknade maxLength, så databasens CHECK-fel
+    visades som "Kunde inte spara. Försök igen." — fälten speglar nu
+    CHECK-gränserna.
+11. `events.section_slug` (FK) saknade index, i strid med mönstret från
+    migration 001. Migration 011 lägger det.
+12. "1 kommande händelse inlagda" — grammatiken följde inte antalet.
+
+Lärdomen från uthyrningen står sig: alla tolv passerade typecheck, lint,
+enhetstester och bygget. Det blockerande fyndet var dessutom i testkod som
+lokalt aldrig kördes (admin-flödena kräver service-nyckeln som bara CI
+har) — granskningen är enda försvaret före pushen även för testerna.
+
+---
+
+## 2026-08-25 — Nyheter och kalender: published_at som enda brytare, slug för alltid
+
+Modulen för nyheter (`posts`) och evenemang (`events`), migration 010.
+
+**published_at är både brytare och datum.** Ett utkast är `null`, en
+publicerad nyhet bär sitt publiceringsdatum i samma kolumn. Två kolumner
+(`published` + `published_at`) hade kunnat hamna i osynk — "publicerad
+utan datum" går inte ens att uttrycka nu. Evenemang har i stället en enkel
+`published`-boolean: de har inget publiceringsdatum att visa, och en dold
+händelse är ett arbetsläge, inte ett utkastflöde.
+
+**Sluggen sätts vid skapandet och följer aldrig med titeln.** En publicerad
+URL kan vara delad på Facebook eller i ett mejl, och "en gammal URL slutar
+fungera" är ett beslut som kräver en människa. Hellre en slug som släpar
+efter titeln än en död länk. Krockar löses med -2, -3 … vid skapandet
+("Årsmötet 2027" återkommer varje år). Sluggen är alltid ascii —
+NFD-normalisering plockar diakriterna — och databasens CHECK vägrar
+allt annat, så redirects-fällan med å/ä kan inte återuppstå i nya URL:er.
+
+**Evenemang är timestamptz, träningstider förblir time.** Årsmötet den
+15 mars 18.00 är en tidpunkt; ett träningspass på torsdagar är ett mönster.
+Regeln från migration 007 gäller.
+
+**Författaren i NewsArticle-JSON-LD är alltid föreningen.** Bylinen på
+sidan är fritext ("Kansliet", "Fotbollssektionen"), och att gissa @type på
+en textsträng blir fel oftare än rätt. Avsändaren är föreningen oavsett
+vem som höll i pennan.
+
+**Inga anon-skrivningar alls.** Till skillnad från bokningarna finns inget
+publikt formulär — bara kansliet skriver, så anon fick ingen insert-policy
+över huvud taget. Bevisat i tests/db (sektion 9) tillsammans med att utkast
+och dolda händelser aldrig når läsklienten.
+
+---
+
 ## 2026-08-24 — Expect-timeout 10 s, och tappade action-svar visas för kansliet
 
 CI fällde bekräfta-flödet tre gånger i en körning som gått grön dagen

@@ -110,6 +110,49 @@ Skriv tidsintervall som **19.00–20.00**, med punkt och långt streck.
 
 ---
 
+## Lägga upp en nyhet
+
+Gå till **Nyheter** i admin. Skriv en rubrik och klicka **Skapa utkast** —
+mer behövs inte för att komma igång. Utkastet syns bara för er, aldrig på
+sajten.
+
+Skriv sedan klart i fälten under: ingress (en eller två meningar, syns i
+nyhetslistan och på startsidan), brödtext (tom rad mellan stycken) och
+avsändare (till exempel "Kansliet" eller "Fotbollssektionen" — får lämnas
+tom). Allt sparas när du lämnar fältet.
+
+Klicka **Publicera** när du är nöjd. Då syns nyheten på sajten, på
+startsidan under Aktuellt, och i Googles sitemap. **Avpublicera** tar bort
+den från sajten igen utan att radera något — bra om något publicerades för
+tidigt. Publicerar du samma nyhet igen senare får den dagens datum och
+lägger sig överst i listan, som en ny publicering.
+
+Nyhetens adress bestäms av rubriken när utkastet skapas och ändras sedan
+aldrig, även om du ändrar rubriken. Det är med flit: en delad länk på
+Facebook ska aldrig sluta fungera.
+
+Språket: samma ton som resten av sajten, se "Om språket" ovan.
+
+---
+
+## Fylla i kalendern
+
+Gå till **Kalender** i admin. Fyll i rubrik, typ (match, tävling, läger,
+årsmöte, städdag eller fest), datum och klockslag, och klicka **Lägg in**.
+Händelsen syns direkt i den publika kalendern och på startsidan.
+
+Slutdatum och sluttid är frivilliga: ett årsmöte har bara en starttid, ett
+läger har ett spann. Anger du bara ett slutdatum räknas hela den dagen.
+
+**Dölj** tar bort händelsen från sajten utan att radera den — bra när
+datumet inte är spikat än. Passerade händelser flyttar sig själva till
+listan längst ner; de behöver inte städas bort.
+
+Träningstider hör inte hemma i kalendern — de har en egen sida och ändras
+under **Träningstider**.
+
+---
+
 ## Hantera en bokningsförfrågan
 
 När någon skickar en förfrågan via sajten hamnar den under **Bokningar** i

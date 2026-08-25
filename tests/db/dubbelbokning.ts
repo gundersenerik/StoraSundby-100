@@ -340,6 +340,105 @@ async function main() {
   await c.end();
   await d.end();
 
+  // ── 9. Nyheter och evenemang: RLS och villkor (migration 010) ─────────
+  await db.query(`
+    insert into public.posts (slug, title, published_at) values
+      ('publicerad-nyhet', 'Publicerad nyhet', now()),
+      ('utkast-nyhet', 'Ett utkast', null)`);
+  await db.query(`
+    insert into public.events (title, kind, starts_at, published) values
+      ('Synlig handelse', 'staddag', '2027-06-05 08:00+00', true),
+      ('Dold handelse', 'match', '2027-06-06 10:00+00', false)`);
+
+  await db.query("set role anon");
+  const anonNyheter = await db.query("select slug from public.posts");
+  resultat(
+    anonNyheter.rows.length === 1 && anonNyheter.rows[0].slug === "publicerad-nyhet",
+    "Anon ser publicerade nyheter men aldrig utkast",
+    `${anonNyheter.rows.length} rad`,
+  );
+  const anonHandelser = await db.query("select title from public.events");
+  resultat(
+    anonHandelser.rows.length === 1 && anonHandelser.rows[0].title === "Synlig handelse",
+    "Anon ser bara publicerade evenemang — dolda finns inte publikt",
+  );
+  try {
+    await db.query("insert into public.posts (slug, title) values ('anon-nyhet', 'Anon skriver')");
+    resultat(false, "Anon borde inte kunna skapa en nyhet");
+  } catch (e) {
+    resultat(felkod(e) === "42501", "Anon kan inte skapa en nyhet — det finns ingen insert-policy alls");
+  }
+  try {
+    await db.query("insert into public.events (title, starts_at) values ('Anon-handelse', '2027-06-05 08:00+00')");
+    resultat(false, "Anon borde inte kunna skapa ett evenemang");
+  } catch (e) {
+    resultat(felkod(e) === "42501", "Anon kan inte skapa ett evenemang");
+  }
+  // En update utan policy nekas inte med fel — den träffar noll rader.
+  // Det räcker som spärr, men bara om vi bevisar att det faktiskt är noll.
+  const anonUppdatering = await db.query(
+    "update public.posts set title = 'Kapad' where slug = 'publicerad-nyhet'",
+  );
+  resultat(
+    anonUppdatering.rowCount === 0,
+    "Anon kan inte ändra en publicerad nyhet — uppdateringen träffar noll rader",
+  );
+  await db.query("reset role");
+
+  try {
+    await db.query("insert into public.posts (slug, title) values ('Åäö och VERSALER', 'Fel slug')");
+    resultat(false, "En slug med å, ä och mellanslag borde ha avvisats");
+  } catch (e) {
+    resultat(felkod(e) === "23514", "Sluggar med diakriter eller mellanslag avvisas — redirects-fällan kan inte återuppstå");
+  }
+  try {
+    await db.query(
+      "insert into public.events (title, starts_at, ends_at) values ('Baklänges', '2027-06-05 10:00+00', '2027-06-05 08:00+00')",
+    );
+    resultat(false, "Ett slut före starten borde ha avvisats");
+  } catch (e) {
+    resultat(felkod(e) === "23514", "Ett evenemang kan inte sluta innan det börjat");
+  }
+
+  // ── 10. Den inloggade icke-administratören ────────────────────────────
+  // Vem som helst kan begära en magisk länk och bli authenticated —
+  // granskningen påpekade att anon-testerna inte bevisar modulens verkliga
+  // spärr: is_admin()-gaten för authenticated. Regredierar den ska det
+  // synas här, inte i produktion. JWT-stubben byts till en verifierad
+  // adress som INTE står i admin_users.
+  await db.query(`
+    create or replace function auth.jwt() returns jsonb as
+      $$ select '{"email":"inloggad.utan.behorighet@example.com"}'::jsonb $$ language sql;
+  `);
+  await db.query("set role authenticated");
+  try {
+    await db.query("insert into public.posts (slug, title) values ('kapad-nyhet', 'Inloggad skriver')");
+    resultat(false, "En inloggad icke-administratör borde inte kunna skapa en nyhet");
+  } catch (e) {
+    resultat(felkod(e) === "42501", "En inloggad icke-administratör kan inte skapa en nyhet — is_admin() är spärren");
+  }
+  try {
+    await db.query("insert into public.events (title, starts_at) values ('Kapad handelse', '2027-06-05 08:00+00')");
+    resultat(false, "En inloggad icke-administratör borde inte kunna skapa ett evenemang");
+  } catch (e) {
+    resultat(felkod(e) === "42501", "En inloggad icke-administratör kan inte skapa ett evenemang");
+  }
+  const inloggadUppdatering = await db.query(
+    "update public.posts set title = 'Kapad' where slug = 'publicerad-nyhet'",
+  );
+  resultat(
+    inloggadUppdatering.rowCount === 0,
+    "En inloggad icke-administratör kan inte ändra en nyhet — noll rader träffas",
+  );
+  const inloggadUtkast = await db.query("select slug from public.posts where published_at is null");
+  resultat(
+    inloggadUtkast.rows.length === 0,
+    "En inloggad icke-administratör ser inga utkast",
+  );
+  await db.query("reset role");
+  // Stubben återställs så att inget senare påstående ärver identiteten.
+  await db.query("create or replace function auth.jwt() returns jsonb as $$ select null::jsonb $$ language sql");
+
   await db.end();
 }
 

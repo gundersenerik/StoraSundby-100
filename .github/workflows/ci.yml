@@ -97,6 +97,17 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: npm run test:e2e
 
+      # Testerna stadar sina fixturer sjalva, men ett hart avbrott hoppar
+      # over afterEach — och da kan en publicerad "E2E:"-nyhet sta kvar
+      # synlig pa skarpa sajten. Det har steget kors alltid, aven vid
+      # krasch eller avbruten korning.
+      - name: Rensa E2E-fixturer aven efter avbrott
+        if: always()
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx tsx scripts/rensa-e2e-fixturer.ts
+
       - uses: actions/upload-artifact@v5
         if: failure()
         with:

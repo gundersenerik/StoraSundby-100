@@ -162,9 +162,15 @@ Byggt: fundament, designtokens, publikt träningsschema, sex sektionssidor,
 startsida, admin med magisk länk, inline-redigering av träningstider,
 massåtgärder som databasfunktioner, säsongsbyte och kopiering, redigering
 av sektionstexter, JSON-LD, sitemap, robots, 404, redirects, keep-alive,
-nattlig databasbackup (väntar på secreten SUPABASE_DB_URL), och hela
+nattlig databasbackup (väntar på secreten SUPABASE_DB_URL), hela
 uthyrningen: publik sida med tillgänglighetskalender, förfrågningsflöde,
-kansli-admin med spärrar, fyra mejlmallar och nyckelskyddad iCal-feed.
+kansli-admin med spärrar, fyra mejlmallar och nyckelskyddad iCal-feed,
+samt nyheter och kalender: publika /nyheter, /nyheter/[slug] och /kalender
+med NewsArticle/SportsEvent-JSON-LD, admin för utkast → publicera →
+avpublicera och händelser med dölj-läge, Aktuellt på startsidan, nyhets-
+slugs i sitemap. En nyhets slug sätts vid skapandet och ändras aldrig —
+delade länkar får inte dö. Utkast och dolda händelser når aldrig
+läsklienten (RLS, bevisat i tests/db sektion 9).
 Dubbelbokningsskyddet är en exclusion-constraint plus korsöverlapps-trigger
 i databasen, bevisad med parallella transaktioner i `npm run test:db` och i
 CI mot en Postgres-servicecontainer.
@@ -174,15 +180,16 @@ borta — `priserArPlatshallare()` gatar sida, formulär och mejl. Samma
 mekanik som gör att organisationsnumret (numera hittat: 818000-3694,
 bekräftat i två källor) höll sig ur strukturerad data tills det fanns.
 
-Testat: 57 enhetstester, 156 E2E i mobil och skrivbord, 16
+Testat: 74 enhetstester, ~170 E2E i mobil och skrivbord, 29
 databaspåståenden mot riktig Postgres, axe-core utan allvarliga fel på
-samtliga publika och inloggade vyer inklusive uthyrningen.
+samtliga publika och inloggade vyer inklusive uthyrningen, nyheterna och
+kalendern.
 
 Dokumenterat: `TILL-KLUBBEN`, `BESLUTSLOGG`, `KALLOR`, `KOSTNADER`,
 `LANSERING`, `DRIFT`. Kvar att skriva: `GDPR.md`, som väntar på svaret om
 personnummer.
 
-Ej byggt: nyheter, kalender, medlemsportal, webbshop, historik.
+Ej byggt: medlemsportal, webbshop, historik.
 
 **Åtta lanseringsblockerare** står kvar i `SWAP-LIST.md`.
 `npm run swap-list:strict` vägrar produktionsdeploy tills de är lösta.

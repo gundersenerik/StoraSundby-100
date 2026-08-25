@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { club } from "@/config/club";
+import { routes } from "@/config/content";
+import { formateraNar } from "@/lib/evenemang";
+import { hamtaKommande } from "@/lib/evenemang-data";
+import { hamtaPublicerade } from "@/lib/nyheter-data";
 import { publiceradeSektioner } from "@/lib/sektioner";
+import { formateraDatum, tillLokaltDatum } from "@/lib/tid";
 import { hamtaSchema } from "@/lib/traning-data";
 import { VECKODAGAR, formateraTid } from "@/lib/traning";
 
@@ -23,9 +28,11 @@ const SASONG = "okand-2026";
  * Ingenting hittas på. Det som inte är belagt står inte här.
  */
 export default async function Start() {
-  const [sektioner, { pass }] = await Promise.all([
+  const [sektioner, { pass }, nyheter, handelser] = await Promise.all([
     publiceradeSektioner(),
     hamtaSchema(SASONG),
+    hamtaPublicerade(3),
+    hamtaKommande(new Date()),
   ]);
 
   const alder = club.identity.ageAt();
@@ -59,6 +66,38 @@ export default async function Start() {
           Ur föreningens ändamålsparagraf, {club.identity.foundedYear}
         </footer>
       </blockquote>
+
+      {/* Aktuellt-sektionen aktiverar sig själv när det finns innehåll,
+          samma mekanik som prislistan i uthyrningen. En tom rubrik med
+          "inga nyheter" på startsidan vore sämre än ingen rubrik alls. */}
+      {(nyheter.length > 0 || handelser.length > 0) && (
+        <section style={{ marginTop: "var(--spacing-7)" }}>
+          <h2>Aktuellt</h2>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {nyheter.map((nyhet) => (
+              <li key={nyhet.id} style={{ padding: "var(--spacing-2) 0", borderBottom: "1px solid var(--line)" }}>
+                <Link href={`${routes.news}/${nyhet.slug}`}>{nyhet.title}</Link>
+                <span style={{ color: "var(--ink-muted)", fontSize: "var(--text-sm)" }}>
+                  {" "}· {formateraDatum(tillLokaltDatum(nyhet.published_at!))}
+                </span>
+              </li>
+            ))}
+            {handelser.slice(0, 3).map((handelse) => (
+              <li key={handelse.id} style={{ padding: "var(--spacing-2) 0", borderBottom: "1px solid var(--line)" }}>
+                {handelse.title}
+                <span style={{ color: "var(--ink-muted)", fontSize: "var(--text-sm)" }}>
+                  {" "}· {formateraNar(handelse)}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p style={{ fontSize: "var(--text-sm)" }}>
+            <Link href={routes.news}>Alla nyheter</Link>
+            {" · "}
+            <Link href={routes.calendar}>Hela kalendern</Link>
+          </p>
+        </section>
+      )}
 
       <section style={{ marginTop: "var(--spacing-7)" }}>
         <h2>Verksamheten</h2>

@@ -119,6 +119,64 @@ export function breadcrumbs(delar: { namn: string; href: string }[]) {
   };
 }
 
+/**
+ * NewsArticle för en publicerad nyhet. Författaren i JSON-LD är alltid
+ * föreningen: bylinen på sidan kan vara en sektion eller en person i
+ * fritext, och att gissa @type på en textsträng blir fel oftare än rätt.
+ * Avsändaren är föreningen oavsett vem som höll i pennan.
+ */
+export function nyhetsartikel(nyhet: {
+  slug: string;
+  title: string;
+  beskrivning: string;
+  published_at: string;
+  updated_at: string;
+}) {
+  const bas = bassadress();
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    mainEntityOfPage: `${bas}${routes.news}/${nyhet.slug}`,
+    headline: nyhet.title,
+    datePublished: nyhet.published_at,
+    dateModified: nyhet.updated_at,
+    author: { "@type": "Organization", name: club.identity.shortName },
+    publisher: { "@id": `${bas}/#klubb` },
+  };
+  // En nyhet med enbart rubrik ska inte skicka en tom description till
+  // Googles index — fältet utelämnas hellre än publiceras tomt.
+  if (nyhet.beskrivning) data.description = nyhet.beskrivning;
+  return data;
+}
+
+/**
+ * SportsEvent för kalendern. Platsen är anläggningen om inget annat anges —
+ * det är där föreningens liv utspelar sig. Beskrivning tas bara med när
+ * den finns; ett tomt fält utelämnas hellre än publiceras.
+ */
+export function sportsEvent(evenemang: {
+  title: string;
+  starts_at: string;
+  ends_at: string | null;
+  place: string | null;
+  description: string | null;
+}) {
+  const bas = bassadress();
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    name: evenemang.title,
+    startDate: evenemang.starts_at,
+    organizer: { "@id": `${bas}/#klubb` },
+    location: evenemang.place
+      ? { "@type": "Place", name: evenemang.place }
+      : { "@id": `${bas}/#anlaggning` },
+  };
+  if (evenemang.ends_at) data.endDate = evenemang.ends_at;
+  if (evenemang.description) data.description = evenemang.description;
+  return data;
+}
+
 /** JSON-LD i en script-tagg. Aldrig via dangerouslySetInnerHTML med rå data. */
 export function jsonLd(data: unknown) {
   return {

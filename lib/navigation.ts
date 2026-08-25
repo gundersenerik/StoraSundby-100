@@ -18,9 +18,9 @@ export interface MenyPost {
 }
 
 export const huvudmeny: MenyPost[] = [
-  { href: routes.news, etikett: "Nyheter", byggd: false },
+  { href: routes.news, etikett: "Nyheter", byggd: true },
   { href: routes.training, etikett: "Träningstider", byggd: true },
-  { href: routes.calendar, etikett: "Kalender", byggd: false },
+  { href: routes.calendar, etikett: "Kalender", byggd: true },
   { href: routes.rental, etikett: "Uthyrning", byggd: true },
   { href: routes.membership, etikett: "Bli medlem", byggd: false },
   { href: routes.shop, etikett: "Webbshop", byggd: false },

@@ -13,7 +13,7 @@ async function granska(page: import("@playwright/test").Page) {
   return resultat.violations.filter((v) => v.impact === "critical" || v.impact === "serious");
 }
 
-for (const sida of ["/", "/traningstider", "/logga-in", "/fotboll", "/gymnastik"]) {
+for (const sida of ["/", "/traningstider", "/logga-in", "/fotboll", "/gymnastik", "/nyheter", "/kalender"]) {
   test(`inga allvarliga tillgänglighetsfel på ${sida}`, async ({ page }) => {
     await page.goto(sida);
     const allvarliga = await granska(page);
@@ -27,7 +27,7 @@ for (const sida of ["/", "/traningstider", "/logga-in", "/fotboll", "/gymnastik"
 test.describe("inloggade vyer", () => {
   test.use({ storageState: ADMIN_STATE });
 
-  for (const sida of ["/admin", "/admin/traningstider", "/admin/innehall"]) {
+  for (const sida of ["/admin", "/admin/traningstider", "/admin/innehall", "/admin/nyheter", "/admin/kalender"]) {
     test(`inga allvarliga tillgänglighetsfel på ${sida}`, async ({ page }) => {
       await page.goto(sida);
       const allvarliga = await granska(page);

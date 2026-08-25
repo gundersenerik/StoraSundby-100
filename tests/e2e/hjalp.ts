@@ -103,6 +103,17 @@ export async function rensaUthyrningsfixturer() {
   await db.from("booking_blocks").delete().like("reason", "E2E:%");
 }
 
+/**
+ * Innehållsfixturer: nyheter och händelser som E2E skapar märks med
+ * "E2E:" i rubriken och rensas före och efter varje test — de ligger i
+ * skarpa databasen och får inte bli kvar som publika testrader.
+ */
+export async function rensaInnehallsfixturer() {
+  const db = serviceKlient();
+  await db.from("posts").delete().like("title", "E2E:%");
+  await db.from("events").delete().like("title", "E2E:%");
+}
+
 export async function skapaForfragan(input: {
   cabin_id: string | null;
   fran: string; // "2027-07-10T13:00:00Z"
